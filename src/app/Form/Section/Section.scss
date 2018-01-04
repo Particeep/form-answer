@@ -1,0 +1,13 @@
+@import 'src/scss/all';
+
+.Section_question {
+  margin-bottom: padding(6);
+}
+  .Section_question_label {
+    font-size: $text-big;
+    margin-bottom: padding();
+    display: block;
+  }
+  .Section_question_answer {
+    margin-left: padding(4);
+  }
