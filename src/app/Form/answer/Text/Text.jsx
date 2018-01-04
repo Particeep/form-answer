@@ -9,7 +9,7 @@ class Text extends Component {
         const {answers, question} = this.props;
         return (
             <TextField
-                value={answers[question.id]}
+                value={answers[question.id] || ''}
                 onChange={e => this.valueChange(e.target.value)}
                 fullWidth/>
         );
@@ -27,7 +27,6 @@ class Text extends Component {
 
     isValid(value) {
         return !this.props.question.required || (!!value && value !== '');
-
     }
 }
 

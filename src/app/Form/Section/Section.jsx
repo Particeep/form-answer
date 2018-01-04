@@ -3,6 +3,7 @@ import "./Section.scss";
 import React, {Component} from "react";
 import {Button} from "material-ui";
 import Text from "../answer/Text/Text";
+import LongText from "../answer/LongText/LongText";
 
 const questionType = {
     TEXT: 'TEXT',
@@ -35,9 +36,11 @@ class Section extends Component {
     }
 
     renderQuestion(q) {
-        switch (q.type) {
+        switch (q.question_type) {
             case questionType.TEXT:
                 return <Text question={q} onValidationChange={(isValid) => this.setState({[q.id]: isValid})}/>;
+            case questionType.LONGTEXT:
+                return <LongText question={q} onValidationChange={(isValid) => this.setState({[q.id]: isValid})}/>;
             default:
                 return <Text question={q} onValidationChange={(isValid) => this.setState({[q.id]: isValid})}/>;
         }

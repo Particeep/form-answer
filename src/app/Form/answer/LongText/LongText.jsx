@@ -3,16 +3,30 @@ import {TextField} from "material-ui";
 import {connect} from "react-redux";
 import formAction from "../../formAction";
 
-class Text extends Component {
+class LongText extends Component {
 
     render() {
+        const {answers, question} = this.props;
         return (
-            <TextField onChange={this.valueChange} fullWidth multiline rowsMin="3"/>
+            <TextField
+                value={answers[question.id] || ''}
+                onChange={e => this.valueChange(e.target.value)}
+                fullWidth multiline rows="3" rowsMax="10"/>
         );
     }
 
-    valueChange = e => {
-        this.props.dispatch(formAction.updateAnswer(this.props.question.id, e.target.value));
+    componentDidMount() {
+        const {question} = this.props;
+        this.valueChange(question.answers ? question.answers[0] : '')
+    }
+
+    valueChange = value => {
+        this.props.onValidationChange(this.isValid(value));
+        this.props.dispatch(formAction.updateAnswer(this.props.question.id, value));
+    };
+
+    isValid(value) {
+        return !this.props.question.required || (!!value && value !== '');
     }
 }
 
@@ -22,4 +36,4 @@ function state2Props(state) {
     }
 }
 
-export default connect(state2Props)(Text)
+export default connect(state2Props)(LongText)
