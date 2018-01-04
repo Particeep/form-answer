@@ -1,0 +1,44 @@
+// Theme
+$isDarkTheme: false !default;
+$palette-primary: mat-palette($mat-blue) !default;
+$palette-accent: mat-palette($mat-pink, A200, A100, A400) !default;
+$palette-background: if($isDarkTheme, $mat-dark-theme-background, $mat-light-theme-background) !default;
+$palette-foreground: if($isDarkTheme, $mat-dark-theme-foreground, $mat-light-theme-foreground) !default;
+$theme: if($isDarkTheme, mat-dark-theme($palette-primary, $palette-accent), mat-light-theme($palette-primary, $palette-accent)) !default;
+
+// Binds (default = 500)
+$color-primary: map-get($palette-primary, 'default');
+$color-primary-contrast: mat-contrast($palette-primary, 800);
+$color-primary-contrast-light: mat-contrast($palette-primary, 900);
+$color-accent: map-get($palette-accent, 'default');
+$color-accent-contrast: mat-contrast($palette-accent, 900);
+$color-warn: mat-color(map-get($theme, warn));
+$color-content: map-get($palette-background, 'card');
+$color-toolbar: map-get($palette-background, 'app-bar');
+$color-divider: map-get($palette-foreground, 'dividers');
+$color-bg: map-get($palette-background, 'background');
+$color-bg-covered: if($isDarkTheme, rgba(255, 255, 255, .04), rgba(0, 0, 0, .049));
+$color-bg-covered-focus: if($isDarkTheme, rgba(255, 255, 255, .11), rgba(0, 0, 0, .1));
+
+// Text
+$text-color: map-get($palette-foreground, 'text');
+$text-color-light: map-get($palette-foreground, 'secondary-text');
+$text-color-disable: map-get($palette-foreground, 'disabled-text');
+$text-size: rem(1.4);
+$text-small: rem(1.2);
+$text-big: rem(1.7);
+$text-title: rem(2);
+$text-bold: 500; // Could change depending to the font, so factorize it
+
+$radius-default: 2px;
+
+$color-success: #0F9D58;
+$color-error: red;
+$color-warning: #FF8000;
+$color-info: #0288d1;
+
+$bp-xs: 0;
+$bp-sm: 544px;
+$bp-md: 768px;
+$bp-lg: 992px;
+$bp-xl: 1200px;
