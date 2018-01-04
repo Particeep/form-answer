@@ -18,16 +18,18 @@ const questionType = {
 
 class Section extends Component {
 
+    state = {};
+
     render() {
         return (
             <main>
                 {this.props.section.questions.map(q =>
                     <div key={q.id} className="Section_question">
-                        <label className="Section_question_label">{q.label}</label>
+                        <label className="Section_question_label">{q.id}</label>
                         <div className="Section_question_answer">{this.renderQuestion(q)}</div>
                     </div>
                 )}
-                <Button raised color="primary" onClick={this.props.next}>Next</Button>
+                <Button raised color="primary" onClick={this.props.next} disabled={!this.isValid()}>Next</Button>
             </main>
         );
     }
@@ -35,10 +37,14 @@ class Section extends Component {
     renderQuestion(q) {
         switch (q.type) {
             case questionType.TEXT:
-                return <Text question={q}/>;
+                return <Text question={q} onValidationChange={(isValid) => this.setState({[q.id]: isValid})}/>;
             default:
-                return <Text question={q}/>;
+                return <Text question={q} onValidationChange={(isValid) => this.setState({[q.id]: isValid})}/>;
         }
+    }
+
+    isValid() {
+        return Object.values(this.state).every(v => !!v);
     }
 }
 
