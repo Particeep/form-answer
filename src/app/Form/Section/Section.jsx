@@ -6,6 +6,7 @@ import Text from "../answer/Text/Text";
 import LongText from "../answer/LongText/LongText";
 import Radio from "../answer/Radio/Radio";
 import {connect} from "react-redux";
+import Select from "../answer/Select/Select";
 
 const questionType = {
     TEXT: 'TEXT',
@@ -55,6 +56,8 @@ class Section extends Component {
                 return <LongText {...props}/>;
             case questionType.RADIO:
                 return <Radio {...props}/>;
+            case questionType.SELECT:
+                return <Select {...props}/>;
             default:
                 return <Text {...props}/>;
         }

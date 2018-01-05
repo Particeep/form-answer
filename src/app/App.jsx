@@ -37,46 +37,110 @@ const form = {
                 "required": true,
                 "index": 1,
                 "possibilities": []
-            }, {
-                "id": "66d13bc6-a907-4d53-9b4c-dabc066d120e",
-                "created_at": "2018-01-04T10:58:07Z",
-                "section_id": "a17d44e1-d655-4868-90b8-b79f22d35d73",
-                "label": "Depuis quand ?",
-                "question_type": "RADIO",
-                "required": true,
-                "index": 2,
-                "possibilities": [{
-                    "id": "8e3b42d7-3d9f-466c-8724-758aedaffe62",
-                    "created_at": "2017-03-30T08:51:58Z",
-                    "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
-                    "label": "Lancement du projet",
-                    "index": 0,
-                    "weight": 1
-                }, {
-                    "id": "2a0663b0-5b72-48d0-b2a3-22a11bb3c3e1",
-                    "created_at": "2017-03-30T08:51:58Z",
-                    "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
-                    "label": "Développement du projet",
-                    "index": 1,
-                    "weight": 1
-                }, {
-                    "id": "57043772-029e-43ab-a9ec-a61e09a56bc8",
-                    "created_at": "2017-03-30T08:51:58Z",
-                    "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
-                    "label": "Finalisation du projet",
+            },
+                {
+                    "id": "66d13bc6-a907-4d53-9b4c-dabc066d120e",
+                    "created_at": "2018-01-04T10:58:07Z",
+                    "section_id": "a17d44e1-d655-4868-90b8-b79f22d35d73",
+                    "label": "Depuis quand ?",
+                    "question_type": "RADIO",
+                    "required": true,
                     "index": 2,
-                    "weight": 1
+                    "possibilities": [{
+                        "id": "8e3b42d7-3d9f-466c-8724-758aedaffe62",
+                        "created_at": "2017-03-30T08:51:58Z",
+                        "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
+                        "label": "Lancement du projet",
+                        "index": 0,
+                        "weight": 1
+                    }, {
+                        "id": "2a0663b0-5b72-48d0-b2a3-22a11bb3c3e1",
+                        "created_at": "2017-03-30T08:51:58Z",
+                        "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
+                        "label": "Développement du projet",
+                        "index": 1,
+                        "weight": 1
+                    }, {
+                        "id": "57043772-029e-43ab-a9ec-a61e09a56bc8",
+                        "created_at": "2017-03-30T08:51:58Z",
+                        "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
+                        "label": "Finalisation du projet",
+                        "index": 2,
+                        "weight": 1
+                    }]
+                },
+                {
+                    "id": "6xd13bc6-a907-4d53-9b4c-dabc066d120e",
+                    "created_at": "2018-01-04T10:58:07Z",
+                    "section_id": "a17d44e1-d655-4868-90b8-b79f22d35d73",
+                    "label": "As the owner of a playlist, you have the option to make it public, private, or unlisted. You can view and change the privacy settings at any time.",
+                    "question_type": "SELECT",
+                    "required": true,
+                    "index": 2,
+                    "possibilities": [{
+                        "id": "8e3b42d7-3d9f-466c-8724-758aedaffe62",
+                        "created_at": "2017-03-30T08:51:58Z",
+                        "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
+                        "label": "Lancement du projet",
+                        "index": 0,
+                        "weight": 1
+                    }, {
+                        "id": "2a0663b0-5b72-48d0-b2a3-22a11bb3c3e1",
+                        "created_at": "2017-03-30T08:51:58Z",
+                        "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
+                        "label": "Développement du projet",
+                        "index": 1,
+                        "weight": 1
+                    }, {
+                        "id": "57043772-029e-43ab-a9ec-a61e09a56bc8",
+                        "created_at": "2017-03-30T08:51:58Z",
+                        "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
+                        "label": "Finalisation du projet",
+                        "index": 2,
+                        "weight": 1
+                    }]
+                },
+                {
+                    "id": "66d13bs6-a907-4d53-9b4c-dabc066d120e",
+                    "created_at": "2018-01-04T10:58:07Z",
+                    "section_id": "a17d44e1-d655-4868-90b8-b79f22d35d73",
+                    "label": "Checkez !!",
+                    "question_type": "CHECKBOX",
+                    "required": true,
+                    "index": 2,
+                    "possibilities": [{
+                        "id": "8e3b42d7-3d9f-466c-8724-758aedaffe62",
+                        "created_at": "2017-03-30T08:51:58Z",
+                        "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
+                        "label": "Lancement du projet",
+                        "index": 0,
+                        "weight": 1
+                    }, {
+                        "id": "2a0663b0-5b72-48d0-b2a3-22a11bb3c3e1",
+                        "created_at": "2017-03-30T08:51:58Z",
+                        "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
+                        "label": "Développement du projet",
+                        "index": 1,
+                        "weight": 1
+                    }, {
+                        "id": "57043772-029e-43ab-a9ec-a61e09a56bc8",
+                        "created_at": "2017-03-30T08:51:58Z",
+                        "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
+                        "label": "Finalisation du projet",
+                        "index": 2,
+                        "weight": 1
+                    }]
+                },
+                {
+                    "id": "0e12acce-33be-4fb0-b0df-3666116de0fa",
+                    "created_at": "2018-01-04T10:58:02Z",
+                    "section_id": "a17d44e1-d655-4868-90b8-b79f22d35d73",
+                    "label": "2",
+                    "question_type": "TEXT",
+                    "required": false,
+                    "index": 3,
+                    "possibilities": []
                 }]
-            }, {
-                "id": "0e12acce-33be-4fb0-b0df-3666116de0fa",
-                "created_at": "2018-01-04T10:58:02Z",
-                "section_id": "a17d44e1-d655-4868-90b8-b79f22d35d73",
-                "label": "2",
-                "question_type": "TEXT",
-                "required": false,
-                "index": 3,
-                "possibilities": []
-            }]
         },
         {
             "id": "d8298205-4156-44be-beae-6feaeba1b095",
