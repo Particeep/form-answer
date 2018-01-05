@@ -1,13 +1,19 @@
 @import 'src/scss/all';
 
-.Section_question {
+.Section_q {
   margin-bottom: padding(6);
 }
-  .Section_question_label {
+  .Section_q_label {
     font-size: $text-big;
     margin-bottom: padding();
     display: block;
   }
-  .Section_question_answer {
+  .Section_q_required {
+    color: red;
+    &:before {
+      content: ' ';
+    }
+  }
+  .Section_q_answer {
     margin-left: padding(4);
   }

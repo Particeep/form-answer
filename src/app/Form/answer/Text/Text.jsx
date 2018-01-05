@@ -6,10 +6,10 @@ import formAction from "../../formAction";
 class Text extends Component {
 
     render() {
-        const {answers, question} = this.props;
+        const {value} = this.props;
         return (
             <TextField
-                value={answers[question.id] || ''}
+                value={value}
                 onChange={e => this.valueChange(e.target.value)}
                 fullWidth/>
         );
@@ -22,7 +22,7 @@ class Text extends Component {
 
     valueChange = value => {
         this.props.onValidationChange(this.isValid(value));
-        this.props.dispatch(formAction.updateAnswer(this.props.question.id, value));
+        this.props.dispatch(formAction.updateAnswer(this.props.question.id, [value]));
     };
 
     isValid(value) {

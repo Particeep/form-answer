@@ -41,10 +41,31 @@ const form = {
                 "created_at": "2018-01-04T10:58:07Z",
                 "section_id": "a17d44e1-d655-4868-90b8-b79f22d35d73",
                 "label": "Depuis quand ?",
-                "question_type": "TEXT",
-                "required": false,
+                "question_type": "RADIO",
+                "required": true,
                 "index": 2,
-                "possibilities": []
+                "possibilities": [{
+                    "id": "8e3b42d7-3d9f-466c-8724-758aedaffe62",
+                    "created_at": "2017-03-30T08:51:58Z",
+                    "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
+                    "label": "Lancement du projet",
+                    "index": 0,
+                    "weight": 1
+                }, {
+                    "id": "2a0663b0-5b72-48d0-b2a3-22a11bb3c3e1",
+                    "created_at": "2017-03-30T08:51:58Z",
+                    "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
+                    "label": "Développement du projet",
+                    "index": 1,
+                    "weight": 1
+                }, {
+                    "id": "57043772-029e-43ab-a9ec-a61e09a56bc8",
+                    "created_at": "2017-03-30T08:51:58Z",
+                    "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
+                    "label": "Finalisation du projet",
+                    "index": 2,
+                    "weight": 1
+                }]
             }, {
                 "id": "0e12acce-33be-4fb0-b0df-3666116de0fa",
                 "created_at": "2018-01-04T10:58:02Z",
@@ -92,7 +113,7 @@ const form = {
                 "section_id": "4f89c522-ef26-4a11-b76f-07d91d1e7cda",
                 "label": "geagaea aaxxx",
                 "question_type": "RADIO",
-                "required": false,
+                "required": true,
                 "index": 1,
                 "possibilities": []
             }, {

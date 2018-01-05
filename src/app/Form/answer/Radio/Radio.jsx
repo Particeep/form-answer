@@ -1,17 +1,26 @@
 import React, {Component} from "react";
-import {TextField} from "material-ui";
+import {FormControlLabel, RadioGroup, Radio as RadioButton} from "material-ui";
 import {connect} from "react-redux";
 import formAction from "../../formAction";
 
-class LongText extends Component {
+class Radio extends Component {
 
     render() {
-        const {value, question} = this.props;
+        const {question, value} = this.props;
         return (
-            <TextField
+            <RadioGroup
                 value={value}
                 onChange={e => this.valueChange(e.target.value)}
-                fullWidth multiline rows="3" rowsMax="10"/>
+            >
+                {question.possibilities.map(p =>
+                    <FormControlLabel
+                        value={p.label}
+                        control={<RadioButton/>}
+                        label={p.label}
+                        key={p.id}
+                        onClick={() => this.onClick(p.label)}/>
+                )}
+            </RadioGroup>
         );
     }
 
@@ -19,6 +28,10 @@ class LongText extends Component {
         const {question} = this.props;
         this.valueChange(question.answers ? question.answers[0] : '')
     }
+
+    onClick = value => {
+        if (value === this.props.value) this.valueChange('');
+    };
 
     valueChange = value => {
         this.props.onValidationChange(this.isValid(value));
@@ -36,4 +49,4 @@ function state2Props(state) {
     }
 }
 
-export default connect(state2Props)(LongText)
+export default connect(state2Props)(Radio)
