@@ -9,13 +9,9 @@ class ExpensionStep extends Component {
         const {isDone, isCurrent, index, label, component} = this.props;
         return (
             <main className={'ExpensionStep ' + (isCurrent ? '-current' : isDone ? '-done' : '-undone')}>
-                {isDone}
                 <header className="ExpensionStep_header" onClick={() => this.props.goTo(index)}>
-                    <div className="ExpensionStep_i">
-                        {!isDone && index && <span>{index + 1}</span>}
-                        {isDone && <Icon>check</Icon>}
-                    </div>
-                    {label}
+                    {isDone && !isCurrent && <Icon className="ExpensionStep_i">check</Icon>}
+                    {index + 1}. {label}
                 </header>
                 <Collapse in={isCurrent} timeout="auto" className="ExpensionStep_body">
                     <div className="ExpensionStep_content">

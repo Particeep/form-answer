@@ -17,6 +17,7 @@ const form = {
             "form_id": "3ff1c761-c213-4c4e-b0b2-c66d2edc4961",
             "name": "LOAN_INVESTMENT",
             "index": 0,
+            "description": "You can choose to automatically have your public YouTube activity show up in your channel's activity feed. Don't worry, we'll never share information about activity on private videos.",
             "questions": [{
                 "id": "1b4afd5b-ffe8-4c38-917b-5c383bcf3e2f",
                 "created_at": "2018-01-04T10:58:12Z",

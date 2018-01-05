@@ -1,11 +1,16 @@
 @import 'src/scss/all';
 
+.Section_label {
+  color: $text-color-light;
+  margin-bottom: padding();
+}
+
 .Section_q {
   margin-bottom: padding(6);
 }
   .Section_q_label {
     font-size: $text-big;
-    margin-bottom: padding();
+    margin-bottom: padding(1);
     display: block;
   }
   .Section_q_required {

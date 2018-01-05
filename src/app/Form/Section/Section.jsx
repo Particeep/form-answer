@@ -26,6 +26,7 @@ class Section extends Component {
     render() {
         return (
             <main>
+                <div className="Section_label">{this.props.section.description}</div>
                 {this.props.section.questions.map(q =>
                     <div key={q.id} className="Section_q">
                         <label className="Section_q_label">
