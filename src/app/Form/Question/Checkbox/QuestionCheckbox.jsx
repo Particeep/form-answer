@@ -1,24 +1,25 @@
 import React, {Component} from "react";
-import {MenuItem, Select as MuiSelect} from "material-ui";
+import {Checkbox, FormControlLabel} from "material-ui";
 import {connect} from "react-redux";
 import formAction from "../../formAction";
-import Input from "material-ui/Input";
 
-class Select extends Component {
+class QuestionCheckbox extends Component {
 
     render() {
         const {question, value} = this.props;
         return (
-            <MuiSelect
-                value={value}
-                onChange={e => this.valueChange(e.target.value)}
-                input={<Input fullWidth/>}
-            >
-                <MenuItem value=""/>
-                {question.possibilities.map(p =>
-                    <MenuItem value={p.label}>{p.label}</MenuItem>
-                )}
-            </MuiSelect>
+            <div>
+                {/*<FormControlLabel*/}
+                    {/*control={*/}
+                        {/*<Checkbox*/}
+                            {/*checked={this.state.gilad}*/}
+                            {/*onChange={this.handleChange('gilad')}*/}
+                            {/*value="gilad"*/}
+                        {/*/>*/}
+                    {/*}*/}
+                    {/*label="Gilad Gray"*/}
+                {/*/>*/}
+            </div>
         );
     }
 
@@ -26,10 +27,6 @@ class Select extends Component {
         const {question} = this.props;
         this.valueChange(question.answers ? question.answers[0] : '')
     }
-
-    onClick = value => {
-        if (value === this.props.value) this.valueChange('');
-    };
 
     valueChange = value => {
         this.props.onValidationChange(this.isValid(value));
@@ -47,4 +44,4 @@ function state2Props(state) {
     }
 }
 
-export default connect(state2Props)(Select)
+export default connect(state2Props)(QuestionCheckbox)

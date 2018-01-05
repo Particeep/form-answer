@@ -4,22 +4,3 @@
   color: $text-color-light;
   margin-bottom: padding();
 }
-
-.Section_q {
-  margin-bottom: padding(6);
-}
-  .Section_q_label {
-    font-size: $text-big;
-    margin-bottom: padding(1);
-    display: block;
-  }
-  .Section_q_required {
-    color: red;
-    &:before {
-      content: ' ';
-    }
-  }
-  .Section_q_answer {
-    margin-left: padding(4);
-    min-height: 40px;
-  }

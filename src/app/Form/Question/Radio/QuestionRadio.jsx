@@ -1,9 +1,9 @@
 import React, {Component} from "react";
-import {FormControlLabel, RadioGroup, Radio as RadioButton} from "material-ui";
+import {FormControlLabel, RadioGroup, Radio} from "material-ui";
 import {connect} from "react-redux";
 import formAction from "../../formAction";
 
-class Radio extends Component {
+class QuestionRadio extends Component {
 
     render() {
         const {question, value} = this.props;
@@ -15,7 +15,7 @@ class Radio extends Component {
                 {question.possibilities.map(p =>
                     <FormControlLabel
                         value={p.label}
-                        control={<RadioButton/>}
+                        control={<Radio/>}
                         label={p.label}
                         key={p.id}
                         onClick={() => this.onClick(p.label)}/>
@@ -34,8 +34,9 @@ class Radio extends Component {
     };
 
     valueChange = value => {
-        this.props.onValidationChange(this.isValid(value));
-        this.props.dispatch(formAction.updateAnswer(this.props.question.id, [value]));
+        const {dispatch, question} = this.props;
+        dispatch(formAction.updateSectionValidity(question.section_id, question.id, this.isValid(value)))
+        dispatch(formAction.updateAnswer(question.id, [value]));
     };
 
     isValid(value) {
@@ -49,4 +50,4 @@ function state2Props(state) {
     }
 }
 
-export default connect(state2Props)(Radio)
+export default connect(state2Props)(QuestionRadio)

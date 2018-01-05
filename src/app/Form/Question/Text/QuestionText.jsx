@@ -3,15 +3,15 @@ import {TextField} from "material-ui";
 import {connect} from "react-redux";
 import formAction from "../../formAction";
 
-class LongText extends Component {
+class QuestionText extends Component {
 
     render() {
-        const {value, question} = this.props;
+        const {value} = this.props;
         return (
             <TextField
                 value={value}
                 onChange={e => this.valueChange(e.target.value)}
-                fullWidth multiline rows="3" rowsMax="10"/>
+                fullWidth/>
         );
     }
 
@@ -21,8 +21,9 @@ class LongText extends Component {
     }
 
     valueChange = value => {
-        this.props.onValidationChange(this.isValid(value));
-        this.props.dispatch(formAction.updateAnswer(this.props.question.id, [value]));
+        const {dispatch, question} = this.props;
+        dispatch(formAction.updateSectionValidity(question.section_id, question.id, this.isValid(value)))
+        dispatch(formAction.updateAnswer(question.id, [value]));
     };
 
     isValid(value) {
@@ -36,4 +37,4 @@ function state2Props(state) {
     }
 }
 
-export default connect(state2Props)(LongText)
+export default connect(state2Props)(QuestionText)
