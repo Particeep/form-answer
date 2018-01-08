@@ -24,7 +24,7 @@ class QuestionCheckbox extends Component {
 
     componentDidMount() {
         const {values} = this.props;
-        this.update(values);
+        if (values.length > 0) this.update(values);
     }
 
     handleChange = value => (event, checked) => {
@@ -39,10 +39,8 @@ class QuestionCheckbox extends Component {
 
     update(values) {
         const {dispatch, question} = this.props;
-        if (values) {
-            dispatch(formAction.updateAnswer(question.id, values));
-            dispatch(formAction.updateSectionValidity(question.section_id, question.id, this.isValid(values)));
-        }
+        dispatch(formAction.updateAnswer(question.id, values));
+        dispatch(formAction.updateSectionValidity(question.section_id, question.id, this.isValid(values)));
     }
 
     isValid(values) {

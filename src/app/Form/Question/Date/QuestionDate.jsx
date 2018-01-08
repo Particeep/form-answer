@@ -26,7 +26,7 @@ class QuestionDate extends Component {
 
     componentDidMount() {
         const {value} = this.props;
-        this.update(value);
+        if (value != undefined) this.update(value);
     }
 
     handleChange = value => {
@@ -36,7 +36,7 @@ class QuestionDate extends Component {
 
     update(value) {
         const {dispatch, question} = this.props;
-        if (value != undefined) dispatch(formAction.updateAnswer(question.id, parseSingleAnswer(value)));
+        dispatch(formAction.updateAnswer(question.id, parseSingleAnswer(value)));
         dispatch(formAction.updateSectionValidity(question.section_id, question.id, this.isValid(value)));
     }
 
