@@ -3,6 +3,8 @@ import "./Form.scss";
 import React, {Component} from "react";
 import {ExpensionStep, ExpensionStepper} from "../ExpensionStepper";
 import Section from "./Section/Section";
+import {connect} from "react-redux";
+import formAction from "./formAction";
 
 class Form extends Component {
 
@@ -16,10 +18,26 @@ class Form extends Component {
         );
     }
 
+    componentWillMount() {
+        this.props.dispatch(formAction.bind(this.notifyChange));
+    }
+
+    notifyChange = (questionIdAnswered) => {
+        setTimeout(() => this.props.onChange(
+            {[questionIdAnswered]: this.props.answers[questionIdAnswered]},
+            this.props.answers,
+        ));
+    };
+
     end = () => {
-        console.log("end");
+        this.props.onEnd(this.props.answers);
     }
 }
 
+function state2Props(state) {
+    return {
+        answers: state.form.answers,
+    }
+}
 
-export default Form;
+export default connect(state2Props)(Form);

@@ -1,6 +1,14 @@
 const formAction = {
+    BIND: 'form/BIND',
     UPDATE_ANSWER: 'form/UPDATE_ANSWER',
     UPDATE_SECTION_VALIDITY: 'form/UPDATE_SECTION_VALIDITY',
+
+    bind: (notifyChange) => dispatch => {
+        dispatch({
+            type: formAction.BIND,
+            notifyChange
+        });
+    },
 
     updateAnswer: (questionId, answer) => dispatch => {
         dispatch({

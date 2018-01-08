@@ -6,6 +6,7 @@ import QuestionText from "./Text/QuestionText";
 import QuestionLongText from "./LongText/QuestionLongText";
 import QuestionRadio from "./Radio/QuestionRadio";
 import QuestionSelect from "./Select/QuestionSelect";
+import QuestionCheckbox from "./Checkbox/QuestionCheckbox";
 
 const questionType = {
     TEXT: 'TEXT',
@@ -37,28 +38,23 @@ class Question extends Component {
     renderQuestion(q) {
         switch (q.question_type) {
             case questionType.TEXT:
-                return <QuestionText question={q} value={this.getSingleValue(q)}/>;
+                return <QuestionText question={q}/>;
             case questionType.LONGTEXT:
-                return <QuestionLongText question={q} value={this.getSingleValue(q)}/>;
+                return <QuestionLongText question={q}/>;
             case questionType.RADIO:
-                return <QuestionRadio question={q} value={this.getSingleValue(q)}/>;
+                return <QuestionRadio question={q}/>;
             case questionType.SELECT:
-                return <QuestionSelect question={q} value={this.getSingleValue(q)}/>;
+                return <QuestionSelect question={q}/>;
+            case questionType.CHECKBOX:
+                return <QuestionCheckbox question={q}/>;
             default:
-                return <QuestionText question={q} value={this.getSingleValue(q)}/>;
+                return <QuestionText question={q}/>;
         }
     }
-
-    getSingleValue(q) {
-        const {answers} = this.props;
-        return (answers[q.id] && answers[q.id][0]) || '';
-    }
 }
 
-function state2Props(state) {
-    return {
-        answers: state.form.answers,
-    }
-}
+const state2Props = (state, props) => ({
+    answers: state.form.answers,
+});
 
 export default connect(state2Props)(Question)

@@ -21,163 +21,220 @@
 </head>
 <body>
 <script>
-    console.log(window.pc);
-    pc_form_ask = {
+    window.formAnswer = {
         form: {
-            "id": "47eea30d-6b77-4dc7-8161-49ecec54874d",
-            "created_at": "2017-07-04T07:56:37Z",
-            "name": "Eng form",
-            "description": "Eng fomr",
-            "tag": "NATURAL",
-            "sections": [{
-                "id": "2a458c8c-7705-49fc-a365-6c14d46ede6d",
-                "created_at": "2017-07-04T07:56:37Z",
-                "form_id": "47eea30d-6b77-4dc7-8161-49ecec54874d",
-                "name": "What kind of investor are you ?",
-                "index": 0,
-                "questions": [{
-                    "id": "1ed74d8e-4f90-4962-b78d-c0b68e5a29a6",
-                    "created_at": "2017-10-09T14:12:14Z",
-                    "section_id": "2a458c8c-7705-49fc-a365-6c14d46ede6d",
-                    "label": "Quelle date est il",
-                    "question_type": "DATE",
-                    "required": false,
-                    "index": 1,
-                    "possibilities": [],
-                    "answers": [""]
-                }, {
-                    "id": "7995757d-7556-4e82-83df-665337ecdefd",
-                    "created_at": "2017-10-09T14:12:24Z",
-                    "section_id": "2a458c8c-7705-49fc-a365-6c14d46ede6d",
-                    "label": "Quelle date est il",
-                    "question_type": "DATE",
-                    "required": true,
-                    "index": 2,
-                    "possibilities": [],
-                    "answers": [""]
-                }, {
-                    "id": "ad752e5d-a928-4ee5-887a-4fb2a70c3c2a",
-                    "created_at": "2017-07-04T07:58:42Z",
-                    "section_id": "2a458c8c-7705-49fc-a365-6c14d46ede6d",
-                    "label": "Your wealth",
-                    "question_type": "RADIO",
-                    "required": true,
-                    "index": 3,
-                    "possibilities": [{
-                        "id": "c9ad06bc-24a6-4d66-b78f-446f2bbe0cde",
-                        "created_at": "2017-07-04T07:58:42Z",
-                        "question_id": "ad752e5d-a928-4ee5-887a-4fb2a70c3c2a",
-                        "label": "< 500k€",
-                        "index": 0,
-                        "weight": 1
-                    }, {
-                        "id": "1d5638d4-214a-4140-82f6-4b9a711fe240",
-                        "created_at": "2017-07-04T07:58:42Z",
-                        "question_id": "ad752e5d-a928-4ee5-887a-4fb2a70c3c2a",
-                        "label": "500k€- 1m€",
-                        "index": 1,
-                        "weight": 1
-                    }, {
-                        "id": "e5598aee-4632-42bf-8996-1df187d8fb97",
-                        "created_at": "2017-07-04T07:58:42Z",
-                        "question_id": "ad752e5d-a928-4ee5-887a-4fb2a70c3c2a",
-                        "label": "> 1m€",
-                        "index": 2,
-                        "weight": 1
-                    }],
-                    "answers": [""]
-                }, {
-                    "id": "c897a29f-1f14-4f24-9492-a0316a27db4f",
-                    "created_at": "2017-09-01T12:16:46Z",
-                    "section_id": "2a458c8c-7705-49fc-a365-6c14d46ede6d",
-                    "label": "In which security did you already invested in ?",
-                    "possibility_id_dep": "c9ad06bc-24a6-4d66-b78f-446f2bbe0cde",
-                    "question_type": "CHECKBOX",
-                    "required": true,
-                    "index": 3,
-                    "possibilities": [{
-                        "id": "cf7010ac-442c-4004-bad4-b695da1fc0ed",
-                        "created_at": "2017-09-01T12:16:46Z",
-                        "question_id": "c897a29f-1f14-4f24-9492-a0316a27db4f",
-                        "label": "stocks",
-                        "index": 0,
-                        "weight": 1
-                    }, {
-                        "id": "b7987447-f7d8-470d-aa96-63025a59e714",
-                        "created_at": "2017-09-01T12:16:46Z",
-                        "question_id": "c897a29f-1f14-4f24-9492-a0316a27db4f",
-                        "label": "bonds",
-                        "index": 1,
-                        "weight": 1
-                    }, {
-                        "id": "20e55cfc-b4a0-4e06-acc6-c150eda4674f",
-                        "created_at": "2017-09-01T12:16:47Z",
-                        "question_id": "c897a29f-1f14-4f24-9492-a0316a27db4f",
-                        "label": "real estate",
-                        "index": 2,
-                        "weight": 1
-                    }, {
-                        "id": "e0738ede-a1de-4c37-abce-f3ffa175dedb",
-                        "created_at": "2017-09-01T12:17:11Z",
-                        "question_id": "c897a29f-1f14-4f24-9492-a0316a27db4f",
-                        "label": "commodities",
-                        "index": 3,
-                        "weight": 1
-                    }, {
-                        "id": "a7370471-ce70-4870-9619-f00aae9083cc",
-                        "created_at": "2017-09-01T12:17:17Z",
-                        "question_id": "c897a29f-1f14-4f24-9492-a0316a27db4f",
-                        "label": "derivatives",
-                        "index": 4,
-                        "weight": 1
-                    }],
-                    "answers": []
-                }],
-                "done": false
-            }, {
-                "id": "8e49f3ab-4148-49b4-9120-9258cdaa1574",
-                "created_at": "2017-07-04T07:58:42Z",
-                "form_id": "47eea30d-6b77-4dc7-8161-49ecec54874d",
-                "name": "Documents",
-                "description": "",
-                "index": 1,
-                "questions": [{
-                    "id": "3ac297ee-c70c-4a40-9a7c-7f0c91b56e1d",
-                    "created_at": "2017-07-04T07:58:42Z",
-                    "section_id": "8e49f3ab-4148-49b4-9120-9258cdaa1574",
-                    "label": "Id or passeport",
-                    "question_type": "DOCUMENT",
-                    "required": false,
+            "id": "3ff1c761-c213-4c4e-b0b2-c66d2edc4961",
+            "created_at": "2017-10-04T13:27:44Z",
+            "name": "LOAN_INVESTMENT",
+            "description": "gea",
+            "tag": "LOAN_INVESTMENT",
+            "last_updated_at": "2017-12-19T10:42:18Z",
+            "sections": [
+                {
+                    "id": "a17d44e1-d655-4868-90b8-b79f22d35d73",
+                    "created_at": "2017-10-04T13:27:45Z",
+                    "form_id": "3ff1c761-c213-4c4e-b0b2-c66d2edc4961",
+                    "name": "LOAN_INVESTMENT",
                     "index": 0,
-                    "possibilities": [{
-                        "id": "3b0f3fa4-1826-4dd9-9cd7-deff6260f11a",
-                        "created_at": "2017-07-04T07:58:42Z",
-                        "question_id": "3ac297ee-c70c-4a40-9a7c-7f0c91b56e1d",
-                        "label": "",
-                        "index": 0,
-                        "weight": 1
-                    }],
-                    "answers": []
-                }, {
-                    "id": "d59647e5-3d42-4555-89ea-f26797b9bac1",
-                    "created_at": "2017-07-04T07:58:42Z",
-                    "section_id": "8e49f3ab-4148-49b4-9120-9258cdaa1574",
-                    "label": "Tax document",
-                    "question_type": "DOCUMENT",
-                    "required": false,
-                    "index": 1,
-                    "possibilities": [{
-                        "id": "9b7888d1-ebbd-4c84-9b42-93ae69a07b7a",
-                        "created_at": "2017-07-04T07:58:42Z",
-                        "question_id": "d59647e5-3d42-4555-89ea-f26797b9bac1",
-                        "label": "",
-                        "index": 0,
-                        "weight": 1
-                    }],
-                    "answers": []
-                }],
-                "done": true
-            }]
+                    "description": "You can choose to automatically have your public YouTube activity show up in your channel's activity feed. Don't worry, we'll never share information about activity on private videos.",
+                    "questions": [
+                        {
+                            "id": "1b4afd5b-ffe8-4c38-917b-5c383bcf3e2f",
+                            "created_at": "2018-01-04T10:58:12Z",
+                            "section_id": "a17d44e1-d655-4868-90b8-b79f22d35d73",
+                            "label": "1.6",
+                            "question_type": "TEXT",
+                            "required": true,
+                            "index": 0,
+                            "possibilities": [],
+                            "answers": ["answer ! !"]
+                        },
+                        {
+                            "id": "9968b6b9-cd91-40de-b49f-59a1631ac1b6",
+                            "created_at": "2018-01-04T10:58:01Z",
+                            "section_id": "a17d44e1-d655-4868-90b8-b79f22d35d73",
+                            "label": "Comment ça va ?",
+                            "question_type": "LONGTEXT",
+                            "required": true,
+                            "index": 1,
+                            "possibilities": []
+                        },
+                        {
+                            "id": "66d13bc6-a907-4d53-9b4c-dabc066d120e",
+                            "created_at": "2018-01-04T10:58:07Z",
+                            "section_id": "a17d44e1-d655-4868-90b8-b79f22d35d73",
+                            "label": "Depuis quand ?",
+                            "question_type": "RADIO",
+                            "required": true,
+                            "index": 2,
+                            "possibilities": [{
+                                "id": "8e3b42d7-3d9f-466c-8724-758aedaffe62",
+                                "created_at": "2017-03-30T08:51:58Z",
+                                "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
+                                "label": "Lancement du projet",
+                                "index": 0,
+                                "weight": 1
+                            }, {
+                                "id": "2a0663b0-5b72-48d0-b2a3-22a11bb3c3e1",
+                                "created_at": "2017-03-30T08:51:58Z",
+                                "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
+                                "label": "Développement du projet",
+                                "index": 1,
+                                "weight": 1
+                            }, {
+                                "id": "57043772-029e-43ab-a9ec-a61e09a56bc8",
+                                "created_at": "2017-03-30T08:51:58Z",
+                                "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
+                                "label": "Finalisation du projet",
+                                "index": 2,
+                                "weight": 1
+                            }]
+                        },
+                        {
+                            "id": "6xd13bc6-a907-4d53-9b4c-dabc066d120e",
+                            "created_at": "2018-01-04T10:58:07Z",
+                            "section_id": "a17d44e1-d655-4868-90b8-b79f22d35d73",
+                            "label": "As the owner of a playlist, you have the option to make it public, private, or unlisted. You can view and change the privacy settings at any time.",
+                            "question_type": "SELECT",
+                            "required": true,
+                            "index": 2,
+                            "possibilities": [{
+                                "id": "8e3b42d7-3d9f-466c-8724-758aedaffe62",
+                                "created_at": "2017-03-30T08:51:58Z",
+                                "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
+                                "label": "Lancement du projet",
+                                "index": 0,
+                                "weight": 1
+                            }, {
+                                "id": "2a0663b0-5b72-48d0-b2a3-22a11bb3c3e1",
+                                "created_at": "2017-03-30T08:51:58Z",
+                                "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
+                                "label": "Développement du projet",
+                                "index": 1,
+                                "weight": 1
+                            }, {
+                                "id": "57043772-029e-43ab-a9ec-a61e09a56bc8",
+                                "created_at": "2017-03-30T08:51:58Z",
+                                "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
+                                "label": "Finalisation du projet",
+                                "index": 2,
+                                "weight": 1
+                            }]
+                        },
+                        {
+                            "id": "66d13bs6-a907-4d53-9b4c-dabc066d120e",
+                            "created_at": "2018-01-04T10:58:07Z",
+                            "section_id": "a17d44e1-d655-4868-90b8-b79f22d35d73",
+                            "label": "Checkez !!",
+                            "question_type": "CHECKBOX",
+                            "required": true,
+                            "index": 2,
+                            "possibilities": [{
+                                "id": "8e3b42d7-3d9f-466c-8724-758aedaffe62",
+                                "created_at": "2017-03-30T08:51:58Z",
+                                "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
+                                "label": "Lancement du projet",
+                                "index": 0,
+                                "weight": 1
+                            }, {
+                                "id": "2a0663b0-5b72-48d0-b2a3-22a11bb3c3e1",
+                                "created_at": "2017-03-30T08:51:58Z",
+                                "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
+                                "label": "Développement du projet",
+                                "index": 1,
+                                "weight": 1
+                            }, {
+                                "id": "57043772-029e-43ab-a9ec-a61e09a56bc8",
+                                "created_at": "2017-03-30T08:51:58Z",
+                                "question_id": "722d55c5-7159-43af-b7e4-421c1bc56be6",
+                                "label": "Finalisation du projet",
+                                "index": 2,
+                                "weight": 1
+                            }]
+                        },
+                        // {
+                        //     "id": "0e12acce-33be-4fb0-b0df-3666116de0fa",
+                        //     "created_at": "2018-01-04T10:58:02Z",
+                        //     "section_id": "a17d44e1-d655-4868-90b8-b79f22d35d73",
+                        //     "label": "2",
+                        //     "question_type": "TEXT",
+                        //     "required": false,
+                        //     "index": 3,
+                        //     "possibilities": []
+                        // }
+                    ]
+                },
+                // {
+                //     "id": "d8298205-4156-44be-beae-6feaeba1b095",
+                //     "created_at": "2018-01-04T13:51:27Z",
+                //     "form_id": "3ff1c761-c213-4c4e-b0b2-c66d2edc4961",
+                //     "index": 1,
+                //     "questions": [{
+                //         "id": "dd032a89-ee0b-44d2-938f-2ea22732715c",
+                //         "created_at": "2018-01-04T13:51:30Z",
+                //         "section_id": "d8298205-4156-44be-beae-6feaeba1b095",
+                //         "label": "&&&é",
+                //         "question_type": "CHECKBOX",
+                //         "required": false,
+                //         "index": 0,
+                //         "possibilities": []
+                //     }]
+                // },
+                // {
+                //     "id": "4f89c522-ef26-4a11-b76f-07d91d1e7cda",
+                //     "created_at": "2018-01-04T13:50:08Z",
+                //     "form_id": "3ff1c761-c213-4c4e-b0b2-c66d2edc4961",
+                //     "index": 2,
+                //     "questions": [{
+                //         "id": "944f17c6-19df-44cc-be6c-bd857756da24",
+                //         "created_at": "2018-01-04T13:50:09Z",
+                //         "section_id": "4f89c522-ef26-4a11-b76f-07d91d1e7cda",
+                //         "label": "geageageagae",
+                //         "question_type": "TEXT",
+                //         "required": false,
+                //         "index": 0,
+                //         "possibilities": []
+                //     }, {
+                //         "id": "83723758-958f-4496-be0b-5f2f2480e780",
+                //         "created_at": "2018-01-04T13:50:12Z",
+                //         "section_id": "4f89c522-ef26-4a11-b76f-07d91d1e7cda",
+                //         "label": "geagaea aaxxx",
+                //         "question_type": "RADIO",
+                //         "required": true,
+                //         "index": 1,
+                //         "possibilities": []
+                //     }, {
+                //         "id": "54557e4f-1995-4517-bcbd-85a29c66e89a",
+                //         "created_at": "2018-01-04T13:50:39Z",
+                //         "section_id": "4f89c522-ef26-4a11-b76f-07d91d1e7cda",
+                //         "label": "",
+                //         "question_type": "LONGTEXT",
+                //         "required": false,
+                //         "index": 2,
+                //         "possibilities": []
+                //     }, {
+                //         "id": "ae03573d-277e-4774-8ed1-cd37a3565781",
+                //         "created_at": "2018-01-04T13:50:44Z",
+                //         "section_id": "4f89c522-ef26-4a11-b76f-07d91d1e7cda",
+                //         "label": "",
+                //         "question_type": "DATE",
+                //         "required": false,
+                //         "index": 3,
+                //         "possibilities": []
+                //     }]
+                // }
+            ]
+        },
+        onChange: function (answers, answer) {
+            console.log("onChange");
+            console.log(answer);
+            console.log(answers);
+            console.log("====");
+        },
+        onEnd: function (answers) {
+            console.log("onEnd");
+            console.log(answers);
+            console.log("---");
         }
     }
 </script>
