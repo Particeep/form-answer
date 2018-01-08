@@ -47,6 +47,8 @@ class Question extends Component {
                 return <QuestionSelect question={q}/>;
             case questionType.CHECKBOX:
                 return <QuestionCheckbox question={q}/>;
+            case questionType.LABEL:
+                return <div/>;
             default:
                 return <QuestionText question={q}/>;
         }

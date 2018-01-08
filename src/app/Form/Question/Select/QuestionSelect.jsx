@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {MenuItem, Select} from "material-ui";
+import {FormControl, InputLabel, MenuItem, Select} from "material-ui";
 import {connect} from "react-redux";
 import formAction from "../../formAction";
 import Input from "material-ui/Input";
@@ -10,16 +10,18 @@ class QuestionSelect extends Component {
     render() {
         const {question, value} = this.props;
         return (
-            <Select
-                value={value || ''}
-                onChange={e => this.handleChange(e.target.value)}
-                input={<Input fullWidth/>}
-            >
-                <MenuItem value=""/>
-                {question.possibilities.map(p =>
-                    <MenuItem key={p.id} value={p.label}>{p.label}</MenuItem>
-                )}
-            </Select>
+            <main style={{minHeight: '40px'}}>
+                <Select
+                    value={value || ''}
+                    onChange={e => this.handleChange(e.target.value)}
+                    input={<Input fullWidth/>}
+                >
+                    <MenuItem value=""/>
+                    {question.possibilities.map(p =>
+                        <MenuItem key={p.id} value={p.label}>{p.label}</MenuItem>
+                    )}
+                </Select>
+            </main>
         );
     }
 
