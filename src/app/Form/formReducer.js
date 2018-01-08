@@ -4,6 +4,7 @@ import formAction from "./formAction";
 const DEFAULT_REDUCER = {
     answers: {},
     sectionsValidity: {},
+    dateFormat: 'dd/MM/yyyy',
     notifyChange: null,
 };
 
@@ -12,6 +13,10 @@ export const formReducer = function (state = DEFAULT_REDUCER, a) {
         case formAction.BIND:
             return update(state, {
                 notifyChange: {$set: a.notifyChange},
+            });
+        case formAction.SET_DATEFORMAT:
+            return update(state, {
+                dateFormat: {$set: a.format},
             });
         case formAction.UPDATE_ANSWER:
             return update(state, {

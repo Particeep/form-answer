@@ -7,12 +7,12 @@ import QuestionLongText from "./LongText/QuestionLongText";
 import QuestionRadio from "./Radio/QuestionRadio";
 import QuestionSelect from "./Select/QuestionSelect";
 import QuestionCheckbox from "./Checkbox/QuestionCheckbox";
+import QuestionDate from "./Date/QuestionDate";
 
 const questionType = {
     TEXT: 'TEXT',
     LONGTEXT: 'LONGTEXT',
     DATE: 'DATE',
-    NUMBER: 'NUMBER',
     RADIO: 'RADIO',
     SELECT: 'SELECT',
     CHECKBOX: 'CHECKBOX',
@@ -47,8 +47,10 @@ class Question extends Component {
                 return <QuestionSelect question={q}/>;
             case questionType.CHECKBOX:
                 return <QuestionCheckbox question={q}/>;
+            case questionType.DATE:
+                return <QuestionDate question={q}/>;
             case questionType.LABEL:
-                return <div/>;
+                return '';
             default:
                 return <QuestionText question={q}/>;
         }

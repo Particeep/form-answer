@@ -9,5 +9,5 @@ export const store = createStore(
     }),
     process.env.NODE_ENV === 'production'
         ? applyMiddleware(thunk)
-        : applyMiddleware(thunk, createLogger())
+        : applyMiddleware(thunk, /*createLogger()*/)
 );

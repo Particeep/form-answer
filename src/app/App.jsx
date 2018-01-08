@@ -7,7 +7,11 @@ class App extends Component {
 
     render() {
         return (
-            <Form form={window.formAnswer.form} onChange={this.changed} onEnd={this.ended}/>
+            <Form
+                form={window.formAnswer.form}
+                onChange={this.changed}
+                dateFormat="yyyy-MM-dd"
+                onEnd={this.ended}/>
         );
     }
 

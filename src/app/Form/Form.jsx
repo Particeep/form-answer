@@ -20,6 +20,7 @@ class Form extends Component {
 
     componentWillMount() {
         this.props.dispatch(formAction.bind(this.notifyChange));
+        this.props.dispatch(formAction.setDateFormat(this.props.dateFormat));
     }
 
     notifyChange = (questionIdAnswered) => {

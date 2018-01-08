@@ -1,5 +1,6 @@
 const formAction = {
     BIND: 'form/BIND',
+    SET_DATEFORMAT: 'form/SET_DATEFORMAT',
     UPDATE_ANSWER: 'form/UPDATE_ANSWER',
     UPDATE_SECTION_VALIDITY: 'form/UPDATE_SECTION_VALIDITY',
 
@@ -7,6 +8,13 @@ const formAction = {
         dispatch({
             type: formAction.BIND,
             notifyChange
+        });
+    },
+
+    setDateFormat: (format) => dispatch => {
+        dispatch({
+            type: formAction.SET_DATEFORMAT,
+            format
         });
     },
 
