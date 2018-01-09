@@ -70,6 +70,7 @@
     "babel-polyfill": "6.23.0",
     "immutability-helper": "^2.3.0",
     "material-ui": "1.0.0-beta.27",
+    "moment": "^2.20.1",
     "normalize.css": "5.0.0",
     "react": "15.6.1",
     "react-css-modules": "4.1.0",

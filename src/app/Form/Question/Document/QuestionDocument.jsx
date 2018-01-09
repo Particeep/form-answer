@@ -70,7 +70,7 @@ class QuestionDocument extends Component {
     handleChange = (file) => {
         const {question, messages, maxUploadFileSize} = this.props;
         if (maxUploadFileSize && file.size > maxUploadFileSize * 1024 * 1024) {
-            this.setState({errorMessage: messages.fileToBig});
+            this.setState({errorMessage: messages.invalidFileSize});
             return;
         }
         this.setState({errorMessage: ''});

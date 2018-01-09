@@ -6,3 +6,10 @@ export function parseSingleAnswer(answer) {
     if (answer || answer === '') return [answer];
     return undefined;
 }
+
+export function getDateFormatSeparator(dateFormat) {
+    if (dateFormat.indexOf('/') >= 0) return '/';
+    if (dateFormat.indexOf('-') >= 0) return '-';
+    if (dateFormat.indexOf('.') >= 0) return '/';
+    return '/';
+}

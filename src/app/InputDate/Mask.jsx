@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import MaskedInput from "react-text-mask";
+import {getDateFormatSeparator} from "../Form/utils";
 
 class Mask extends Component {
 
@@ -15,7 +16,7 @@ class Mask extends Component {
     }
 
     buildMask(format) {
-        const delimiter = this.determineDelimiterFromFormat(format);
+        const delimiter = getDateFormatSeparator(format);
         const yearRegex = [/[1-2]/, /\d/, /\d/, /\d/];
         const monthRegex = [/[0-1]/, /\d/];
         const dayRegex = [/[0-3]/, /\d/];
@@ -25,11 +26,6 @@ class Mask extends Component {
         mask = this.replace(mask, 'MM', monthRegex);
         mask = this.replace(mask, 'dd', dayRegex);
         return mask;
-    }
-
-    /**  @returns {string} '/' or '-' */
-    determineDelimiterFromFormat(format) {
-        return format.indexOf('/') >= 0 ? '/' : '-';
     }
 
     replace(array, string, replacement) {
