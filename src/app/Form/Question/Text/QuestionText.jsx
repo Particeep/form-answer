@@ -12,11 +12,14 @@ class QuestionText extends Component {
     };
 
     render() {
-        const {value} = this.props;
+        const {value, multiline, rows, rowsMax} = this.props;
         const {errorMessage, touched} = this.state;
         return (
             <FormControl error={touched && errorMessage != null} fullWidth>
                 <Input value={value || ''}
+                       multiline={multiline}
+                       rows={rows}
+                       rowsMax={rowsMax}
                        onChange={e => this.handleChange(e.target.value)} fullWidth
                        onBlur={() => this.setState({touched: true})}/>
                 <FormHelperText>{(touched && errorMessage) || ''}</FormHelperText>
