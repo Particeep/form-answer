@@ -8,6 +8,7 @@ import QuestionRadio from "./Radio/QuestionRadio";
 import QuestionSelect from "./Select/QuestionSelect";
 import QuestionCheckbox from "./Checkbox/QuestionCheckbox";
 import QuestionDate from "./Date/QuestionDate";
+import QuestionDocument from "./Document/QuestionDocument";
 
 const questionType = {
     TEXT: 'TEXT',
@@ -49,6 +50,8 @@ class Question extends Component {
                 return <QuestionCheckbox question={q}/>;
             case questionType.DATE:
                 return <QuestionDate question={q}/>;
+            case questionType.DOCUMENT:
+                return <QuestionDocument question={q}/>;
             case questionType.LABEL:
                 return '';
             default:

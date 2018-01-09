@@ -1,20 +1,14 @@
 const formAction = {
-    BIND: 'form/BIND',
-    SET_DATEFORMAT: 'form/SET_DATEFORMAT',
+    INIT: 'form/INIT',
     UPDATE_ANSWER: 'form/UPDATE_ANSWER',
     UPDATE_SECTION_VALIDITY: 'form/UPDATE_SECTION_VALIDITY',
+    DOCUMENT_UPLOADING: 'form/DOCUMENT_UPLOADING',
 
-    bind: (notifyChange) => dispatch => {
+    init: (params) => dispatch => {
+        const {notifyChange, dateFormat, messages, onUploadFile, onFileUploaded} = params;
         dispatch({
-            type: formAction.BIND,
-            notifyChange
-        });
-    },
-
-    setDateFormat: (format) => dispatch => {
-        dispatch({
-            type: formAction.SET_DATEFORMAT,
-            format
+            type: formAction.INIT,
+            notifyChange, dateFormat, messages, onUploadFile, onFileUploaded
         });
     },
 
@@ -29,6 +23,13 @@ const formAction = {
         dispatch({
             type: formAction.UPDATE_SECTION_VALIDITY,
             sectionId, questionId, isValid
+        });
+    },
+
+    documentUploading: (questionId, isUploading) => dispatch => {
+        dispatch({
+            type: formAction.DOCUMENT_UPLOADING,
+            questionId, isUploading
         });
     }
 };

@@ -1,0 +1,104 @@
+import "./QuestionDocument.scss";
+
+import React, {Component} from "react";
+import {Avatar, Button, Chip, CircularProgress, Icon, IconButton} from "material-ui";
+import {connect} from "react-redux";
+import formAction from "../../formAction";
+import {parseSingleAnswer} from "../../utils";
+
+const maxFileSize = 1; // In mega octets
+
+class QuestionDocument extends Component {
+
+    state = {
+        errorMessage: null
+    };
+
+    render() {
+        const {documentName, documentUrl, messages, isUploading} = this.props;
+        return (
+            <main className="QuestionDocument">
+                {isUploading &&
+                <Chip className="QuestionDocument_doc -uploading" label={documentName + '...'} avatar={
+                    <Avatar>
+                        <CircularProgress size={36} className="QuestionDocument_doc_progress"/>
+                        <Icon className="QuestionDocument_doc_i">insert_drive_file</Icon>
+                    </Avatar>
+                }/>
+                }
+
+                {!documentUrl && !isUploading &&
+                <Button color="primary" onClick={this.openFileSelection}>
+                    {messages.upload}
+                    <Icon className="QuestionDocument_btn_i">file_upload</Icon>
+                    <input style={{display: 'none'}} type="file" ref="file"
+                           onChange={e => this.handleChange(e.target.files[0])}/>
+                </Button>
+                }
+
+                {documentUrl && !isUploading &&
+                <Chip
+                    className="QuestionDocument_doc" label={documentName}
+                    onDelete={this.clear} onClick={() => window.open(documentUrl, '_blank')}
+                    avatar={
+                        <Avatar>
+                            <Icon className="QuestionDocument_doc_i">insert_drive_file</Icon>
+                        </Avatar>
+                    }
+                />
+                }
+
+                {this.state.errorMessage &&
+                <div className="QuestionDocument_error">
+                    <Icon className="QuestionDocument_error_i">warning</Icon>
+                    {this.state.errorMessage}
+                    <Icon className="QuestionDocument_error_clear" onClick={() => this.setState({errorMessage: ''})}>clear</Icon>
+                </div>
+                }
+            </main>
+        );
+    }
+
+    componentDidMount() {
+        const {value} = this.props;
+        if (value != undefined) this.update(value);
+    }
+
+    openFileSelection = () => {
+        this.refs.file.click();
+    };
+
+    handleChange = (file) => {
+        const {question, messages} = this.props;
+        if (file.size > maxFileSize * 1024 * 1024) {
+            this.setState({errorMessage: messages.fileToBig});
+            return;
+        }
+        this.setState({errorMessage: ''});
+        this.update(file.name);
+        this.props.onUploadFile(question.section_id, question.id, file);
+    };
+
+    clear = () => {
+        this.update('');
+    };
+
+    update(fileName) {
+        const {dispatch, question} = this.props;
+        dispatch(formAction.updateAnswer(question.id, parseSingleAnswer(fileName)));
+        dispatch(formAction.updateSectionValidity(question.section_id, question.id, false));
+    }
+}
+
+const state2Props = (state, props) => {
+    const answer = state.form.answers[props.question.id] || [];
+    return {
+        documentName: answer[0],
+        documentUrl: answer[1],
+        onUploadFile: state.form.onUploadFile,
+        messages: state.form.messages,
+        isUploading: state.form.uploadingDocuments[props.question.id],
+    }
+};
+
+export default connect(state2Props)(QuestionDocument)

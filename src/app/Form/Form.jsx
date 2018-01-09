@@ -19,9 +19,26 @@ class Form extends Component {
     }
 
     componentWillMount() {
-        this.props.dispatch(formAction.bind(this.notifyChange));
-        this.props.dispatch(formAction.setDateFormat(this.props.dateFormat));
+        this.props.dispatch(formAction.init({
+            notifyChange: this.notifyChange,
+            dateFormat: this.props.dateFormat,
+            messages: this.props.messages,
+            onUploadFile: this.onUploadFile,
+        }));
     }
+
+    onUploadFile = (sectionId, questionId, file) => {
+        const {dispatch, onUploadFile} = this.props;
+        onUploadFile(file, this.onFileUploaded(sectionId, questionId));
+        dispatch(formAction.documentUploading(questionId, true));
+    };
+
+    onFileUploaded = (sectionId, questionId) => uploadedFile => {
+        const {dispatch} = this.props;
+        dispatch(formAction.documentUploading(questionId, false));
+        dispatch(formAction.updateAnswer(questionId, [uploadedFile.name, uploadedFile.permalink]));
+        dispatch(formAction.updateSectionValidity(sectionId, questionId, true));
+    };
 
     notifyChange = (questionIdAnswered) => {
         setTimeout(() => this.props.onChange(
