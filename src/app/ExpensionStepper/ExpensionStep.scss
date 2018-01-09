@@ -8,25 +8,24 @@
   }
 
   &.-current {
-    .ExpensionStep_i {
-      color: $color-primary;
-      border-color: $color-primary;
-    }
+    //.ExpensionStep_i {
+    //  color: $color-primary;
+    //  border-color: $color-primary;
+    //}
     .ExpensionStep_header {
       font-size: $text-title;
     }
   }
 
   &.-done {
-    .ExpensionStep_i {
-      color: $color-success;
-      border-color: $color-success;
-    }
+    //.ExpensionStep_i {
+    //  color: $color-success;
+    //  border-color: $color-success;
+    //}
   }
 }
   .ExpensionStep_header {
-    @include transition;
-    padding: 0 padding();
+    padding: 0 padding(3);
     height: 68px;
     display: flex;
     align-items: center;
@@ -34,19 +33,10 @@
     cursor: pointer;
   }
     .ExpensionStep_i {
-      $size: 34px;
       font-weight: $text-bold;
-      border: 2px solid $color-divider;
-      margin-right: padding();
-      height: $size;
-      width: $size;
-      min-width: $size;
-      font-size: $text-size;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: $text-color-disable;
+      color: $color-success;
+      margin-right: padding(1);
     }
 
   .ExpensionStep_body {
@@ -54,5 +44,5 @@
     overflow: hidden;
   }
     .ExpensionStep_content {
-      padding: 0 padding() padding() padding();
+      padding: 0 padding(3) padding(3) padding(3);
     }

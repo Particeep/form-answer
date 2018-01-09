@@ -1,0 +1,20 @@
+@import 'src/scss/all';
+
+.Question {
+  margin-bottom: padding(6);
+}
+  .Question_label {
+    font-size: $text-big;
+    margin-bottom: padding(1);
+    display: block;
+  }
+  .Question_required {
+    color: red;
+    &:before {
+      content: ' ';
+    }
+  }
+  .Question_answer {
+    margin-left: padding(4);
+    //min-height: 40px;
+  }

@@ -1,13 +1,6 @@
 @import 'src/scss/all';
 
-.Section_question {
-  margin-bottom: padding(6);
+.Section_label {
+  color: $text-color-light;
+  margin-bottom: padding();
 }
-  .Section_question_label {
-    font-size: $text-big;
-    margin-bottom: padding();
-    display: block;
-  }
-  .Section_question_answer {
-    margin-left: padding(4);
-  }
