@@ -43,14 +43,16 @@ class QuestionText extends Component {
 
     updateValidity(value) {
         const {dispatch, question} = this.props;
-        dispatch(formAction.updateSectionValidity(question.section_id, question.id, this.isValid(value)));
+        const isValid = this.isValid(value);
+        this.setState({errorMessage: !isValid ? this.props.messages.invalidText : null});
+        dispatch(formAction.updateSectionValidity(question.section_id, question.id, isValid));
     }
 
     isValid(value) {
-        const isValid = !this.props.question.required || (!!value && value !== '');
-        this.setState({errorMessage: !isValid ? this.props.messages.invalidText : null});
-        return isValid;
-
+        const {question} = this.props;
+        if (!value) return !this.props.question.required;
+        if (question.pattern && !new RegExp(question.pattern).test(value)) return false;
+        return true;
     }
 }
 
