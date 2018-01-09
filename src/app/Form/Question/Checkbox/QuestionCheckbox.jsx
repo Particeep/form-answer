@@ -25,21 +25,29 @@ class QuestionCheckbox extends Component {
     componentDidMount() {
         const {values} = this.props;
         if (values.length > 0) this.update(values);
+        this.updateValidity(values);
     }
 
     handleChange = value => (event, checked) => {
+        let values;
         if (checked) {
             if (this.props.values.indexOf(value) === -1)
-                this.update(this.props.values.concat(value))
+                values = this.props.values.concat(value)
         } else {
-            this.update(this.props.values.filter(v => v !== value));
+            values = this.props.values.filter(v => v !== value);
         }
+        this.update(values);
+        this.updateValidity(values);
         this.props.notifyChange(this.props.question.id);
     };
 
     update(values) {
         const {dispatch, question} = this.props;
         dispatch(formAction.updateAnswer(question.id, values));
+    }
+
+    updateValidity(values) {
+        const {dispatch, question} = this.props;
         dispatch(formAction.updateSectionValidity(question.section_id, question.id, this.isValid(values)));
     }
 

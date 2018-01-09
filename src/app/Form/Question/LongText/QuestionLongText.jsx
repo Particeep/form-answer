@@ -19,16 +19,23 @@ class QuestionLongText extends Component {
     componentDidMount() {
         const {value} = this.props;
         if (value != undefined) this.update(value);
+        this.updateValidity(value);
+
     }
 
     handleChange = value => {
         this.update(value);
+        this.updateValidity(value);
         this.props.notifyChange(this.props.question.id);
     };
 
     update(value) {
         const {dispatch, question} = this.props;
         dispatch(formAction.updateAnswer(question.id, parseSingleAnswer(value)));
+    }
+
+    updateValidity(value) {
+        const {dispatch, question} = this.props;
         dispatch(formAction.updateSectionValidity(question.section_id, question.id, this.isValid(value)));
     }
 

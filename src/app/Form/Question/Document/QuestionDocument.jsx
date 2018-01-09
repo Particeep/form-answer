@@ -60,6 +60,7 @@ class QuestionDocument extends Component {
     componentDidMount() {
         const {value} = this.props;
         if (value != undefined) this.update(value);
+        this.updateValidity();
     }
 
     openFileSelection = () => {
@@ -84,7 +85,12 @@ class QuestionDocument extends Component {
     update(fileName) {
         const {dispatch, question} = this.props;
         dispatch(formAction.updateAnswer(question.id, parseSingleAnswer(fileName)));
-        dispatch(formAction.updateSectionValidity(question.section_id, question.id, question.required));
+        this.updateValidity();
+    }
+
+    updateValidity() {
+        const {dispatch, question} = this.props;
+        dispatch(formAction.updateSectionValidity(question.section_id, question.id, !question.required));
     }
 }
 
