@@ -6,6 +6,7 @@ import InputDate from "../../../InputDate/InputDate";
 import {FormControl, FormHelperText, Input, TextField} from "material-ui";
 import moment from 'moment';
 import QuestionText from "../Text/QuestionText";
+import {questionBehavior} from "../questionBehavior";
 
 class QuestionDate extends Component {
 
@@ -69,4 +70,4 @@ const state2Props = (state, props) => ({
     messages: state.form.messages,
 });
 
-export default connect(state2Props)(QuestionDate)
+export default connect(state2Props)(questionBehavior(QuestionDate))

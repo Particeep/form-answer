@@ -10,7 +10,7 @@ import QuestionCheckbox from "./Checkbox/QuestionCheckbox";
 import QuestionDate from "./Date/QuestionDate";
 import QuestionDocument from "./Document/QuestionDocument";
 
-const questionType = {
+export const questionType = {
     TEXT: 'TEXT',
     LONGTEXT: 'LONGTEXT',
     DATE: 'DATE',

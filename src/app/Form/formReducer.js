@@ -14,6 +14,7 @@ const DEFAULT_REDUCER = {
     answers: {},
     sectionsValidity: {},
     uploadingDocuments: {},
+    checkePossibilityIds: {},
 };
 
 export const formReducer = function (state = DEFAULT_REDUCER, a) {
@@ -45,6 +46,16 @@ export const formReducer = function (state = DEFAULT_REDUCER, a) {
                 sectionsValidity: {
                     [a.sectionId]: {$merge: {[a.questionId]: a.isValid}}
                 }
+            });
+        case formAction.ADD_CHECKED_POSSIBILITY:
+            return update(state, {
+                checkePossibilityIds: {
+                    [a.questionId]: {$set: a.possiblityId}
+                }
+            });
+        case formAction.REMOVE_CHECKED_POSSIBILITY:
+            return update(state, {
+                checkePossibilityIds: {$unset: [a.questionId]}
             });
         case formAction.DOCUMENT_UPLOADING:
             return update(state, {

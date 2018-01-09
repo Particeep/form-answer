@@ -3,6 +3,8 @@ const formAction = {
     UPDATE_ANSWER: 'form/UPDATE_ANSWER',
     UPDATE_SECTION_VALIDITY: 'form/UPDATE_SECTION_VALIDITY',
     DOCUMENT_UPLOADING: 'form/DOCUMENT_UPLOADING',
+    ADD_CHECKED_POSSIBILITY: 'form/ADD_CHECKED_POSSIBILITY',
+    REMOVE_CHECKED_POSSIBILITY: 'form/REMOVE_CHECKED_POSSIBILITY',
 
     init: (params) => dispatch => {
         dispatch({
@@ -29,6 +31,20 @@ const formAction = {
         dispatch({
             type: formAction.DOCUMENT_UPLOADING,
             questionId, isUploading
+        });
+    },
+
+    addCheckedPossbility: (questionId, possiblityId) => dispatch => {
+        dispatch({
+            type: formAction.ADD_CHECKED_POSSIBILITY,
+            questionId, possiblityId
+        });
+    },
+
+    removeCheckedPossbility: (questionId,) => dispatch => {
+        dispatch({
+            type: formAction.REMOVE_CHECKED_POSSIBILITY,
+            questionId
         });
     }
 };
