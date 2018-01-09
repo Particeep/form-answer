@@ -1,10 +1,10 @@
 import {createMuiTheme} from 'material-ui'
-import indigo from 'material-ui/colors/indigo'
+import blue from 'material-ui/colors/blue'
 import red from 'material-ui/colors/red'
 
 const muiTheme = createMuiTheme({
     palette: {
-        primary: indigo,
+        primary: blue,
         secondary: red,
         error: red,
         type: 'light'

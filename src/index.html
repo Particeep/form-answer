@@ -46,7 +46,6 @@
                             "question_type": "TEXT",
                             "required": true,
                             "index": 0,
-                            "possibilities": [],
                             "answers": ["answer ! !"]
                         },
                         {
@@ -57,7 +56,6 @@
                             "question_type": "LONGTEXT",
                             "required": true,
                             "index": 1,
-                            "possibilities": []
                         },
                         {
                             "id": "9968b6b9-cd91-40dx-b49f-59a1631ac1b6",
@@ -67,7 +65,24 @@
                             "question_type": "DATE",
                             "required": true,
                             "index": 1,
-                            "possibilities": []
+                        },
+                        {
+                            "id": "9968b6b9-cds1-40dx-b49f-59a1631ac1b6",
+                            "created_at": "2018-01-04T10:58:01Z",
+                            "section_id": "a17d44e1-d655-4868-90b8-b79f22d35d73",
+                            "label": "Vos papiers",
+                            "question_type": "DOCUMENT",
+                            "required": true,
+                            "index": 1,
+                        },
+                        {
+                            "id": "9968b6b9-cds1-42dx-b49f-59a1631ac1b6",
+                            "created_at": "2018-01-04T10:58:01Z",
+                            "section_id": "a17d44e1-d655-4868-90b8-b79f22d35d73",
+                            "label": "Vos papiers",
+                            "question_type": "DOCUMENT",
+                            "required": false,
+                            "index": 1,
                         },
                         {
                             "id": "9968b6bf-cd91-40de-b49f-59a1631ac1b6",
@@ -243,6 +258,10 @@
                 // }
             ]
         },
+        messages: {
+            upload: 'Choose file',
+            fileToBig: 'File exceed the limit of 12M'
+        },
         onChange: function (answers, answer) {
             console.log("onChange");
             console.log(answer);
@@ -253,7 +272,14 @@
             console.log("onEnd");
             console.log(answers);
             console.log("---");
-        }
+        },
+        onUploadFile: function (file, callback) {
+            console.log(file);
+            setTimeout(() => callback({
+                name: file.name,
+                permalink: 'http://www.google.com'
+            }), 1000);
+        },
     }
 </script>
 <div class="panel">

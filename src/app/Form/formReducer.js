@@ -2,21 +2,29 @@ import update from 'immutability-helper';
 import formAction from "./formAction";
 
 const DEFAULT_REDUCER = {
+    messages: {},
+    dateFormat: 'dd/MM/yyyy',
+    maxUploadFileSize: null,
+
+    // Callbacks
+    notifyChange: null,
+    onUploadFile: null,
+
+    // Application variables
     answers: {},
     sectionsValidity: {},
-    dateFormat: 'dd/MM/yyyy',
-    notifyChange: null,
+    uploadingDocuments: {},
 };
 
 export const formReducer = function (state = DEFAULT_REDUCER, a) {
     switch (a.type) {
-        case formAction.BIND:
+        case formAction.INIT:
             return update(state, {
+                messages: {$set: a.messages},
+                dateFormat: {$set: a.dateFormat},
+                maxUploadFileSize: {$set: a.maxUploadFileSize},
                 notifyChange: {$set: a.notifyChange},
-            });
-        case formAction.SET_DATEFORMAT:
-            return update(state, {
-                dateFormat: {$set: a.format},
+                onUploadFile: {$set: a.onUploadFile},
             });
         case formAction.UPDATE_ANSWER:
             return update(state, {
@@ -36,6 +44,12 @@ export const formReducer = function (state = DEFAULT_REDUCER, a) {
             return update(updatedState, {
                 sectionsValidity: {
                     [a.sectionId]: {$merge: {[a.questionId]: a.isValid}}
+                }
+            });
+        case formAction.DOCUMENT_UPLOADING:
+            return update(state, {
+                uploadingDocuments: {
+                    $merge: {[a.questionId]: a.isUploading}
                 }
             });
         default:

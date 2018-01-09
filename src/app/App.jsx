@@ -9,11 +9,18 @@ class App extends Component {
         return (
             <Form
                 form={window.formAnswer.form}
-                onChange={this.changed}
+                messages={window.formAnswer.messages}
+                maxUploadFileSize={window.formAnswer.maxUploadFileSize}
                 dateFormat="yyyy-MM-dd"
-                onEnd={this.ended}/>
+                onChange={this.changed}
+                onEnd={this.ended}
+                onUploadFile={this.uploadFile}/>
         );
     }
+
+    uploadFile = (file, callback) => {
+        window.formAnswer.onUploadFile(file, callback);
+    };
 
     changed = (answers, answer) => {
         window.formAnswer.onChange(answers, answer);
