@@ -3,6 +3,7 @@ import {FormControl, FormHelperText, Input, TextField} from "material-ui";
 import {connect} from "react-redux";
 import formAction from "../../formAction";
 import {mapSingleAnswer, parseSingleAnswer} from "../../utils";
+import {questionBehavior} from "../questionBehavior";
 
 class QuestionText extends Component {
 
@@ -65,4 +66,4 @@ const state2Props = (state, props) => ({
     messages: state.form.messages,
 });
 
-export default connect(state2Props)(QuestionText)
+export default connect(state2Props)(questionBehavior(QuestionText));

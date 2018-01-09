@@ -3,6 +3,7 @@ import {FormControlLabel, RadioGroup, Radio} from "material-ui";
 import {connect} from "react-redux";
 import formAction from "../../formAction";
 import {mapSingleAnswer, parseSingleAnswer} from "../../utils";
+import {questionBehavior} from "../questionBehavior";
 
 class QuestionRadio extends Component {
 
@@ -44,6 +45,7 @@ class QuestionRadio extends Component {
     update(value) {
         const {dispatch, question} = this.props;
         dispatch(formAction.updateAnswer(question.id, parseSingleAnswer(value)));
+        dispatch(formAction.addCheckedPossbility(question.id, question.possibilities.find(p => p.label == value).id));
     }
 
     updateValidity(value) {
@@ -61,4 +63,4 @@ const state2Props = (state, props) => ({
     notifyChange: state.form.notifyChange,
 });
 
-export default connect(state2Props)(QuestionRadio)
+export default connect(state2Props)(questionBehavior(QuestionRadio))
