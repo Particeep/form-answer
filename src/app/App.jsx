@@ -10,6 +10,7 @@ class App extends Component {
             <Form
                 form={window.formAnswer.form}
                 messages={window.formAnswer.messages}
+                maxUploadFileSize={window.formAnswer.maxUploadFileSize}
                 dateFormat="yyyy-MM-dd"
                 onChange={this.changed}
                 onEnd={this.ended}

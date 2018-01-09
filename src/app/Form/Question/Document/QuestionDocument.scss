@@ -11,9 +11,6 @@
   }
 
   .QuestionDocument_doc {
-    @include truncate;
-    max-width: 200px;
-
     &.-uploading {
       color: $text-color-disable !important;
     }

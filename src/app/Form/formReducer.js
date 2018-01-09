@@ -4,6 +4,7 @@ import formAction from "./formAction";
 const DEFAULT_REDUCER = {
     messages: {},
     dateFormat: 'dd/MM/yyyy',
+    maxUploadFileSize: null,
 
     // Callbacks
     notifyChange: null,
@@ -19,9 +20,10 @@ export const formReducer = function (state = DEFAULT_REDUCER, a) {
     switch (a.type) {
         case formAction.INIT:
             return update(state, {
-                notifyChange: {$set: a.notifyChange},
-                dateFormat: {$set: a.dateFormat},
                 messages: {$set: a.messages},
+                dateFormat: {$set: a.dateFormat},
+                maxUploadFileSize: {$set: a.maxUploadFileSize},
+                notifyChange: {$set: a.notifyChange},
                 onUploadFile: {$set: a.onUploadFile},
             });
         case formAction.UPDATE_ANSWER:

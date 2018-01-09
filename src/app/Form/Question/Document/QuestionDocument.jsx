@@ -6,8 +6,6 @@ import {connect} from "react-redux";
 import formAction from "../../formAction";
 import {parseSingleAnswer} from "../../utils";
 
-const maxFileSize = 1; // In mega octets
-
 class QuestionDocument extends Component {
 
     state = {
@@ -69,8 +67,8 @@ class QuestionDocument extends Component {
     };
 
     handleChange = (file) => {
-        const {question, messages} = this.props;
-        if (file.size > maxFileSize * 1024 * 1024) {
+        const {question, messages, maxUploadFileSize} = this.props;
+        if (maxUploadFileSize && file.size > maxUploadFileSize * 1024 * 1024) {
             this.setState({errorMessage: messages.fileToBig});
             return;
         }
@@ -86,7 +84,7 @@ class QuestionDocument extends Component {
     update(fileName) {
         const {dispatch, question} = this.props;
         dispatch(formAction.updateAnswer(question.id, parseSingleAnswer(fileName)));
-        dispatch(formAction.updateSectionValidity(question.section_id, question.id, false));
+        dispatch(formAction.updateSectionValidity(question.section_id, question.id, question.required));
     }
 }
 
@@ -97,6 +95,7 @@ const state2Props = (state, props) => {
         documentUrl: answer[1],
         onUploadFile: state.form.onUploadFile,
         messages: state.form.messages,
+        maxUploadFileSize: state.form.maxUploadFileSize,
         isUploading: state.form.uploadingDocuments[props.question.id],
     }
 };

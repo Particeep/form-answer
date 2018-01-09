@@ -23,6 +23,7 @@ class Form extends Component {
             notifyChange: this.notifyChange,
             dateFormat: this.props.dateFormat,
             messages: this.props.messages,
+            maxUploadFileSize: this.props.maxUploadFileSize,
             onUploadFile: this.onUploadFile,
         }));
     }

@@ -5,10 +5,9 @@ const formAction = {
     DOCUMENT_UPLOADING: 'form/DOCUMENT_UPLOADING',
 
     init: (params) => dispatch => {
-        const {notifyChange, dateFormat, messages, onUploadFile, onFileUploaded} = params;
         dispatch({
             type: formAction.INIT,
-            notifyChange, dateFormat, messages, onUploadFile, onFileUploaded
+            ...params
         });
     },
 
