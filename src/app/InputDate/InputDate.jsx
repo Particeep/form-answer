@@ -10,8 +10,8 @@ class InputDate extends Component {
         );
     }
 
-    mask = () => {
-        return <Mask format={this.props.format || 'dd/MM/yyyy'}/>;
+    mask = (props) => {
+        return <Mask {...props} format={this.props.format}/>;
     }
 }
 

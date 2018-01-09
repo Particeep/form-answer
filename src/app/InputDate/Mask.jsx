@@ -10,20 +10,6 @@ class Mask extends Component {
                 {...this.props}
                 mask={this.buildMask(format)}
                 placeholder={format}
-                style={{
-                    height: '1em',
-                    font: 'inherit',
-                    color: 'currentColor',
-                    width: '100%',
-                    margin: 0,
-                    padding: '7px 0',
-                    display: 'block',
-                    boxSizing: 'content-box',
-                    background: 'none',
-                    verticalAlign: 'middle',
-                    border: 0,
-                    outline: 'none',
-                }}
             />
         );
     }
@@ -52,5 +38,9 @@ class Mask extends Component {
         return array;
     }
 }
+
+Mask.defaultProps = {
+    format: 'dd/MM/yyyy'
+};
 
 export default Mask;
