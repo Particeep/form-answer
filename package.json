@@ -1,6 +1,6 @@
 {
-  "name": "react-rock-paper-scissors",
-  "description": "Rock paper scissors game with ReactJS",
+  "name": "Form answer",
+  "description": "Answer a form ",
   "version": "1.0.0",
   "engines": {
     "node": ">=5.0.0"
