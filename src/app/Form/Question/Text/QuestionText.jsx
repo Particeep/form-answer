@@ -3,7 +3,7 @@ import {FormControl, FormHelperText, Input, TextField} from "material-ui";
 import {connect} from "react-redux";
 import formAction from "../../formAction";
 import {mapSingleAnswer, parseSingleAnswer} from "../../utils";
-import {questionBehavior} from "../questionBehavior";
+import {questionWrapper} from "../questionWrapper";
 
 class QuestionText extends Component {
 
@@ -21,7 +21,7 @@ class QuestionText extends Component {
                        multiline={multiline}
                        rows={rows}
                        rowsMax={rowsMax}
-                       onChange={e => this.handleChange(e.target.value)} fullWidth
+                       onChange={e => this.handleChange(e.target.value)}
                        onBlur={() => this.setState({touched: true})}/>
                 <FormHelperText>{(touched && errorMessage) || ''}</FormHelperText>
             </FormControl>
@@ -66,4 +66,4 @@ const state2Props = (state, props) => ({
     messages: state.form.messages,
 });
 
-export default connect(state2Props)(questionBehavior(QuestionText));
+export default connect(state2Props)(questionWrapper(QuestionText));

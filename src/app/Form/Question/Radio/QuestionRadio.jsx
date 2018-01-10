@@ -3,7 +3,7 @@ import {FormControlLabel, RadioGroup, Radio} from "material-ui";
 import {connect} from "react-redux";
 import formAction from "../../formAction";
 import {mapSingleAnswer, parseSingleAnswer} from "../../utils";
-import {questionBehavior} from "../questionBehavior";
+import {questionWrapper} from "../questionWrapper";
 
 class QuestionRadio extends Component {
 
@@ -63,4 +63,4 @@ const state2Props = (state, props) => ({
     notifyChange: state.form.notifyChange,
 });
 
-export default connect(state2Props)(questionBehavior(QuestionRadio))
+export default connect(state2Props)(questionWrapper(QuestionRadio))

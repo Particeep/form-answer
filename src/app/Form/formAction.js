@@ -1,6 +1,7 @@
 const formAction = {
     INIT: 'form/INIT',
     UPDATE_ANSWER: 'form/UPDATE_ANSWER',
+    REMOVE_ANSWER: 'form/REMOVE_ANSWER',
     UPDATE_SECTION_VALIDITY: 'form/UPDATE_SECTION_VALIDITY',
     DOCUMENT_UPLOADING: 'form/DOCUMENT_UPLOADING',
     ADD_CHECKED_POSSIBILITY: 'form/ADD_CHECKED_POSSIBILITY',
@@ -17,6 +18,13 @@ const formAction = {
         dispatch({
             type: formAction.UPDATE_ANSWER,
             questionId, answer,
+        });
+    },
+
+    removeAnswer: (questionId) => dispatch => {
+        dispatch({
+            type: formAction.REMOVE_ANSWER,
+            questionId
         });
     },
 

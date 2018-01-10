@@ -33,6 +33,10 @@ export const formReducer = function (state = DEFAULT_REDUCER, a) {
                     $merge: {[a.questionId]: a.answer}
                 }
             });
+        case formAction.REMOVE_ANSWER:
+            return update(state, {
+                answers: {$unset: [a.questionId]}
+            });
         case formAction.UPDATE_SECTION_VALIDITY:
             // Cannot perform nested $merge, so do it in 2 steps
             let updatedState = state;

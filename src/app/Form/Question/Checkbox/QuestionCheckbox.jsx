@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Checkbox, FormControlLabel, FormGroup} from "material-ui";
 import {connect} from "react-redux";
 import formAction from "../../formAction";
-import {questionBehavior} from "../questionBehavior";
+import {questionWrapper} from "../questionWrapper";
 
 class QuestionCheckbox extends Component {
 
@@ -62,4 +62,4 @@ const state2Props = (state, props) => ({
     notifyChange: state.form.notifyChange,
 });
 
-export default connect(state2Props)(questionBehavior(QuestionCheckbox))
+export default connect(state2Props)(questionWrapper(QuestionCheckbox))
