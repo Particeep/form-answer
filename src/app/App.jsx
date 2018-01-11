@@ -33,7 +33,6 @@ class App extends Component {
     ended = (answers) => {
         window.formAnswer.onEnd(answers);
     };
-
 }
 
 export default App;

@@ -378,27 +378,27 @@
             ]
         },
         messages: {
+            buttonNext: 'Next',
+            buttonEnd: 'End',
             upload: 'Choose file',
-            invalidFileSize: 'File exceed the limit of 12M',
+            invalidFileSize: 'File limit exceed',
             invalidDate: 'Date invalid',
             invalidText: 'Invalid answer',
         },
         onChange: function (answers, answer) {
-//            console.log("onChange");
-//            console.log(answer);
-//            console.log(answers);
-//            console.log("====");
+            console.log('onChange', answers, answer);
+        },
+        onSectionEnd: function (sectionAnswers) {
+            console.log('onSectionEnd', sectionAnswers);
         },
         onEnd: function (answers) {
-//            console.log("onEnd");
-//            console.log(answers);
-//            console.log("---");
+            console.log('onEnd', answers);
         },
         onUploadFile: function (file, callback) {
-            console.log(file);
+            console.log('onUploadFile', file);
             setTimeout(() => callback({
                 name: file.name,
-                permalink: 'http://www.google.com'
+                permalink: 'https://api.particeep.com/swagger'
             }), 1000);
         },
     }
