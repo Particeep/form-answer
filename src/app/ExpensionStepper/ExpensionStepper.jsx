@@ -39,6 +39,7 @@ class ExpensionStepper extends Component {
 
     next = () => {
         if (this.state.current < this.props.children.length - 1) {
+            this.props.onNext(this.state.current);
             this.setState({
                 current: this.state.current + 1,
                 reached: Math.max(this.state.reached, this.state.current + 1)

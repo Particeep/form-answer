@@ -10,7 +10,7 @@ class Form extends Component {
 
     render() {
         return (
-            <ExpensionStepper onEnd={this.end}>
+            <ExpensionStepper onNext={this.next} onEnd={this.end}>
                 {this.props.form.sections.map(s =>
                     <ExpensionStep label="label!" component={<Section section={s}/>} key={s.id}/>
                 )}
@@ -20,10 +20,10 @@ class Form extends Component {
 
     componentWillMount() {
         this.props.dispatch(formAction.init({
-            notifyChange: this.notifyChange,
             dateFormat: this.props.dateFormat,
             messages: this.props.messages,
             maxUploadFileSize: this.props.maxUploadFileSize,
+            notifyChange: this.notifyChange,
             onUploadFile: this.onUploadFile,
         }));
     }
@@ -48,15 +48,26 @@ class Form extends Component {
         ));
     };
 
+    next = (sectionIndex) => {
+        this.props.onSectionEnd(this.getSectionAnswers(sectionIndex));
+    };
+
     end = () => {
         this.props.onEnd(this.props.answers);
+    };
+
+    getSectionAnswers(sectionIndex) {
+        const {answers} = this.props;
+        const sectionQuestionIds = this.props.form.sections[sectionIndex].questions.map(q => q.id);
+        return Object.keys(answers).filter(key => sectionQuestionIds.includes(key)).reduce((obj, key) => {
+            obj[key] = answers[key];
+            return obj;
+        }, {});
     }
 }
 
-function state2Props(state) {
-    return {
-        answers: state.form.answers,
-    }
-}
+const state2Props = (state) => ({
+    answers: state.form.answers,
+});
 
 export default connect(state2Props)(Form);
