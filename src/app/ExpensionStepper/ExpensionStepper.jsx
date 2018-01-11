@@ -14,6 +14,7 @@ class ExpensionStepper extends Component {
                     index: i,
                     isDone: i < this.state.reached,
                     isCurrent: i === this.state.current,
+                    isLast: i === this.props.children.length - 1
                 }))}
             </main>
         );

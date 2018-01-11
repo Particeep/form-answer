@@ -8,13 +8,16 @@ import {connect} from "react-redux";
 class Section extends Component {
 
     render() {
+        const {section, messages, next, isLast} = this.props;
         return (
             <main>
-                <div className="Section_label">{this.props.section.description}</div>
-                {this.props.section.questions.map(q => {
+                <div className="Section_label">{section.description}</div>
+                {section.questions.map(q => {
                     if (this.showQuestion(q)) return <Question key={q.id} question={q}/>
                 })}
-                <Button raised color="primary" onClick={this.props.next} disabled={!this.isValid()}>Next</Button>
+                <Button raised color="primary" onClick={next} disabled={!this.isValid()}>
+                    {isLast ? messages.buttonEnd : messages.buttonNext}
+                </Button>
             </main>
         );
     }
@@ -38,6 +41,7 @@ function state2Props(state) {
     return {
         sectionsValidity: state.form.sectionsValidity,
         answers: state.form.answers,
+        messages: state.form.messages,
         checkePossibilityIds: state.form.checkePossibilityIds,
     }
 }
