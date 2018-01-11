@@ -1,0 +1,132 @@
+# Form-answer
+
+### About
+
+Form-answer is a React application whose purpose is to answer to a form created on the [Particeep API](https://api.particeep.com/swagger#/form).
+
+### Installation
+
+There is two ways to integrate Form-answer to your application.
+
+##### If you work on a React application
+
+Then it's easy ! Import the `Form` component as follow:
+```
+import React, {Component} from "react";
+import {Form} from "Form";
+
+class App extends Component {
+    render = () => 
+        <Form
+            // fill params
+        />
+    ;
+}
+```
+
+and pass the `formReducer` to your store.
+```
+import {createStore, combineReducers} from 'redux'
+import {formReducer} from 'Form';
+
+const rootReducer = combineReducers({
+  // ...your other reducers here
+  form: formReducer
+})
+```
+
+##### Otherwise
+
+You must include the compiled sources in your project then call the React application. Passing params to the props is done through the `window` variable as follow:
+ ```
+ window.formAnswer = {
+    // fill params
+ }
+ <div id="root"></div>
+ 
+ ```
+ 
+### API
+
+The array below list the expected parameters by the `Form` component.
+
+| Variable                | Type                                       | Description                                                                                                                                                                                                                                 |
+|-------------------------|--------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `form`                  | Object                                     | Form to answer fetched from the API                                                                                                                                                                                                         |
+| `messages`              | Object                                     | The component expected some text, like messages to display in case of error.                                                                                                                                                                |
+| `maxUploadFileSize`     | number                                     | Limit the size of the uploaded documents                                                                                                                                                                                                    |
+| `onChange`              | function(answers, answer)                  | Callback called whenever a change if performed on a question; `answers` is an array of answers, `answer` is the answer that triggered the callback.                                                                                         |
+| `onSectionEnd`          | function(sectionAnswers)                   | Callback called on pressing the next button of a section; `sectionAnswers` is an array of answers.                                                                                                                                          |
+| `onEnd`                 | function(answers)                          | Callback called on pressing the last button of the form; `answers` is an array of answers.                                                                                                                                                  |
+| `onUploadFile`          | function(file, callback({name, permalink}) | Callback called whenever a document is selected; `file` is the uploaded file, `callback` is a method which must be called to returned the uploaded file. At least two properties of the returned file are required: `file` and `permalink`. |
+
+### Example
+
+```
+import React, {Component} from "react";
+import {Form} from "Form";
+
+class App extends Component {
+
+    render = () =>
+        <Form
+            form={this.getForm()}
+            messages={{
+                buttonNext: 'Next',
+                buttonEnd: 'End',
+                upload: 'Choose file',
+                invalidFileSize: 'File limit exceed',
+                invalidDate: 'Date invalid',
+                invalidText: 'Invalid answer',
+            }}
+            maxUploadFileSize={12}
+            onChange={this.changed}
+            onSectionEnd={this.sectionEnded}
+            onEnd={this.ended}
+            onUploadFile={this.uploadFile}/>
+    ;
+
+    uploadFile = (file, callback) => {
+        console.log('uploadFile', file);
+        // Simulate uploading delay
+        setTimeout(() => callback({
+            name: file.name,
+            permalink: 'https://api.particeep.com/swagger'
+        }), 1000);
+    };
+
+    changed = (answers, answer) => {
+        console.log('onChange', answers, answer);
+    };
+
+    sectionEnded = (sectionAnswers) => {
+        console.log('onSectionEnd', sectionAnswers);
+    };
+
+    ended = (answers) => {
+        console.log('onEnd', answers);
+    };
+
+    getForm = () => ({
+        "id": "3ff1c761-c213-4c4e-b0b2-c66d2edc4961",
+        "name": "Party Invite",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quis sem odio. Sed commodo vestibulum leo, sit amet tempus odio consectetur in.",
+        "sections": [{
+            "id": "a17ds4e1-d655-4868-90b8-b79f22d35d73",
+            "form_id": "3ff1c761-c213-4c4e-b0b2-c66d2edc4961",
+            "name": "Personnal informations",
+            "index": 0,
+            "description": "Let us know what kind of dish(es) you'll be bringing",
+            "questions": [{
+                "id": "1b4afd5b-ffe8-4c38-917b-5c3ssbcf3e2f",
+                "section_id": "a17ds4e1-d655-4868-90b8-b79f22d35d73",
+                "label": "What is your name?",
+                "question_type": "TEXT",
+                "required": true,
+                "index": 0,
+                "answers": ["Particeep"]
+            }]
+        }]
+    })
+}
+```
