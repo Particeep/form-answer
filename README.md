@@ -110,7 +110,7 @@ class App extends Component {
     getForm = () => ({
         "id": "3ff1c761-c213-4c4e-b0b2-c66d2edc4961",
         "name": "Party Invite",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quis sem odio. Sed commodo vestibulum leo, sit amet tempus odio consectetur in.",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         "sections": [{
             "id": "a17ds4e1-d655-4868-90b8-b79f22d35d73",
             "form_id": "3ff1c761-c213-4c4e-b0b2-c66d2edc4961",
