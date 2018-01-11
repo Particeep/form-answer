@@ -53,6 +53,7 @@ class Form extends Component {
     };
 
     end = () => {
+        this.props.onSectionEnd(this.getSectionAnswers(this.props.form.sections.length - 1));
         this.props.onEnd(this.props.answers);
     };
 
