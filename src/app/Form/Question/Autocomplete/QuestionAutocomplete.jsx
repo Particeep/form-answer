@@ -6,7 +6,7 @@ import {MenuItem} from "material-ui/Menu";
 import {connect} from "react-redux";
 import {questionWrapper} from "../questionWrapper";
 import formAction from "../../formAction";
-import {Checkbox, Chip, FormControl, Input, Menu} from "material-ui";
+import {Checkbox, FormControl, Input, Menu, Radio} from "material-ui";
 
 class QuestionAutocomplete extends Component {
 
@@ -16,7 +16,7 @@ class QuestionAutocomplete extends Component {
     };
 
     render() {
-        const {values, question} = this.props;
+        const {values, question, multiSelect} = this.props;
         const {anchorEl} = this.state;
         return (
             <div>
@@ -24,16 +24,19 @@ class QuestionAutocomplete extends Component {
                     <Input value={values.join(', ')} multiline readOnly rows="1" rowsMax="10"/>
                 </FormControl>
                 <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={this.handleClose}>
-                    <header className="Qac_Menu_head">
+                    <header className={'Qac_Menu_head' + (multiSelect ? ' -withCb' : '')}>
+                        {multiSelect &&
                         <Checkbox onChange={this.selectAll}
                                   indeterminate={values.length > 0 && values.length < question.possibilities.length}/>
+                        }
                         <input className="Qac_Menu_input" placeholder="..."
                                onChange={e => this.setState({filter: e.target.value})}/>
                     </header>
                     <div className="Qac_Menu_items">
                         {this.getFilteredPossibilities().map(p =>
                             <MenuItem key={p.id} onClick={() => this.handleChange(p.label)} style={{paddingLeft: 0}}>
-                                <Checkbox checked={values.indexOf(p.label) !== -1}/>
+                                {multiSelect && <Checkbox checked={values.indexOf(p.label) !== -1}/>}
+                                {!multiSelect && <Radio checked={values.indexOf(p.label) !== -1}/>}
                                 {p.label}
                             </MenuItem>
                         )}
@@ -59,10 +62,14 @@ class QuestionAutocomplete extends Component {
 
     handleChange = value => {
         let values;
-        if (this.props.values.indexOf(value) === -1) {
-            values = this.props.values.concat(value)
+        if (this.props.multiSelect) {
+            if (this.props.values.indexOf(value) === -1) {
+                values = this.props.values.concat(value)
+            } else {
+                values = this.props.values.filter(v => v !== value);
+            }
         } else {
-            values = this.props.values.filter(v => v !== value);
+            values = [value];
         }
         this.update(values);
         this.updateValidity(values);
