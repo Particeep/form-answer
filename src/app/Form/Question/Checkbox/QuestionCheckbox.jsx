@@ -3,24 +3,28 @@ import {Checkbox, FormControlLabel, FormGroup} from "material-ui";
 import {connect} from "react-redux";
 import formAction from "../../formAction";
 import {questionWrapper} from "../questionWrapper";
+import QuestionAutocomplete from "../Autocomplete/QuestionAutocomplete";
+import {maxPossibilitiesBeforeAutocomplete} from "../Question";
 
 class QuestionCheckbox extends Component {
 
     render() {
         const {question, values} = this.props;
-        return (
-            <FormGroup>
-                {question.possibilities.map(p =>
-                    <FormControlLabel key={p.id} label={p.label} control={
-                        <Checkbox
-                            checked={values.indexOf(p.label) !== -1}
-                            onChange={this.handleChange(p.label)}
-                            value={p.label}
-                        />
-                    }/>
-                )}
-            </FormGroup>
-        );
+        if (question.possibilities.length < maxPossibilitiesBeforeAutocomplete)
+            return (
+                <FormGroup>
+                    {question.possibilities.map(p =>
+                        <FormControlLabel key={p.id} label={p.label} control={
+                            <Checkbox
+                                checked={values.indexOf(p.label) !== -1}
+                                onChange={this.handleChange(p.label)}
+                                value={p.label}
+                            />
+                        }/>
+                    )}
+                </FormGroup>
+            );
+        return <QuestionAutocomplete multiSelect {...this.props}/>
     }
 
     componentDidMount() {

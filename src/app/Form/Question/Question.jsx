@@ -21,6 +21,8 @@ export const questionType = {
     LABEL: 'LABEL',
 };
 
+export const maxPossibilitiesBeforeAutocomplete = 10;
+
 class Question extends Component {
 
     render() {

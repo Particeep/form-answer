@@ -5,24 +5,28 @@ import formAction from "../../formAction";
 import Input from "material-ui/Input";
 import {mapSingleAnswer, parseSingleAnswer} from "../../utils";
 import {questionWrapper} from "../questionWrapper";
+import {maxPossibilitiesBeforeAutocomplete} from "../Question";
+import QuestionAutocomplete from "../Autocomplete/QuestionAutocomplete";
 
 class QuestionSelect extends Component {
 
     render() {
         const {question, value} = this.props;
-        return (
-            <FormControl fullWidth style={{minHeight: '40px'}}>
-                <Select
-                    value={value || ''}
-                    onChange={e => this.handleChange(e.target.value)}
-                    input={<Input/>}>
-                    <MenuItem value=""/>
-                    {question.possibilities.map(p =>
-                        <MenuItem key={p.id} value={p.label}>{p.label}</MenuItem>
-                    )}
-                </Select>
-            </FormControl>
-        );
+        if (question.possibilities.length < maxPossibilitiesBeforeAutocomplete)
+            return (
+                <FormControl fullWidth style={{minHeight: '40px'}}>
+                    <Select
+                        value={value || ''}
+                        onChange={e => this.handleChange(e.target.value)}
+                        input={<Input/>}>
+                        <MenuItem value=""/>
+                        {question.possibilities.map(p =>
+                            <MenuItem key={p.id} value={p.label}>{p.label}</MenuItem>
+                        )}
+                    </Select>
+                </FormControl>
+            );
+        return <QuestionAutocomplete {...this.props}/>
     }
 
     componentDidMount() {
