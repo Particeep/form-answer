@@ -4,26 +4,30 @@ import {connect} from "react-redux";
 import formAction from "../../formAction";
 import {mapSingleAnswer, parseSingleAnswer} from "../../utils";
 import {questionWrapper} from "../questionWrapper";
+import {maxPossibilitiesBeforeAutocomplete} from "../Question";
+import QuestionAutocomplete from "../Autocomplete/QuestionAutocomplete";
 
 class QuestionRadio extends Component {
 
     render() {
         const {question, value} = this.props;
-        return (
-            <RadioGroup
-                value={value || ''}
-                onChange={e => this.handleChange(e.target.value)}
-            >
-                {question.possibilities.map(p =>
-                    <FormControlLabel
-                        value={p.label}
-                        control={<Radio/>}
-                        label={p.label}
-                        key={p.id}
-                        onClick={() => this.onClick(p.label)}/>
-                )}
-            </RadioGroup>
-        );
+        if (question.possibilities.length < maxPossibilitiesBeforeAutocomplete)
+            return (
+                <RadioGroup
+                    value={value || ''}
+                    onChange={e => this.handleChange(e.target.value)}
+                >
+                    {question.possibilities.map(p =>
+                        <FormControlLabel
+                            value={p.label}
+                            control={<Radio/>}
+                            label={p.label}
+                            key={p.id}
+                            onClick={() => this.onClick(p.label)}/>
+                    )}
+                </RadioGroup>
+            );
+        return <QuestionAutocomplete {...this.props}/>
     }
 
     componentDidMount() {
