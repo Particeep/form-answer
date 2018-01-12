@@ -60,7 +60,7 @@ class QuestionAutocomplete extends Component {
         this.setState({anchorEl: null});
     };
 
-    handleChange = value => {
+    handleChange = (value) => {
         let values;
         if (this.props.multiSelect) {
             if (this.props.values.indexOf(value) === -1) {
@@ -69,7 +69,10 @@ class QuestionAutocomplete extends Component {
                 values = this.props.values.filter(v => v !== value);
             }
         } else {
-            values = [value];
+            if(this.props.values.indexOf(value) === -1)
+                values = [value];
+            else
+                value =[];
         }
         this.update(values);
         this.updateValidity(values);
