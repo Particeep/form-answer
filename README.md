@@ -10,7 +10,12 @@ There is two ways to integrate Form-answer to your application.
 
 ##### If you work on a React application
 
-Then it's easy ! Import the `Form` component as follow:
+Then it's easy ! Install:
+```
+npm install https://github.com/Particeep/form-ui.git
+```
+
+Import the `Form` component as follow:
 ```
 import React, {Component} from "react";
 import {Form} from "Form";
