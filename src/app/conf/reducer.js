@@ -1,7 +1,7 @@
-import {applyMiddleware, combineReducers, createStore} from 'redux';
-import thunk from 'redux-thunk';
-import createLogger from 'redux-logger';
-import {formReducer} from 'Form';
+import {applyMiddleware, combineReducers, createStore} from "redux";
+import thunk from "redux-thunk";
+import createLogger from "redux-logger";
+import {formReducer} from "Form";
 
 export const store = createStore(
     combineReducers({

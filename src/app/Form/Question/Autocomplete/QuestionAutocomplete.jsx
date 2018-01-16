@@ -2,10 +2,6 @@ import "./QuestionAutocomplete.scss";
 
 import React, {Component} from "react";
 import {MenuItem} from "material-ui/Menu";
-
-import {connect} from "react-redux";
-import {questionWrapper} from "../questionWrapper";
-import formAction from "../../formAction";
 import {Checkbox, FormControl, Input, Menu, Radio} from "material-ui";
 
 class QuestionAutocomplete extends Component {
@@ -23,7 +19,7 @@ class QuestionAutocomplete extends Component {
                 <FormControl onClick={this.open} fullWidth>
                     <Input value={values.join(', ')} multiline readOnly rows="1" rowsMax="10"/>
                 </FormControl>
-                <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={this.handleClose}>
+                <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={this.close}>
                     <header className={'Qac_Menu_head' + (multiSelect ? ' -withCb' : '')}>
                         {multiSelect &&
                         <Checkbox onChange={this.selectAll}
@@ -46,37 +42,25 @@ class QuestionAutocomplete extends Component {
         );
     }
 
-    componentDidMount() {
-        const {values} = this.props;
-        if (values.length > 0) this.update(values);
-        this.updateValidity(values);
-    }
-
     open = event => {
         this.setState({anchorEl: event.currentTarget});
     };
 
-    handleClose = () => {
+    close = () => {
         this.setState({anchorEl: null});
     };
 
     handleChange = (value) => {
         let values;
         if (this.props.multiSelect) {
-            if (this.props.values.indexOf(value) === -1) {
-                values = this.props.values.concat(value)
-            } else {
-                values = this.props.values.filter(v => v !== value);
-            }
+            if (this.props.values.indexOf(value) === -1) values = this.props.values.concat(value)
+            else values = this.props.values.filter(v => v !== value);
         } else {
-            if(this.props.values.indexOf(value) === -1)
-                values = [value];
-            else
-                value =[];
+            if (this.props.values.indexOf(value) === -1) values = [value];
+            else value = [];
+            this.close();
         }
-        this.update(values);
-        this.updateValidity(values);
-        this.props.notifyChange(this.props.question.id);
+        this.props.onChange(values);
     };
 
     getFilteredPossibilities() {
@@ -88,29 +72,8 @@ class QuestionAutocomplete extends Component {
 
     selectAll = (event, checked) => {
         const values = checked ? this.props.question.possibilities.map(p => p.label) : [];
-        this.update(values);
-        this.updateValidity(values);
-        this.props.notifyChange(this.props.question.id);
+        this.props.onChange(values);
     };
-
-    update(values) {
-        const {dispatch, question} = this.props;
-        dispatch(formAction.updateAnswer(question.id, values));
-    }
-
-    updateValidity(values) {
-        const {dispatch, question} = this.props;
-        dispatch(formAction.updateSectionValidity(question.section_id, question.id, this.isValid(values)));
-    }
-
-    isValid(values) {
-        return !this.props.question.required || (!!values && values.length > 0);
-    }
 }
 
-const state2Props = (state, props) => ({
-    values: state.form.answers[props.question.id] || [],
-    notifyChange: state.form.notifyChange,
-});
-
-export default connect(state2Props)(questionWrapper(QuestionAutocomplete))
+export default QuestionAutocomplete;

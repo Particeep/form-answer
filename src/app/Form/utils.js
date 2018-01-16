@@ -1,7 +1,7 @@
 import {questionType} from "./Question/Question";
 
 export function mapSingleAnswer(answers) {
-    return answers && answers[0];
+    return (answers && answers[0]) || '';
 }
 
 export function parseSingleAnswer(answer) {

@@ -1,7 +1,5 @@
 import React, {Component} from "react";
 import {FormControl, MenuItem, Select} from "material-ui";
-import {connect} from "react-redux";
-import formAction from "../../formAction";
 import Input from "material-ui/Input";
 import {mapSingleAnswer, parseSingleAnswer} from "../../utils";
 import {questionWrapper} from "../questionWrapper";
@@ -11,12 +9,12 @@ import QuestionAutocomplete from "../Autocomplete/QuestionAutocomplete";
 class QuestionSelect extends Component {
 
     render() {
-        const {question, value} = this.props;
+        const {question, values} = this.props;
         if (question.possibilities.length < maxPossibilitiesBeforeAutocomplete)
             return (
                 <FormControl fullWidth style={{minHeight: '40px'}}>
                     <Select
-                        value={value || ''}
+                        value={mapSingleAnswer(values) || ''}
                         onChange={e => this.handleChange(e.target.value)}
                         input={<Input/>}>
                         <MenuItem value=""/>
@@ -29,37 +27,10 @@ class QuestionSelect extends Component {
         return <QuestionAutocomplete {...this.props}/>
     }
 
-    componentDidMount() {
-        const {value} = this.props;
-        if (value != undefined) this.update(value);
-        this.updateValidity(value);
-    }
-
     handleChange = value => {
-        this.update(value);
-        this.updateValidity(value);
-        this.props.notifyChange(this.props.question.id);
+        this.props.onChange(parseSingleAnswer(value));
+        this.props.onCheckPossibility(this.props.question.possibilities.find(p => p.label === value).id);
     };
-
-    update(value) {
-        const {dispatch, question} = this.props;
-        dispatch(formAction.updateAnswer(question.id, parseSingleAnswer(value)));
-        dispatch(formAction.addCheckedPossbility(question.id, question.possibilities.find(p => p.label == value).id));
-    }
-
-    updateValidity(value) {
-        const {dispatch, question} = this.props;
-        dispatch(formAction.updateSectionValidity(question.section_id, question.id, this.isValid(value)));
-    }
-
-    isValid(value) {
-        return !this.props.question.required || (!!value && value !== '');
-    }
 }
 
-const state2Props = (state, props) => ({
-    value: mapSingleAnswer(state.form.answers[props.question.id]),
-    notifyChange: state.form.notifyChange,
-});
-
-export default connect(state2Props)(questionWrapper(QuestionSelect))
+export default questionWrapper(QuestionSelect);
