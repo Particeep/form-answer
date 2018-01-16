@@ -6,6 +6,8 @@ Form-answer is a React application whose purpose is to answer to a form created 
 
 ### Installation
 
+Form-answer depends on [Material icons](https://material.io/icons/). See installation instructions [here](http://google.github.io/material-design-icons/#icon-font-for-the-web).
+
 There is two ways to integrate Form-answer to your application.
 
 ##### If you work on a React application
