@@ -1,7 +1,7 @@
 import "./QuestionDocument.scss";
 
 import React, {Component} from "react";
-import {Avatar, Button, Chip, CircularProgress, Icon, IconButton} from "material-ui";
+import {Avatar, Button, Chip, CircularProgress, Icon} from "material-ui";
 import {connect} from "react-redux";
 import formAction from "../../formAction";
 import {parseSingleAnswer} from "../../utils";

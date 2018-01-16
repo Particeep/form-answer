@@ -16,7 +16,7 @@ class Section extends Component {
                     if (this.showQuestion(q)) return <Question key={q.id} question={q}/>
                 })}
                 <Button raised color="primary" onClick={next} disabled={!this.isValid()}>
-                    {isLast ? messages.buttonEnd : messages.buttonNext}
+                    <span>{isLast ? messages.buttonEnd : messages.buttonNext}</span>
                 </Button>
             </main>
         );
@@ -28,22 +28,20 @@ class Section extends Component {
     }
 
     showQuestion(q) {
-        const {checkePossibilityIds} = this.props;
+        const {checkedPossibilityIds} = this.props;
         if (!q.possibility_id_dep) return true;
-        for (let k in checkePossibilityIds) {
-            if (checkePossibilityIds[k] === q.possibility_id_dep) return true;
+        for (let k in checkedPossibilityIds) {
+            if (checkedPossibilityIds[k] === q.possibility_id_dep) return true;
         }
         return false;
     }
 }
 
-function state2Props(state) {
-    return {
-        sectionsValidity: state.form.sectionsValidity,
-        answers: state.form.answers,
-        messages: state.form.messages,
-        checkePossibilityIds: state.form.checkePossibilityIds,
-    }
-}
+const state2Props = (state) => ({
+    sectionsValidity: state.form.sectionsValidity,
+    answers: state.form.answers,
+    messages: state.form.messages,
+    checkedPossibilityIds: state.form.checkedPossibilityIds,
+});
 
 export default connect(state2Props)(Section);
