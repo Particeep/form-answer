@@ -12,7 +12,7 @@ class QuestionAutocomplete extends Component {
     };
 
     render() {
-        const {values, question, multiSelect} = this.props;
+        const {values, question, multiSelect, messages} = this.props;
         const {anchorEl} = this.state;
         return (
             <div>
@@ -25,7 +25,7 @@ class QuestionAutocomplete extends Component {
                         <Checkbox onChange={this.selectAll}
                                   indeterminate={values.length > 0 && values.length < question.possibilities.length}/>
                         }
-                        <input className="Qac_Menu_input" placeholder="..."
+                        <input className="Qac_Menu_input" placeholder={messages.search + '...'}
                                onChange={e => this.setState({filter: e.target.value})}/>
                     </header>
                     <div className="Qac_Menu_items">

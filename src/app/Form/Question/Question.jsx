@@ -41,13 +41,11 @@ class Question extends Component {
     }
 
     renderQuestion(q) {
-        const {messages} = this.props;
         switch (q.question_type) {
             case questionType.TEXT:
                 return <QuestionText
                     question={q}
                     validator={this.isTextValid(q)}
-                    labelInvalid={messages.invalidText}
                 />;
 
             case questionType.LONGTEXT:
@@ -79,7 +77,6 @@ class Question extends Component {
                     question={q}
                     validator={this.isDateValid}
                     dateFormat={this.props.dateFormat}
-                    labelInvalidDate={messages.invalidDate}
                 />;
 
             case questionType.DOCUMENT:
@@ -123,7 +120,6 @@ class Question extends Component {
 const state2Props = (state, props) => ({
     answers: state.form.answers,
     dateFormat: state.form.dateFormat || '',
-    messages: state.form.messages,
 });
 
 export default connect(state2Props)(Question)

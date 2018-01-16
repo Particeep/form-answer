@@ -10,7 +10,7 @@ class QuestionText extends Component {
     };
 
     render() {
-        const {labelInvalid, values, question, multiline, rows, rowsMax} = this.props;
+        const {values, question, messages, multiline, rows, rowsMax} = this.props;
         return (
             <FormControl error={this.showError()} fullWidth>
                 <Input value={mapSingleAnswer(values)}
@@ -19,7 +19,9 @@ class QuestionText extends Component {
                        rowsMax={rowsMax}
                        onChange={e => this.handleChange(e.target.value)}
                        onBlur={() => this.setState({touched: true})}/>
-                <FormHelperText title={'pattern: ' + question.pattern}>{this.showError() ? labelInvalid : ''}</FormHelperText>
+                <FormHelperText title={'pattern: ' + question.pattern}>
+                    {this.showError() ? messages.invalidText : ''}
+                </FormHelperText>
             </FormControl>
         );
     }

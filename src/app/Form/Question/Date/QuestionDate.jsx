@@ -12,7 +12,7 @@ class QuestionDate extends Component {
     };
 
     render() {
-        const {dateFormat, values, labelInvalidDate} = this.props;
+        const {dateFormat, values, messages} = this.props;
 
         if (!dateFormat) {
             return <QuestionText {...this.props}/>
@@ -25,7 +25,7 @@ class QuestionDate extends Component {
                     onChange={e => this.handleChange(e.target.value)}
                     onBlur={() => this.setState({touched: true})}/>
                 }
-                <FormHelperText>{this.showError() ? labelInvalidDate : ''}</FormHelperText>
+                <FormHelperText>{this.showError() ? messages.invalidDate : ''}</FormHelperText>
             </FormControl>
         );
     }

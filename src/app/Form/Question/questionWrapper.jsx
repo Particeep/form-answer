@@ -48,6 +48,7 @@ export function questionWrapper(Question) {
     }
 
     const state2Props = (state, props) => ({
+        messages: state.form.messages,
         notifyChange: state.form.notifyChange,
         answers: state.form.answers,
         isValid: (state.form.sectionsValidity[props.question.section_id] || [])[props.question.id]
