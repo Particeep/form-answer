@@ -72,18 +72,6 @@ let config = {
             loader: 'babel'
         }]
     },
-    // postcss: function () {
-    // 	return [
-    // 		autoprefixer({
-    // 			browsers: [
-    // 				'>1%',
-    // 				'last 4 versions',
-    // 				'Firefox ESR',
-    // 				'not ie < 9',
-    // 			]
-    // 		}),
-    // 	];
-    // },
     eslint: {
         failOnError: true,
     }
@@ -113,10 +101,11 @@ if (prod) {
             minimize: true
         },
         output: {
-            path: path.resolve('../public/dist'),
-            filename: 'static/js/bundle.js',
-            sourceMapFilename: 'bundle.map',
-            publicPath: '/'
+            path: path.resolve('./dist'),
+            filename: 'form-answer.js',
+            sourceMapFilename: 'form-answer.map',
+            library: 'form-answer',
+            libraryTarget: 'umd'
         }
     });
 } else {
