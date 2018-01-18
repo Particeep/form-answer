@@ -14,6 +14,7 @@ class QuestionAutocomplete extends Component {
     render() {
         const {values, question, multiSelect, messages} = this.props;
         const {anchorEl} = this.state;
+        console.log(values);
         return (
             <div>
                 <FormControl onClick={this.open} fullWidth>
