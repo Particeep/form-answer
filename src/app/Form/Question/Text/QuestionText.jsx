@@ -33,7 +33,10 @@ class QuestionText extends Component {
     showError() {
         const value = mapSingleAnswer(this.props.values);
         if (this.props.isValid) return false;
-        if (this.props.question.required && (!value || value === '') && !this.state.touched) return false;
+        if ((!value || value === '')) {
+            if (!this.state.touched) return false;
+            return this.props.question.required;
+        }
         return true;
     }
 }

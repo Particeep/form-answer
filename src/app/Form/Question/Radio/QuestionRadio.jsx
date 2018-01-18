@@ -9,10 +9,11 @@ class QuestionRadio extends Component {
 
     render() {
         const {question, values} = this.props;
+        const value = mapSingleAnswer(values);
         if (question.possibilities.length < maxPossibilitiesBeforeAutocomplete)
             return (
                 <RadioGroup
-                    value={values}
+                    value={value}
                     onChange={e => this.handleChange(e.target.value)}
                 >
                     {question.possibilities.map(p =>
@@ -21,7 +22,7 @@ class QuestionRadio extends Component {
                             control={<Radio/>}
                             label={p.label}
                             key={p.id}
-                            onClick={() => values === p.label && this.handleChange('')}/>
+                            onClick={() => value === p.label && this.handleChange('')}/>
                     )}
                 </RadioGroup>
             );
@@ -35,8 +36,4 @@ class QuestionRadio extends Component {
     };
 }
 
-const mapProps = Component => props => {
-    const {values, ...other} = props;
-    return <Component values={mapSingleAnswer(values)} {...other}/>
-}
-export default questionWrapper(mapProps(QuestionRadio));
+export default questionWrapper(QuestionRadio);

@@ -47,9 +47,12 @@ class QuestionDate extends Component {
     };
 
     showError() {
-        const values = this.props;
-        if (this.isValid()) return false;
-        if (this.props.question.required && (!values || values === '') && !this.state.touched) return false;
+        const value = mapSingleAnswer(this.props.values);
+        if (this.props.isValid) return false;
+        if ((!value || value === '')) {
+            if (!this.state.touched) return false;
+            return this.props.question.required;
+        }
         return true;
     }
 
