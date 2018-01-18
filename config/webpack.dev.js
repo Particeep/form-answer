@@ -17,6 +17,10 @@ module.exports = webpackMerge(commonConfig, {
         chunkFilename: '[id].chunk.js'
     },
 
+    entry: {
+        'utils': require.resolve('react-dev-utils/webpackHotDevClient'),
+    },
+
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {

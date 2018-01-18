@@ -14,7 +14,6 @@ module.exports = {
         root: [path.join(process.cwd(), 'node_modules')]
     },
     entry: {
-        'utils': require.resolve('react-dev-utils/webpackHotDevClient'),
         'vendor': path.resolve('src/app/vendor.js'),
         'app': path.resolve('src/app/index.jsx'),
     },
