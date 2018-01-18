@@ -1,4 +1,4 @@
-import update from 'immutability-helper';
+import update from "immutability-helper";
 import formAction from "./formAction";
 
 const DEFAULT_REDUCER = {
@@ -14,7 +14,7 @@ const DEFAULT_REDUCER = {
     answers: {},
     sectionsValidity: {},
     uploadingDocuments: {},
-    checkePossibilityIds: {},
+    checkedPossibilityIds: {},
 };
 
 export const formReducer = function (state = DEFAULT_REDUCER, a) {
@@ -53,13 +53,13 @@ export const formReducer = function (state = DEFAULT_REDUCER, a) {
             });
         case formAction.ADD_CHECKED_POSSIBILITY:
             return update(state, {
-                checkePossibilityIds: {
+                checkedPossibilityIds: {
                     [a.questionId]: {$set: a.possiblityId}
                 }
             });
         case formAction.REMOVE_CHECKED_POSSIBILITY:
             return update(state, {
-                checkePossibilityIds: {$unset: [a.questionId]}
+                checkedPossibilityIds: {$unset: [a.questionId]}
             });
         case formAction.DOCUMENT_UPLOADING:
             return update(state, {

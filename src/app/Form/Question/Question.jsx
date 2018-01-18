@@ -9,6 +9,7 @@ import QuestionSelect from "./Select/QuestionSelect";
 import QuestionCheckbox from "./Checkbox/QuestionCheckbox";
 import QuestionDate from "./Date/QuestionDate";
 import QuestionDocument from "./Document/QuestionDocument";
+import {mapSingleAnswer} from "../utils";
 
 export const questionType = {
     TEXT: 'TEXT',
@@ -20,6 +21,8 @@ export const questionType = {
     DOCUMENT: 'DOCUMENT',
     LABEL: 'LABEL',
 };
+
+export const maxPossibilitiesBeforeAutocomplete = 10;
 
 class Question extends Component {
 
@@ -39,29 +42,86 @@ class Question extends Component {
     renderQuestion(q) {
         switch (q.question_type) {
             case questionType.TEXT:
-                return <QuestionText question={q}/>;
+                return <QuestionText
+                    question={q}
+                    validator={this.isTextValid}
+                />;
+
             case questionType.LONGTEXT:
-                return <QuestionLongText question={q}/>;
+                return <QuestionLongText
+                    question={q}
+                    validator={this.isTextValid}
+                />;
+
             case questionType.RADIO:
-                return <QuestionRadio question={q}/>;
+                return <QuestionRadio
+                    question={q}
+                    validator={this.isRadioValid}
+                />;
+
             case questionType.SELECT:
-                return <QuestionSelect question={q}/>;
+                return <QuestionSelect
+                    question={q}
+                    validator={this.isSelectValid}
+                />;
+
             case questionType.CHECKBOX:
-                return <QuestionCheckbox question={q}/>;
+                return <QuestionCheckbox
+                    question={q}
+                    validator={this.isCheckboxValid}
+                />;
+
             case questionType.DATE:
-                return <QuestionDate question={q}/>;
+                return <QuestionDate
+                    question={q}
+                    validator={this.isDateValid}
+                    dateFormat={this.props.dateFormat}
+                />;
+
             case questionType.DOCUMENT:
                 return <QuestionDocument question={q}/>;
+
             case questionType.LABEL:
                 return '';
+
             default:
-                return <QuestionText question={q}/>;
+                return <QuestionText
+                    question={q}
+                    validator={this.isTextValid(q)}
+                />;
         }
     }
+
+    isSelectValid = values => {
+        return this.isRadioValid(values);
+    };
+
+    isRadioValid = values => {
+        const value = mapSingleAnswer(values);
+        return !this.props.question.required || (!!value && value !== '');
+    };
+
+    isTextValid = values => {
+        const {question} = this.props;
+        const value = mapSingleAnswer(values);
+        if (question.required && (!value || value === '')) return false;
+        return !question.pattern || new RegExp(question.pattern).test(value);
+    };
+
+    isCheckboxValid = values => {
+        return !this.props.question.required || (!!values && values.length > 0);
+    };
+
+    isDateValid = value => {
+        const {question} = this.props;
+        if (!question.required && (!value || value === '')) return true;
+        return !isNaN(new Date(value).getTime())
+    };
 }
 
 const state2Props = (state, props) => ({
     answers: state.form.answers,
+    dateFormat: state.form.dateFormat || '',
 });
 
 export default connect(state2Props)(Question)

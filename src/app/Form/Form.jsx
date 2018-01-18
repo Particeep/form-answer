@@ -43,18 +43,18 @@ class Form extends Component {
 
     notifyChange = (questionIdAnswered) => {
         setTimeout(() => this.props.onChange(
-            {[questionIdAnswered]: this.props.answers[questionIdAnswered]},
-            this.props.answers,
+            {question_id: questionIdAnswered, answer: this.props.answers[questionIdAnswered]},
+            this.parseAnswersForApi(this.props.answers),
         ));
     };
 
     next = (sectionIndex) => {
-        this.props.onSectionEnd(this.getSectionAnswers(sectionIndex));
+        this.props.onSectionEnd(this.parseAnswersForApi(this.getSectionAnswers(sectionIndex)));
     };
 
     end = () => {
-        this.props.onSectionEnd(this.getSectionAnswers(this.props.form.sections.length - 1));
-        this.props.onEnd(this.props.answers);
+        this.props.onSectionEnd(this.parseAnswersForApi(this.getSectionAnswers(this.props.form.sections.length - 1)));
+        this.props.onEnd(this.parseAnswersForApi(this.props.answers));
     };
 
     getSectionAnswers(sectionIndex) {
@@ -64,6 +64,10 @@ class Form extends Component {
             obj[key] = answers[key];
             return obj;
         }, {});
+    }
+
+    parseAnswersForApi(answers) {
+        return Object.keys(answers).map(key => ({question_id: key, answer: answers[key]}));
     }
 }
 

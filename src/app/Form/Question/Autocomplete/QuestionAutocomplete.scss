@@ -1,0 +1,28 @@
+@import 'src/scss/all';
+
+.Qac_Menu_head {
+  padding: 0 padding() padding(1) padding();
+  border-bottom: 1px solid $color-divider;
+  display: flex;
+  align-items: center;
+
+  &.-withCb {
+    padding-left: 0;
+  }
+}
+  .Qac_Menu_input {
+    background: none;
+    border: none;
+    width: 100%;
+    height: 30px;
+  }
+    .Qac_adornment {
+      height: 20px !important;
+      color: $text-color-light !important;
+      vertical-align: top;
+    }
+
+.Qac_Menu_items {
+  max-height: 300px;
+  overflow-y: auto;
+}
