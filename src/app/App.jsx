@@ -6,6 +6,10 @@ import {Form} from "Form";
 class App extends Component {
 
     render() {
+        if (!window.formAnswer.form) {
+            console.error('No form passed in object \'window.formAnswer.form\'');
+            return <div>No form passed in object 'window.formAnswer.form'</div>;
+        }
         return (
             <Form
                 form={window.formAnswer.form}
@@ -20,20 +24,28 @@ class App extends Component {
     }
 
     uploadFile = (file, callback) => {
-        window.formAnswer.onUploadFile(file, callback);
+        if (this.isCallbackDefined(window.formAnswer.onUploadFile))
+            window.formAnswer.onUploadFile(file, callback);
     };
 
     changed = (answers, answer) => {
-        window.formAnswer.onChange(answers, answer);
+        if (this.isCallbackDefined(window.formAnswer.onChange))
+            window.formAnswer.onChange(answers, answer);
     };
 
     sectionEnded = (sectionAnswers) => {
-        window.formAnswer.onSectionEnd(sectionAnswers);
+        if (this.isCallbackDefined(window.formAnswer.onSectionEnd))
+            window.formAnswer.onSectionEnd(sectionAnswers);
     };
 
     ended = (answers) => {
-        window.formAnswer.onEnd(answers);
+        if (this.isCallbackDefined(window.formAnswer.onEnd))
+            window.formAnswer.onEnd(answers);
     };
+
+    isCallbackDefined(callback) {
+        return callback && typeof callback === 'function';
+    }
 }
 
 export default App;

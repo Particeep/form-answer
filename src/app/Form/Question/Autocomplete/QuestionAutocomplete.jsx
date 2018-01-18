@@ -2,7 +2,7 @@ import "./QuestionAutocomplete.scss";
 
 import React, {Component} from "react";
 import {MenuItem} from "material-ui/Menu";
-import {Checkbox, FormControl, Input, Menu, Radio} from "material-ui";
+import {Checkbox, FormControl, Icon, Input, InputAdornment, Menu, Radio} from "material-ui";
 
 class QuestionAutocomplete extends Component {
 
@@ -17,7 +17,13 @@ class QuestionAutocomplete extends Component {
         return (
             <div>
                 <FormControl onClick={this.open} fullWidth>
-                    <Input value={values.join(', ')} multiline readOnly rows="1" rowsMax="10"/>
+                    <Input value={values.join(', ')} multiline readOnly rows="1" rowsMax="10"
+                           endAdornment={
+                               <InputAdornment position="end">
+                                   <Icon className="Qac_adornment">arrow_drop_down</Icon>
+                               </InputAdornment>
+                           }
+                    />
                 </FormControl>
                 <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={this.close}>
                     <header className={'Qac_Menu_head' + (multiSelect ? ' -withCb' : '')}>

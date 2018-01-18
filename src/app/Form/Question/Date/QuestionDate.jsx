@@ -1,18 +1,20 @@
 import React, {Component} from "react";
-import {mapSingleAnswer, parseSingleAnswer, stringToDate} from "../../utils";
 import InputDate from "../../../InputDate/InputDate";
 import {FormControl, FormHelperText} from "material-ui";
 import QuestionText from "../Text/QuestionText";
 import {questionWrapper} from "../questionWrapper";
+import {apiFormatToDate, dateToApiFormat, mapSingleAnswer, parseSingleAnswer} from "../../utils";
+import moment from "moment";
 
 class QuestionDate extends Component {
 
     state = {
         touched: false,
+        value: '',
     };
 
     render() {
-        const {dateFormat, values, messages} = this.props;
+        const {dateFormat, messages} = this.props;
 
         if (!dateFormat) {
             return <QuestionText {...this.props}/>
@@ -21,7 +23,8 @@ class QuestionDate extends Component {
             <FormControl error={this.showError()} fullWidth>
                 {dateFormat &&
                 <InputDate
-                    value={mapSingleAnswer(values)} format={dateFormat}
+                    value={this.state.value}
+                    format={dateFormat}
                     onChange={e => this.handleChange(e.target.value)}
                     onBlur={() => this.setState({touched: true})}/>
                 }
@@ -30,15 +33,28 @@ class QuestionDate extends Component {
         );
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.values !== this.props.values) {
+            const date = mapSingleAnswer(this.props.values);
+            this.setState({value: date ? apiFormatToDate(date, this.props.dateFormat) : ''});
+        }
+    }
+
     handleChange = value => {
-        this.props.onChange(parseSingleAnswer(value));
+        this.setState({value});
+        const parsedValue = dateToApiFormat(value, this.props.dateFormat);
+        if (parsedValue && this.props.validator(parsedValue)) this.props.onChange(parseSingleAnswer(parsedValue));
     };
 
     showError() {
-        const value = mapSingleAnswer(this.props.values);
-        if (this.props.isValid) return false;
-        if (this.props.question.required && (!value || value === '') && !this.state.touched) return false;
+        const values = this.props;
+        if (this.isValid()) return false;
+        if (this.props.question.required && (!values || values === '') && !this.state.touched) return false;
         return true;
+    }
+
+    isValid() {
+        return moment(this.state.value, this.props.dateFormat.toUpperCase(), true).isValid()
     }
 }
 

@@ -10,7 +10,6 @@ import QuestionCheckbox from "./Checkbox/QuestionCheckbox";
 import QuestionDate from "./Date/QuestionDate";
 import QuestionDocument from "./Document/QuestionDocument";
 import {mapSingleAnswer} from "../utils";
-import moment from "moment";
 
 export const questionType = {
     TEXT: 'TEXT',
@@ -45,13 +44,13 @@ class Question extends Component {
             case questionType.TEXT:
                 return <QuestionText
                     question={q}
-                    validator={this.isTextValid(q)}
+                    validator={this.isTextValid}
                 />;
 
             case questionType.LONGTEXT:
                 return <QuestionLongText
                     question={q}
-                    validator={this.isTextValid(q)}
+                    validator={this.isTextValid}
                 />;
 
             case questionType.RADIO:
@@ -102,7 +101,8 @@ class Question extends Component {
         return !this.props.question.required || (!!value && value !== '');
     };
 
-    isTextValid = question => values => {
+    isTextValid = values => {
+        const {question} = this.props;
         const value = mapSingleAnswer(values);
         if (question.required && (!value || value === '')) return false;
         return !question.pattern || new RegExp(question.pattern).test(value);
@@ -113,7 +113,9 @@ class Question extends Component {
     };
 
     isDateValid = value => {
-        return moment(value, this.props.dateFormat.toUpperCase(), true).isValid();
+        const {question} = this.props;
+        if (!question.required && (!value || value === '')) return true;
+        return !isNaN(new Date(value).getTime())
     };
 }
 
