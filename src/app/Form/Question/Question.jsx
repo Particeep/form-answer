@@ -79,7 +79,10 @@ class Question extends Component {
                 />;
 
             case questionType.DOCUMENT:
-                return <QuestionDocument question={q}/>;
+                return <QuestionDocument
+                    question={q}
+                    validator={this.isDocumentValid}
+                />;
 
             case questionType.LABEL:
                 return '';
@@ -113,6 +116,11 @@ class Question extends Component {
     isDateValid = value => {
         return moment(value, this.props.dateFormat.toUpperCase(), true).isValid()
     };
+
+    isDocumentValid = value => {
+        const {question} = this.props;
+        return !question.required || (value && value.length === 2);
+    }
 }
 
 const state2Props = (state, props) => ({

@@ -57,7 +57,7 @@ class Form extends Component {
     onFileUploaded = (sectionId, questionId) => uploadedFile => {
         const {dispatch} = this.props;
         dispatch(formAction.documentUploading(questionId, false));
-        dispatch(formAction.updateAnswer(questionId, [uploadedFile.name, uploadedFile.permalink]));
+        dispatch(formAction.updateAnswer(questionId, questionType.DOCUMENT, [uploadedFile.name, uploadedFile.permalink]));
         dispatch(formAction.updateSectionValidity(sectionId, questionId, true));
     };
 

@@ -27,7 +27,10 @@ export class ApiParser {
             fromApi: value => value || [],
             toApi: value => value.length === 0 ? null : value
         },
-        DOCUMENT: {},
+        DOCUMENT: {
+            fromApi: value => value || [],
+            toApi: value => value.length === 0 ? null : value
+        },
         LABEL: {
             fromApi: value => null,
             toApi: value => null
