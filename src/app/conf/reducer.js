@@ -5,7 +5,7 @@ import {formReducer} from "Form";
 
 export const store = createStore(
     combineReducers({
-        form: formReducer
+        formAnswer: formReducer
     }),
     process.env.NODE_ENV === 'production'
         ? applyMiddleware(thunk)

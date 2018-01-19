@@ -72,7 +72,7 @@ class Form extends Component {
 }
 
 const state2Props = (state) => ({
-    answers: state.form.answers,
+    answers: state.formAnswer.answers,
 });
 
 export default connect(state2Props)(Form);
