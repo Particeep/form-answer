@@ -17,7 +17,7 @@ class QuestionAutocomplete extends Component {
         return (
             <div>
                 <FormControl onClick={this.open} fullWidth>
-                    <Input value={value.join(', ')} multiline readOnly rows="1" rowsMax="10"
+                    <Input value={multiSelect ? value.join(', ') : value} multiline readOnly rows="1" rowsMax="10"
                            endAdornment={
                                <InputAdornment position="end">
                                    <Icon className="Qac_adornment">arrow_drop_down</Icon>
@@ -57,16 +57,16 @@ class QuestionAutocomplete extends Component {
     };
 
     handleChange = (value) => {
-        let values;
+        let newValue;
         if (this.props.multiSelect) {
-            if (this.props.value.indexOf(value) === -1) values = this.props.value.concat(value)
-            else values = this.props.value.filter(v => v !== value);
+            if (this.props.value.indexOf(value) === -1) newValue = this.props.value.concat(value);
+            else newValue = this.props.value.filter(v => v !== value);
         } else {
-            if (this.props.value.indexOf(value) === -1) values = [value];
-            else value = [];
+            if (this.props.value.indexOf(value) === -1) newValue = value;
+            else value = '';
             this.close();
         }
-        this.props.onChange(values);
+        this.props.onChange(newValue);
     };
 
     getFilteredPossibilities() {
