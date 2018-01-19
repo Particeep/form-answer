@@ -28,7 +28,10 @@ export class ApiParser {
             toApi: value => value.length === 0 ? null : value
         },
         DOCUMENT: {},
-        LABEL: {},
+        LABEL: {
+            fromApi: value => null,
+            toApi: value => null
+        },
     };
 
     constructor(dateFormat) {

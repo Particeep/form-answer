@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import formAction from "./formAction";
 import {isFunction} from "./utils";
 import {ApiParser} from "./api-parser";
+import {questionType} from "./Question/Question";
 
 class Form extends Component {
 
@@ -37,13 +38,14 @@ class Form extends Component {
     }
 
     initAnswers() {
-        this.props.form.sections.forEach(s => s.questions.forEach(q =>
+        this.props.form.sections.forEach(s => s.questions.forEach(q => {
+            if (q.question_type === questionType.LABEL) return;
             this.props.dispatch(formAction.updateAnswer(
                 q.id,
                 q.question_type,
                 this.parser.fromApi(q.question_type)(q.answers)
             ))
-        ));
+        }));
     }
 
     onUploadFile = (sectionId, questionId, file) => {
