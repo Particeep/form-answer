@@ -95,14 +95,14 @@ class QuestionDocument extends Component {
 }
 
 const state2Props = (state, props) => {
-    const answer = state.form.answers[props.question.id] || [];
+    const answer = state.formAnswer.answers[props.question.id] || [];
     return {
         documentName: answer[0],
         documentUrl: answer[1],
-        onUploadFile: state.form.onUploadFile,
-        messages: state.form.messages,
-        maxUploadFileSize: state.form.maxUploadFileSize,
-        isUploading: state.form.uploadingDocuments[props.question.id],
+        onUploadFile: state.formAnswer.onUploadFile,
+        messages: state.formAnswer.messages,
+        maxUploadFileSize: state.formAnswer.maxUploadFileSize,
+        isUploading: state.formAnswer.uploadingDocuments[props.question.id],
     }
 };
 

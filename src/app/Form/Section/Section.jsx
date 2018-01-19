@@ -38,10 +38,10 @@ class Section extends Component {
 }
 
 const state2Props = (state) => ({
-    sectionsValidity: state.form.sectionsValidity,
-    answers: state.form.answers,
-    messages: state.form.messages,
-    checkedPossibilityIds: state.form.checkedPossibilityIds,
+    sectionsValidity: state.formAnswer.sectionsValidity,
+    answers: state.formAnswer.answers,
+    messages: state.formAnswer.messages,
+    checkedPossibilityIds: state.formAnswer.checkedPossibilityIds,
 });
 
 export default connect(state2Props)(Section);

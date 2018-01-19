@@ -120,8 +120,8 @@ class Question extends Component {
 }
 
 const state2Props = (state, props) => ({
-    answers: state.form.answers,
-    dateFormat: state.form.dateFormat || '',
+    answers: state.formAnswer.answers,
+    dateFormat: state.formAnswer.dateFormat || '',
 });
 
 export default connect(state2Props)(Question)
