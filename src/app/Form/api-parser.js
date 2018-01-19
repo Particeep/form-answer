@@ -55,7 +55,7 @@ export class ApiParser {
 
     parseSingleAnswer(answer) {
         if (answer || answer === '') return [answer];
-        return undefined;
+        return null;
     }
 
     toApiDate(string) {

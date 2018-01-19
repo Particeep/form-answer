@@ -90,9 +90,15 @@ class Form extends Component {
         }, {});
     }
 
-    parseAnswers = (answers) => Object.keys(answers).map(key => this.parseAnswer(key, answers[key]));
+    parseAnswers = (answers) => {
+        return Object.keys(answers).map(k => this.parseAnswer(k, answers[k])).filter(v => v);
+    };
 
-    parseAnswer = (id, answer) => ({question_id: id, answer: this.parser.toApi(answer.type)(answer.value)})
+    parseAnswer = (id, answer) => {
+        const value = this.parser.toApi(answer.type)(answer.value);
+        if (value)
+            return {question_id: id, answer: value}
+    };
 }
 
 const state2Props = (state) => ({
