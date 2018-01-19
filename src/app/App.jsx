@@ -2,7 +2,7 @@ import "normalize.css/normalize.css";
 
 import React, {Component} from "react";
 import {Form} from "Form";
-import {isFunction} from 'Form/utils.js'
+import {isFunction} from "Form/utils.js";
 
 class App extends Component {
 
