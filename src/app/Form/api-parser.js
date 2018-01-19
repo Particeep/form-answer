@@ -15,7 +15,10 @@ export class ApiParser {
             fromApi: value => this.fromApiDate(this.mapSingleAnswer(value)),
             toApi: value => this.parseSingleAnswer(this.toApiDate(value))
         },
-        RADIO: {},
+        RADIO: {
+            fromApi: value => this.mapSingleAnswer(value),
+            toApi: value => this.parseSingleAnswer(value)
+        },
         SELECT: {},
         CHECKBOX: {
             fromApi: value => value || [],
@@ -48,13 +51,11 @@ export class ApiParser {
 
     toApiDate(string) {
         const date = moment(string, this.dateFormat.toUpperCase(), true);
-        if (date.isValid())
-            return date.toDate().toISOString().split('.')[0] + 'Z';
+        if (date.isValid()) return date.toDate().toISOString().split('.')[0] + 'Z';
     }
 
     fromApiDate(date) {
-        if (date)
-            return moment(date).format(this.dateFormat.toUpperCase());
+        if (date) return moment(date).format(this.dateFormat.toUpperCase());
         return '';
     }
 }

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {FormControlLabel, Radio, RadioGroup} from "material-ui";
-import {mapSingleAnswer, parseSingleAnswer} from "../../utils";
+import {parseSingleAnswer} from "../../utils";
 import {questionWrapper} from "../questionWrapper";
 import {maxPossibilitiesBeforeAutocomplete} from "../Question";
 import QuestionAutocomplete from "../Autocomplete/QuestionAutocomplete";
@@ -8,8 +8,8 @@ import QuestionAutocomplete from "../Autocomplete/QuestionAutocomplete";
 class QuestionRadio extends Component {
 
     render() {
-        const {question, values} = this.props;
-        const value = mapSingleAnswer(values);
+        const {question, value} = this.props;
+        console.log(value);
         if (question.possibilities.length < maxPossibilitiesBeforeAutocomplete)
             return (
                 <RadioGroup
@@ -30,7 +30,7 @@ class QuestionRadio extends Component {
     }
 
     handleChange = value => {
-        this.props.onChange(parseSingleAnswer(value));
+        this.props.onChange(value);
         const possibility = this.props.question.possibilities.find(p => p.label === value);
         if (possibility) this.props.onCheckPossibility(possibility.id);
     };
