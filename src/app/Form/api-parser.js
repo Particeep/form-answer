@@ -5,9 +5,12 @@ export class ApiParser {
     methods = {
         TEXT: {
             fromApi: value => this.mapSingleAnswer(value),
-            toApi: value => this.toApiDate(value)
+            toApi: value => this.parseSingleAnswer(value)
         },
-        LONGTEXT: {},
+        LONGTEXT: {
+            fromApi: value => this.mapSingleAnswer(value),
+            toApi: value => this.parseSingleAnswer(value)
+        },
         DATE: {
             fromApi: value => this.fromApiDate(this.mapSingleAnswer(value)),
             toApi: value => this.parseSingleAnswer(this.toApiDate(value))
