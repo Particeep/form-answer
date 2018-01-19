@@ -9,7 +9,6 @@ class QuestionRadio extends Component {
 
     render() {
         const {question, value} = this.props;
-        console.log(value);
         if (question.possibilities.length < maxPossibilitiesBeforeAutocomplete)
             return (
                 <RadioGroup

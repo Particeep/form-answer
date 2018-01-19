@@ -19,7 +19,10 @@ export class ApiParser {
             fromApi: value => this.mapSingleAnswer(value),
             toApi: value => this.parseSingleAnswer(value)
         },
-        SELECT: {},
+        SELECT: {
+            fromApi: value => this.mapSingleAnswer(value),
+            toApi: value => this.parseSingleAnswer(value)
+        },
         CHECKBOX: {
             fromApi: value => value || [],
             toApi: value => value.length === 0 ? null : value
