@@ -15,9 +15,12 @@ class Section extends Component {
                 {section.questions.map(q => {
                     if (this.showQuestion(q)) return <Question key={q.id} question={q}/>
                 })}
-                <Button raised color="primary" onClick={next} disabled={!this.isValid()}>
-                    <span>{isLast ? messages.buttonEnd : messages.buttonNext}</span>
-                </Button>
+                <div className="Section_action">
+                    <Button raised color="primary" onClick={next} disabled={!this.isValid()}
+                            className={'Section_' + (isLast ? 'end' : 'next')}>
+                        <span>{isLast ? messages.buttonEnd : messages.buttonNext}</span>
+                    </Button>
+                </div>
             </main>
         );
     }
