@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {FormControl, MenuItem, Select} from "material-ui";
 import Input from "material-ui/Input";
-import {mapSingleAnswer, parseSingleAnswer} from "../../utils";
 import {questionWrapper} from "../questionWrapper";
 import {maxPossibilitiesBeforeAutocomplete} from "../Question";
 import QuestionAutocomplete from "../Autocomplete/QuestionAutocomplete";
@@ -9,12 +8,12 @@ import QuestionAutocomplete from "../Autocomplete/QuestionAutocomplete";
 class QuestionSelect extends Component {
 
     render() {
-        const {question, values} = this.props;
+        const {question, value} = this.props;
         if (question.possibilities.length < maxPossibilitiesBeforeAutocomplete)
             return (
                 <FormControl fullWidth style={{minHeight: '40px'}}>
                     <Select
-                        value={mapSingleAnswer(values) || ''}
+                        value={value}
                         onChange={e => this.handleChange(e.target.value)}
                         input={<Input/>}>
                         <MenuItem value=""/>
@@ -28,8 +27,9 @@ class QuestionSelect extends Component {
     }
 
     handleChange = value => {
-        this.props.onChange(parseSingleAnswer(value));
-        this.props.onCheckPossibility(this.props.question.possibilities.find(p => p.label === value).id);
+        this.props.onChange(value);
+        const possibility = this.props.question.possibilities.find(p => p.label === value);
+        if (possibility) this.props.onCheckPossibility(possibility.id);
     };
 }
 

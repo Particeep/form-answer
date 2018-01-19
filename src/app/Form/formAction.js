@@ -14,10 +14,10 @@ const formAction = {
         });
     },
 
-    updateAnswer: (questionId, answer) => dispatch => {
+    updateAnswer: (questionId, questionType, answer) => dispatch => {
         dispatch({
             type: formAction.UPDATE_ANSWER,
-            questionId, answer,
+            questionId, questionType, answer,
         });
     },
 

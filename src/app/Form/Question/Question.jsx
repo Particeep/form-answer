@@ -9,7 +9,7 @@ import QuestionSelect from "./Select/QuestionSelect";
 import QuestionCheckbox from "./Checkbox/QuestionCheckbox";
 import QuestionDate from "./Date/QuestionDate";
 import QuestionDocument from "./Document/QuestionDocument";
-import {mapSingleAnswer} from "../utils";
+import moment from "moment";
 
 export const questionType = {
     TEXT: 'TEXT',
@@ -79,7 +79,10 @@ class Question extends Component {
                 />;
 
             case questionType.DOCUMENT:
-                return <QuestionDocument question={q}/>;
+                return <QuestionDocument
+                    question={q}
+                    validator={this.isDocumentValid}
+                />;
 
             case questionType.LABEL:
                 return '';
@@ -92,31 +95,32 @@ class Question extends Component {
         }
     }
 
-    isSelectValid = values => {
-        return this.isRadioValid(values);
+    isSelectValid = value => {
+        return this.isRadioValid(value);
     };
 
-    isRadioValid = values => {
-        const value = mapSingleAnswer(values);
-        return !this.props.question.required || (!!value && value !== '');
+    isRadioValid = value => {
+        return !this.props.question.required || value !== '';
     };
 
-    isTextValid = values => {
+    isTextValid = value => {
         const {question} = this.props;
-        const value = mapSingleAnswer(values);
-        if (question.required && (!value || value === '')) return false;
+        if (question.required && value === '') return false;
         return !question.pattern || new RegExp(question.pattern).test(value);
     };
 
     isCheckboxValid = values => {
-        return !this.props.question.required || (!!values && values.length > 0);
+        return !this.props.question.required || values.length > 0;
     };
 
     isDateValid = value => {
-        const {question} = this.props;
-        if (!question.required && (!value || value === '')) return true;
-        return !isNaN(new Date(value).getTime())
+        if (!this.props.question.required && value === '') return true;
+        return moment(value, this.props.dateFormat.toUpperCase(), true).isValid()
     };
+
+    isDocumentValid = value => {
+        return !this.props.question.required || value.length === 2;
+    }
 }
 
 const state2Props = (state, props) => ({
