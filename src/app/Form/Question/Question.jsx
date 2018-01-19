@@ -100,26 +100,26 @@ class Question extends Component {
     };
 
     isRadioValid = value => {
-        return !this.props.question.required || (!!value && value !== '');
+        return !this.props.question.required || value !== '';
     };
 
     isTextValid = value => {
         const {question} = this.props;
-        if (question.required && (!value || value === '')) return false;
+        if (question.required && value === '') return false;
         return !question.pattern || new RegExp(question.pattern).test(value);
     };
 
     isCheckboxValid = values => {
-        return !this.props.question.required || (!!values && values.length > 0);
+        return !this.props.question.required || values.length > 0;
     };
 
     isDateValid = value => {
+        if (!this.props.question.required && value === '') return true;
         return moment(value, this.props.dateFormat.toUpperCase(), true).isValid()
     };
 
     isDocumentValid = value => {
-        const {question} = this.props;
-        return !question.required || (value && value.length === 2);
+        return !this.props.question.required || value.length === 2;
     }
 }
 
