@@ -10,6 +10,7 @@ import QuestionCheckbox from "./Checkbox/QuestionCheckbox";
 import QuestionDate from "./Date/QuestionDate";
 import QuestionDocument from "./Document/QuestionDocument";
 import {mapSingleAnswer} from "../utils";
+import moment from "moment";
 
 export const questionType = {
     TEXT: 'TEXT',
@@ -113,9 +114,7 @@ class Question extends Component {
     };
 
     isDateValid = value => {
-        const {question} = this.props;
-        if (!question.required && (!value || value === '')) return true;
-        return !isNaN(new Date(value).getTime())
+        return moment(value, this.props.dateFormat.toUpperCase(), true).isValid()
     };
 }
 

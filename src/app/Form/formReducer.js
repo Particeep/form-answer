@@ -30,7 +30,7 @@ export const formReducer = function (state = DEFAULT_REDUCER, a) {
         case formAction.UPDATE_ANSWER:
             return update(state, {
                 answers: {
-                    $merge: {[a.questionId]: a.answer}
+                    $merge: {[a.questionId]: {value: a.answer, type: a.questionType}}
                 }
             });
         case formAction.REMOVE_ANSWER:
