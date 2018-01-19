@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {FormControl, FormHelperText, Input} from "material-ui";
-import {mapSingleAnswer, parseSingleAnswer} from "../../utils";
 import {questionWrapper} from "../questionWrapper";
 
 class QuestionText extends Component {

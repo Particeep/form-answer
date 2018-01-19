@@ -9,7 +9,6 @@ import QuestionSelect from "./Select/QuestionSelect";
 import QuestionCheckbox from "./Checkbox/QuestionCheckbox";
 import QuestionDate from "./Date/QuestionDate";
 import QuestionDocument from "./Document/QuestionDocument";
-import {mapSingleAnswer} from "../utils";
 import moment from "moment";
 
 export const questionType = {
@@ -93,18 +92,16 @@ class Question extends Component {
         }
     }
 
-    isSelectValid = values => {
-        return this.isRadioValid(values);
+    isSelectValid = value => {
+        return this.isRadioValid(value);
     };
 
-    isRadioValid = values => {
-        const value = mapSingleAnswer(values);
+    isRadioValid = value => {
         return !this.props.question.required || (!!value && value !== '');
     };
 
-    isTextValid = values => {
+    isTextValid = value => {
         const {question} = this.props;
-        const value = mapSingleAnswer(values);
         if (question.required && (!value || value === '')) return false;
         return !question.pattern || new RegExp(question.pattern).test(value);
     };

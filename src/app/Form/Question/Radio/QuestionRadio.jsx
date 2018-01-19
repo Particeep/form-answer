@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {FormControlLabel, Radio, RadioGroup} from "material-ui";
-import {parseSingleAnswer} from "../../utils";
 import {questionWrapper} from "../questionWrapper";
 import {maxPossibilitiesBeforeAutocomplete} from "../Question";
 import QuestionAutocomplete from "../Autocomplete/QuestionAutocomplete";
