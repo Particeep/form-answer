@@ -8,7 +8,7 @@ import QuestionAutocomplete from "../Autocomplete/QuestionAutocomplete";
 class QuestionSelect extends Component {
 
     render() {
-        const {question, value} = this.props;
+        const {question, value, ...other} = this.props;
         if (question.possibilities.length < maxPossibilitiesBeforeAutocomplete)
             return (
                 <FormControl fullWidth style={{minHeight: '40px'}}>
@@ -23,7 +23,7 @@ class QuestionSelect extends Component {
                     </Select>
                 </FormControl>
             );
-        return <QuestionAutocomplete {...this.props}/>
+        return <QuestionAutocomplete question={question} value={[value]} {...other}/>
     }
 
     handleChange = value => {

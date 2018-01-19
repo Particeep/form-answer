@@ -7,7 +7,7 @@ import QuestionAutocomplete from "../Autocomplete/QuestionAutocomplete";
 class QuestionRadio extends Component {
 
     render() {
-        const {question, value} = this.props;
+        const {question, value, ...other} = this.props;
         if (question.possibilities.length < maxPossibilitiesBeforeAutocomplete)
             return (
                 <RadioGroup
@@ -24,7 +24,7 @@ class QuestionRadio extends Component {
                     )}
                 </RadioGroup>
             );
-        return <QuestionAutocomplete {...this.props}/>
+        return <QuestionAutocomplete question={question} value={[value]} {...other}/>
     }
 
     handleChange = value => {
