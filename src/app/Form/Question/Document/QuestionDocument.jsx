@@ -3,8 +3,7 @@ import "./QuestionDocument.scss";
 import React, {Component} from "react";
 import {Avatar, Button, Chip, CircularProgress, Icon} from "material-ui";
 import {connect} from "react-redux";
-import formAction from "../../formAction";
-import {parseSingleAnswer} from "../../utils";
+import {questionWrapper} from "../questionWrapper";
 
 class QuestionDocument extends Component {
 
@@ -29,7 +28,7 @@ class QuestionDocument extends Component {
                 <Button color="primary" onClick={this.openFileSelection}>
                     {messages.upload}
                     <Icon className="QuestionDocument_btn_i">file_upload</Icon>
-                    <input style={{display: 'none'}} type="file" ref="file"
+                    <input style={{display: 'none'}} type="file" ref={file => this.fileInput = file}
                            onChange={e => this.handleChange(e.target.files[0])}/>
                 </Button>
                 }
@@ -57,14 +56,8 @@ class QuestionDocument extends Component {
         );
     }
 
-    componentDidMount() {
-        const {value} = this.props;
-        if (value != undefined) this.update(value);
-        this.updateValidity();
-    }
-
     openFileSelection = () => {
-        this.refs.file.click();
+        this.fileInput.click();
     };
 
     handleChange = (file) => {
@@ -74,36 +67,26 @@ class QuestionDocument extends Component {
             return;
         }
         this.setState({errorMessage: ''});
-        this.update(file.name);
+        this.props.onChange([file.name]);
         this.props.onUploadFile(question.section_id, question.id, file);
     };
 
     clear = () => {
-        this.update('');
+        this.props.onChange([]);
     };
-
-    update(fileName) {
-        const {dispatch, question} = this.props;
-        dispatch(formAction.updateAnswer(question.id, parseSingleAnswer(fileName)));
-        this.updateValidity();
-    }
-
-    updateValidity() {
-        const {dispatch, question} = this.props;
-        dispatch(formAction.updateSectionValidity(question.section_id, question.id, !question.required));
-    }
 }
 
-const state2Props = (state, props) => {
-    const answer = state.formAnswer.answers[props.question.id] || [];
-    return {
-        documentName: answer[0],
-        documentUrl: answer[1],
-        onUploadFile: state.formAnswer.onUploadFile,
-        messages: state.formAnswer.messages,
-        maxUploadFileSize: state.formAnswer.maxUploadFileSize,
-        isUploading: state.formAnswer.uploadingDocuments[props.question.id],
-    }
+const state2Props = (state, props) => ({
+    onUploadFile: state.formAnswer.onUploadFile,
+    maxUploadFileSize: state.formAnswer.maxUploadFileSize,
+    isUploading: state.formAnswer.uploadingDocuments[props.question.id],
+});
+
+const mapProps = Component => props => {
+    const {value, ...other} = props;
+    const documentName = value[0];
+    const documentUrl = value[1];
+    return <Component {...other} documentName={documentName} documentUrl={documentUrl}/>;
 };
 
-export default connect(state2Props)(QuestionDocument)
+export default connect(state2Props)(questionWrapper(mapProps(QuestionDocument)))

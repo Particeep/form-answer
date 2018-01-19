@@ -5,6 +5,9 @@ import {ExpensionStep, ExpensionStepper} from "../ExpensionStepper";
 import Section from "./Section/Section";
 import {connect} from "react-redux";
 import formAction from "./formAction";
+import {isFunction} from "./utils";
+import {ApiParser} from "./api-parser";
+import {questionType} from "./Question/Question";
 
 class Form extends Component {
 
@@ -12,10 +15,15 @@ class Form extends Component {
         return (
             <ExpensionStepper onNext={this.next} onEnd={this.end}>
                 {this.props.form.sections.map(s =>
-                    <ExpensionStep label="label!" component={<Section section={s}/>} key={s.id}/>
+                    <ExpensionStep label={s.name} component={<Section section={s}/>} key={s.id}/>
                 )}
             </ExpensionStepper>
         );
+    }
+
+    constructor(props) {
+        super(props);
+        this.parser = new ApiParser(this.props.dateFormat)
     }
 
     componentWillMount() {
@@ -23,8 +31,20 @@ class Form extends Component {
             dateFormat: this.props.dateFormat,
             messages: this.props.messages,
             maxUploadFileSize: this.props.maxUploadFileSize,
-            notifyChange: this.notifyChange,
+            notifyChange: this.onChange,
             onUploadFile: this.onUploadFile,
+        }));
+        this.initAnswers();
+    }
+
+    initAnswers() {
+        this.props.form.sections.forEach(s => s.questions.forEach(q => {
+            if (q.question_type === questionType.LABEL) return;
+            this.props.dispatch(formAction.updateAnswer(
+                q.id,
+                q.question_type,
+                this.parser.fromApi(q.question_type)(q.answers)
+            ))
         }));
     }
 
@@ -37,24 +57,28 @@ class Form extends Component {
     onFileUploaded = (sectionId, questionId) => uploadedFile => {
         const {dispatch} = this.props;
         dispatch(formAction.documentUploading(questionId, false));
-        dispatch(formAction.updateAnswer(questionId, [uploadedFile.name, uploadedFile.permalink]));
+        dispatch(formAction.updateAnswer(questionId, questionType.DOCUMENT, [uploadedFile.name, uploadedFile.permalink]));
         dispatch(formAction.updateSectionValidity(sectionId, questionId, true));
     };
 
-    notifyChange = (questionIdAnswered) => {
-        setTimeout(() => this.props.onChange(
-            {question_id: questionIdAnswered, answer: this.props.answers[questionIdAnswered]},
-            this.parseAnswersForApi(this.props.answers),
-        ));
+    onChange = (questionIdAnswered) => {
+        if (!isFunction(this.props.onChange)) return;
+        setTimeout(() =>
+            this.props.onChange(this.parseAnswer(questionIdAnswered, this.props.answers[questionIdAnswered]))
+        );
     };
 
     next = (sectionIndex) => {
-        this.props.onSectionEnd(this.parseAnswersForApi(this.getSectionAnswers(sectionIndex)));
+        if (!isFunction(this.props.onSectionEnd)) return;
+        this.props.onSectionEnd(this.parseAnswers(this.getSectionAnswers(sectionIndex)));
     };
 
     end = () => {
-        this.props.onSectionEnd(this.parseAnswersForApi(this.getSectionAnswers(this.props.form.sections.length - 1)));
-        this.props.onEnd(this.parseAnswersForApi(this.props.answers));
+        const {form, answers, onSectionEnd, onEnd} = this.props;
+        if (isFunction(onSectionEnd))
+            onSectionEnd(this.parseAnswers(this.getSectionAnswers(form.sections.length - 1)));
+        if (isFunction(onEnd))
+            onEnd(this.parseAnswers(answers));
     };
 
     getSectionAnswers(sectionIndex) {
@@ -66,9 +90,9 @@ class Form extends Component {
         }, {});
     }
 
-    parseAnswersForApi(answers) {
-        return Object.keys(answers).map(key => ({question_id: key, answer: answers[key]}));
-    }
+    parseAnswers = (answers) => Object.keys(answers).map(key => this.parseAnswer(key, answers[key]));
+
+    parseAnswer = (id, answer) => ({question_id: id, answer: this.parser.toApi(answer.type)(answer.value)})
 }
 
 const state2Props = (state) => ({

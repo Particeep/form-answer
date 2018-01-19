@@ -8,17 +8,17 @@ export function questionWrapper(Question) {
     class QuestionWrapper extends Component {
 
         render() {
-            const {question, answers} = this.props;
             return <Question
                 {...this.props}
-                values={answers[question.id] || []}
-                onChange={this.changed}
+                value={this.getAnswer()}
+                onChange={this.update}
                 onCheckPossibility={this.addCheckedPossibility}
             />
         }
 
         componentDidMount() {
-            this.update(this.props.question.answers);
+            const {dispatch, question, validator} = this.props;
+            dispatch(formAction.updateSectionValidity(question.section_id, question.id, validator(this.getAnswer())));
         }
 
         componentWillUnmount() {
@@ -30,16 +30,16 @@ export function questionWrapper(Question) {
             }
         }
 
-        changed = (values) => {
-            this.update(values);
-        };
-
-        update(values) {
-            const {dispatch, question, validator} = this.props;
-            dispatch(formAction.updateAnswer(question.id, values));
-            dispatch(formAction.updateSectionValidity(question.section_id, question.id, validator(values)));
-            this.props.notifyChange(question.id);
+        getAnswer() {
+            return this.props.answers[this.props.question.id].value;
         }
+
+        update = (value) => {
+            const {dispatch, question, validator} = this.props;
+            dispatch(formAction.updateAnswer(question.id, question.question_type, value));
+            dispatch(formAction.updateSectionValidity(question.section_id, question.id, validator(value)));
+            this.props.notifyChange(question.id);
+        };
 
         addCheckedPossibility = (possibilityLabel) => {
             const {dispatch, question} = this.props;

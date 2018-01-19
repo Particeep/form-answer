@@ -29,15 +29,15 @@ class QuestionCheckbox extends Component {
         let values;
         if (checked) {
             if (!this.isPossibilityChecked(value))
-                values = this.props.values.concat(value)
+                values = this.props.value.concat(value)
         } else {
-            values = this.props.values.filter(v => v !== value);
+            values = this.props.value.filter(v => v !== value);
         }
         this.props.onChange(values);
     };
 
     isPossibilityChecked(label) {
-        return this.props.values.indexOf(label) !== -1;
+        return this.props.value.indexOf(label) !== -1;
     }
 }
 

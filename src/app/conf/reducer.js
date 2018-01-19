@@ -10,6 +10,10 @@ export const store = createStore(
     process.env.NODE_ENV === 'production'
         ? applyMiddleware(thunk)
         : applyMiddleware(thunk,
-        createLogger()
+        createLogger({
+            collapsed: true,
+            diff: true,
+            diffPredicate: true,
+        })
     )
 );

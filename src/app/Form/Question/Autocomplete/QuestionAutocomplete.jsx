@@ -12,12 +12,12 @@ class QuestionAutocomplete extends Component {
     };
 
     render() {
-        const {values, question, multiSelect, messages} = this.props;
+        const {value, question, multiSelect, messages} = this.props;
         const {anchorEl} = this.state;
         return (
             <div>
                 <FormControl onClick={this.open} fullWidth>
-                    <Input value={values.join(', ')} multiline readOnly rows="1" rowsMax="10"
+                    <Input value={multiSelect ? value.join(', ') : value} multiline readOnly rows="1" rowsMax="10"
                            endAdornment={
                                <InputAdornment position="end">
                                    <Icon className="Qac_adornment">arrow_drop_down</Icon>
@@ -29,7 +29,7 @@ class QuestionAutocomplete extends Component {
                     <header className={'Qac_Menu_head' + (multiSelect ? ' -withCb' : '')}>
                         {multiSelect &&
                         <Checkbox onChange={this.selectAll}
-                                  indeterminate={values.length > 0 && values.length < question.possibilities.length}/>
+                                  indeterminate={value.length > 0 && value.length < question.possibilities.length}/>
                         }
                         <input className="Qac_Menu_input" placeholder={messages.search + '...'}
                                onChange={e => this.setState({filter: e.target.value})}/>
@@ -37,8 +37,8 @@ class QuestionAutocomplete extends Component {
                     <div className="Qac_Menu_items">
                         {this.getFilteredPossibilities().map(p =>
                             <MenuItem key={p.id} onClick={() => this.handleChange(p.label)} style={{paddingLeft: 0}}>
-                                {multiSelect && <Checkbox checked={values.indexOf(p.label) !== -1}/>}
-                                {!multiSelect && <Radio checked={values.indexOf(p.label) !== -1}/>}
+                                {multiSelect && <Checkbox checked={value.indexOf(p.label) !== -1}/>}
+                                {!multiSelect && <Radio checked={value.indexOf(p.label) !== -1}/>}
                                 {p.label}
                             </MenuItem>
                         )}
@@ -57,16 +57,16 @@ class QuestionAutocomplete extends Component {
     };
 
     handleChange = (value) => {
-        let values;
+        let newValue;
         if (this.props.multiSelect) {
-            if (this.props.values.indexOf(value) === -1) values = this.props.values.concat(value)
-            else values = this.props.values.filter(v => v !== value);
+            if (this.props.value.indexOf(value) === -1) newValue = this.props.value.concat(value);
+            else newValue = this.props.value.filter(v => v !== value);
         } else {
-            if (this.props.values.indexOf(value) === -1) values = [value];
-            else value = [];
+            if (this.props.value.indexOf(value) === -1) newValue = value;
+            else value = '';
             this.close();
         }
-        this.props.onChange(values);
+        this.props.onChange(newValue);
     };
 
     getFilteredPossibilities() {

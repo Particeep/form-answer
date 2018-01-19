@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {FormControl, FormHelperText, Input} from "material-ui";
-import {mapSingleAnswer, parseSingleAnswer} from "../../utils";
 import {questionWrapper} from "../questionWrapper";
 
 class QuestionText extends Component {
@@ -10,10 +9,10 @@ class QuestionText extends Component {
     };
 
     render() {
-        const {values, question, messages, multiline, rows, rowsMax} = this.props;
+        const {value, question, messages, multiline, rows, rowsMax} = this.props;
         return (
             <FormControl error={this.showError()} fullWidth>
-                <Input value={mapSingleAnswer(values)}
+                <Input value={value}
                        multiline={multiline}
                        rows={rows}
                        rowsMax={rowsMax}
@@ -27,11 +26,11 @@ class QuestionText extends Component {
     }
 
     handleChange = value => {
-        this.props.onChange(parseSingleAnswer(value));
+        this.props.onChange(value);
     };
 
     showError() {
-        const value = mapSingleAnswer(this.props.values);
+        const value = this.props.value;
         if (this.props.isValid) return false;
         if ((!value || value === '')) {
             if (!this.state.touched) return false;
