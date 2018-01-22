@@ -1,2 +1,2 @@
 export {default as Form} from './Form';
-export {formReducer} from './formReducer';
+export {default as formReducer} from './formReducer';

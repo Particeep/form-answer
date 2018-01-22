@@ -17,7 +17,7 @@ const DEFAULT_REDUCER = {
     checkedPossibilityIds: {},
 };
 
-export const formReducer = function (state = DEFAULT_REDUCER, a) {
+const formReducer = function (state = DEFAULT_REDUCER, a) {
     switch (a.type) {
         case formAction.INIT:
             return update(state, {
@@ -71,3 +71,5 @@ export const formReducer = function (state = DEFAULT_REDUCER, a) {
             return state
     }
 };
+
+export default formReducer;
