@@ -13,7 +13,8 @@ module.exports = webpackMerge(commonConfig, {
         path: path.resolve('./dist'),
         publicPath: '/',
         filename: '[name].js',
-        chunkFilename: '[id].chunk.js'
+        chunkFilename: '[id].chunk.js',
+        libraryTarget: 'commonjs2',
     },
 
     htmlLoader: {
@@ -32,7 +33,8 @@ module.exports = webpackMerge(commonConfig, {
         new webpack.DefinePlugin({
             'process.env': {
                 'ENV': JSON.stringify(ENV),
-                'NODE_ENV': JSON.stringify(ENV)
+                'NODE_ENV': JSON.stringify(ENV),
+                'NODE_PATH': 'src/app'
             }
         })
     ]

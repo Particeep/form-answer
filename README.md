@@ -12,7 +12,12 @@ There is two ways to integrate Form-answer to your application.
 
 ##### If you work on a React application
 
-Then it's easy ! Import the `Form` component as follow:
+Then it's easy ! Install:
+```
+npm install https://github.com/Particeep/form-ui.git
+```
+
+Import the `Form` component as follow:
 ```
 import React, {Component} from "react";
 import {Form} from "Form";
@@ -55,8 +60,9 @@ The array below list the expected parameters by the `Form` component.
 | Variable                | Type                                       | Description                                                                                                                                                                                                                                 |
 |-------------------------|--------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `form`                  | Object                                     | Form to answer fetched from the API                                                                                                                                                                                                         |
-| `messages`              | Object                                     | The component expected some text, like messages to display in case of error. Expected messages: `buttonNext`, `buttonEnd`, `upload`, `invalidFileSize`, `invalidDate`, `invalidText`, `search`.                                                                                                                                                               |
-| `maxUploadFileSize`     | number                                     | Limit the size of the uploaded documents                                                                                                                                                                                                    |
+| `messages`              | Object                                     | The component expected some text, like messages to display in case of error.                                                                                                                                                                |
+| `maxUploadFileSize`     | number _(optional)_                        | Limit the size of the uploaded documents. If undefined, file size won't be checked                                                                                                                                                          |
+| `dateFormat`            | string _(optional)_                        | Expected format of the question of type date (eg. dd/MM/yyy, yyyy-MM-dd). If undefined, answers for this type of question are not validated.                                                                                                |
 | `onChange`              | function(answers, answer)                  | Callback called whenever a change if performed on a question; `answers` is an array of answers, `answer` is the answer that triggered the callback.                                                                                         |
 | `onSectionEnd`          | function(sectionAnswers)                   | Callback called on pressing the next button of a section; `sectionAnswers` is an array of answers.                                                                                                                                          |
 | `onEnd`                 | function(answers)                          | Callback called on pressing the last button of the form; `answers` is an array of answers.                                                                                                                                                  |
@@ -112,7 +118,7 @@ class App extends Component {
     getForm = () => ({
         "id": "3ff1c761-c213-4c4e-b0b2-c66d2edc4961",
         "name": "Party Invite",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quis sem odio. Sed commodo vestibulum leo, sit amet tempus odio consectetur in.",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         "sections": [{
             "id": "a17ds4e1-d655-4868-90b8-b79f22d35d73",
             "form_id": "3ff1c761-c213-4c4e-b0b2-c66d2edc4961",

@@ -53,5 +53,8 @@ module.exports = {
             include: [/(src|test)/],
             loader: 'babel'
         }]
+    },
+    externals: {
+        'react': 'commonjs react'
     }
 };
