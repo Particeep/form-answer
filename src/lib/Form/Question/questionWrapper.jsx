@@ -31,7 +31,8 @@ export function questionWrapper(Question) {
         }
 
         getAnswer() {
-            return this.props.answers[this.props.question.id].value;
+            const answer = this.props.answers[this.props.question.id];
+            return answer && answer.value;
         }
 
         update = (value) => {
