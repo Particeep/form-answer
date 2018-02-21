@@ -3,9 +3,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import {MuiThemeProvider} from "material-ui/styles";
-import muiTheme from "conf/mui-theme";
+import {muiTheme} from "../lib/conf/mui-theme";
 import {Provider} from "react-redux";
-import {store} from "./conf/reducer";
+import {store} from "../lib/conf/reducer";
 
 ReactDOM.render(
     <Provider store={store}>
