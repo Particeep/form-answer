@@ -19,7 +19,7 @@ class Section extends Component {
                     <Button color="primary" disabled={this.props.index < 1} style={{marginRight: '8px'}} onClick={this.props.prev} className={'Section_' + (isLast ? 'end' : 'next')}>
                         <span>{messages.buttonPrevious}</span>
                     </Button>
-                    <Button raised color="primary" onClick={next} disabled={!this.isValid()}
+                    <Button raised color="primary" onClick={this.onNext} disabled={!this.isValid()}
                             className={'Section_' + (isLast ? 'end' : 'next')}>
                         <span>{isLast ? messages.buttonEnd : messages.buttonNext}</span>
                     </Button>
@@ -27,6 +27,12 @@ class Section extends Component {
             </main>
         );
     }
+
+    onNext = () => {
+        console.log("dazopidoubazdaz");
+        this.props.next();
+        this.props.scrollToTop();
+    };
 
     isValid() {
         const validity = this.props.sectionsValidity[this.props.section.id];
