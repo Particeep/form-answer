@@ -49,8 +49,6 @@ class QuestionAutocomplete extends Component {
     }
 
     open = event => {
-        console.log("OPEN");
-        console.log(event.currentTarget);
         this.setState({anchorEl: event.currentTarget});
     };
 

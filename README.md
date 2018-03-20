@@ -82,6 +82,7 @@ class App extends Component {
             messages={{
                 buttonNext: 'Next',
                 buttonEnd: 'End',
+                buttonPrevious: 'Previous',
                 upload: 'Choose file',
                 invalidFileSize: 'File limit exceed',
                 invalidDate: 'Date invalid',
