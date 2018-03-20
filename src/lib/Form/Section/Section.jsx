@@ -16,7 +16,7 @@ class Section extends Component {
                     if (this.showQuestion(q)) return <Question key={q.id} question={q}/>
                 })}
                 <div className="Section_action">
-                    <Button color="primary" disabled={this.props.index < 1} style={{marginRight: '8px'}} onClick={this.props.prev} className={'Section_' + (isLast ? 'end' : 'next')}>
+                    <Button color="primary" disabled={this.props.index < 1} style={{marginRight: '8px'}} onClick={this.onBack} className={'Section_' + (isLast ? 'end' : 'next')}>
                         <span>{messages.buttonPrevious}</span>
                     </Button>
                     <Button raised color="primary" onClick={this.onNext} disabled={!this.isValid()}
@@ -28,8 +28,12 @@ class Section extends Component {
         );
     }
 
+    onBack = () => {
+        this.props.prev();
+        this.props.scrollToTop();
+    };
+
     onNext = () => {
-        console.log("dazopidoubazdaz");
         this.props.next();
         this.props.scrollToTop();
     };

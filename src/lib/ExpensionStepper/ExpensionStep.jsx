@@ -6,7 +6,6 @@ import {Collapse, Icon} from "material-ui";
 class ExpensionStep extends Component {
 
     scrollToTopOfSection = () => {
-        console.log("dazdndzaodjnbzajdnoâznipbdoza");
         this.Element.scrollIntoView();
     };
 
