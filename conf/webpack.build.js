@@ -12,6 +12,7 @@ module.exports = {
         extensions: ['.js', '.json', '.jsx'],
     },
     entry: {
+        'vendor': path.resolve('src/app/vendor.js'),
         'app': path.resolve('src/app/index.jsx'),
     },
     plugins: [
@@ -58,6 +59,5 @@ module.exports = {
         publicPath: '/',
         filename: '[name].js',
         chunkFilename: '[id].chunk.js',
-        libraryTarget: 'commonjs2',
     },
 };
