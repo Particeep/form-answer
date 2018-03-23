@@ -40,47 +40,48 @@ class Question extends Component {
     }
 
     renderQuestion(q) {
+        const props = {question: q, readonly: this.props.readonly};
         switch (q.question_type) {
             case questionType.TEXT:
                 return <QuestionText
-                    question={q}
+                    {...props}
                     validator={this.isTextValid}
                 />;
 
             case questionType.LONGTEXT:
                 return <QuestionLongText
-                    question={q}
+                    {...props}
                     validator={this.isTextValid}
                 />;
 
             case questionType.RADIO:
                 return <QuestionRadio
-                    question={q}
+                    {...props}
                     validator={this.isRadioValid}
                 />;
 
             case questionType.SELECT:
                 return <QuestionSelect
-                    question={q}
+                    {...props}
                     validator={this.isSelectValid}
                 />;
 
             case questionType.CHECKBOX:
                 return <QuestionCheckbox
-                    question={q}
+                    {...props}
                     validator={this.isCheckboxValid}
                 />;
 
             case questionType.DATE:
                 return <QuestionDate
-                    question={q}
+                    {...props}
                     validator={this.isDateValid}
                     dateFormat={this.props.dateFormat}
                 />;
 
             case questionType.DOCUMENT:
                 return <QuestionDocument
-                    question={q}
+                    {...props}
                     validator={this.isDocumentValid}
                 />;
 
@@ -89,7 +90,7 @@ class Question extends Component {
 
             default:
                 return <QuestionText
-                    question={q}
+                    {...props}
                     validator={this.isTextValid(q)}
                 />;
         }
@@ -125,6 +126,7 @@ class Question extends Component {
 
 const state2Props = (state, props) => ({
     answers: state.formAnswer.answers,
+    readonly: state.formAnswer.readonly,
     dateFormat: state.formAnswer.dateFormat || '',
 });
 

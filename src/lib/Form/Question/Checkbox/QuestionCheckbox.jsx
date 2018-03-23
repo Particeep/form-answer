@@ -7,7 +7,7 @@ import {maxPossibilitiesBeforeAutocomplete} from "../Question";
 class QuestionCheckbox extends Component {
 
     render() {
-        const {question} = this.props;
+        const {question, readonly} = this.props;
         if (question.possibilities.length < maxPossibilitiesBeforeAutocomplete)
             return (
                 <FormGroup>
@@ -17,6 +17,7 @@ class QuestionCheckbox extends Component {
                                 checked={this.isPossibilityChecked(p.label)}
                                 onChange={this.handleChange(p.label)}
                                 value={p.label}
+                                disabled={readonly}
                             />
                         }/>
                     )}
