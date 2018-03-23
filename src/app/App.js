@@ -17,6 +17,7 @@ class App extends Component {
                 messages={window.formAnswer.messages}
                 dateFormat={window.formAnswer.dateFormat}
                 maxUploadFileSize={window.formAnswer.maxUploadFileSize}
+                readonly={window.formAnswer.readonly}
                 onChange={this.changed}
                 onSectionEnd={this.sectionEnded}
                 onEnd={this.ended}

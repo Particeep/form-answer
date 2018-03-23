@@ -7,7 +7,7 @@ import QuestionAutocomplete from "../Autocomplete/QuestionAutocomplete";
 class QuestionRadio extends Component {
 
     render() {
-        const {question, value} = this.props;
+        const {question, value, readonly} = this.props;
         if (question.possibilities.length < maxPossibilitiesBeforeAutocomplete)
             return (
                 <RadioGroup
@@ -20,7 +20,8 @@ class QuestionRadio extends Component {
                             control={<Radio/>}
                             label={p.label}
                             key={p.id}
-                            onClick={() => value === p.label && this.handleChange('')}/>
+                            onClick={() => value === p.label && this.handleChange('')}
+                            disabled={readonly}/>
                     )}
                 </RadioGroup>
             );

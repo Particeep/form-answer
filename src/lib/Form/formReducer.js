@@ -5,6 +5,7 @@ const DEFAULT_REDUCER = {
     messages: {},
     dateFormat: 'dd/MM/yyyy',
     maxUploadFileSize: null,
+    readonly: false,
 
     // Callbacks
     notifyChange: null,
@@ -26,6 +27,7 @@ export const formReducer = function (state = DEFAULT_REDUCER, a) {
                 maxUploadFileSize: {$set: a.maxUploadFileSize},
                 notifyChange: {$set: a.notifyChange},
                 onUploadFile: {$set: a.onUploadFile},
+                readonly: {$set: a.readonly},
             });
         case formAction.UPDATE_ANSWER:
             return update(state, {

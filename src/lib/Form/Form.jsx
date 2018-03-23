@@ -13,7 +13,7 @@ class Form extends Component {
 
     render() {
         return (
-            <ExpensionStepper onNext={this.next} onEnd={this.end}>
+            <ExpensionStepper free={this.props.readonly} onNext={this.next} onEnd={this.end}>
                 {this.props.form.sections.map(s =>
                     <ExpensionStep label={s.name} component={<Section section={s}/>} key={s.id}/>
                 )}
@@ -33,6 +33,7 @@ class Form extends Component {
             maxUploadFileSize: this.props.maxUploadFileSize,
             notifyChange: this.onChange,
             onUploadFile: this.onUploadFile,
+            readonly: this.props.readonly || false,
         }));
         this.initAnswers();
     }
