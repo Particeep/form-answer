@@ -10223,8 +10223,6 @@ var QuestionAutocomplete = function (_Component) {
             anchorEl: null,
             filter: null
         }, _this.open = function (event) {
-            console.log("OPEN");
-            console.log(event.currentTarget);
             _this.setState({ anchorEl: event.currentTarget });
         }, _this.close = function () {
             _this.setState({ anchorEl: null });
@@ -13850,8 +13848,10 @@ var Section = function (_Component) {
             var _props = this.props,
                 section = _props.section,
                 messages = _props.messages,
-                next = _props.next,
-                isLast = _props.isLast;
+                isLast = _props.isLast,
+                index = _props.index,
+                prev = _props.prev,
+                next = _props.next;
 
             return _react2.default.createElement(
                 "main",
@@ -13867,15 +13867,16 @@ var Section = function (_Component) {
                 _react2.default.createElement(
                     "div",
                     { className: "Section_action" },
+                    index > 0 && _react2.default.createElement(
+                        _materialUi.Button,
+                        { color: "primary", onClick: prev, className: "Section_prev" },
+                        messages.buttonPrevious
+                    ),
                     _react2.default.createElement(
                         _materialUi.Button,
                         { raised: true, color: "primary", onClick: next, disabled: !this.isValid(),
                             className: 'Section_' + (isLast ? 'end' : 'next') },
-                        _react2.default.createElement(
-                            "span",
-                            null,
-                            isLast ? messages.buttonEnd : messages.buttonNext
-                        )
+                        isLast ? messages.buttonEnd : messages.buttonNext
                     )
                 )
             );
@@ -31847,13 +31848,25 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var animationDuration = 300;
+
 var ExpensionStep = function (_Component) {
     _inherits(ExpensionStep, _Component);
 
     function ExpensionStep() {
+        var _ref;
+
+        var _temp, _this, _ret;
+
         _classCallCheck(this, ExpensionStep);
 
-        return _possibleConstructorReturn(this, (ExpensionStep.__proto__ || Object.getPrototypeOf(ExpensionStep)).apply(this, arguments));
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ExpensionStep.__proto__ || Object.getPrototypeOf(ExpensionStep)).call.apply(_ref, [this].concat(args))), _this), _this.scrollTop = function () {
+            _this.$root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
     _createClass(ExpensionStep, [{
@@ -31866,15 +31879,19 @@ var ExpensionStep = function (_Component) {
                 isCurrent = _props.isCurrent,
                 index = _props.index,
                 label = _props.label,
-                component = _props.component;
+                component = _props.component,
+                goTo = _props.goTo;
 
             return _react2.default.createElement(
                 "main",
-                { className: 'ExpensionStep ' + (isCurrent ? '-current' : isDone ? '-done' : '-undone') },
+                { className: 'ExpensionStep ' + (isCurrent ? '-current' : isDone ? '-done' : '-undone'),
+                    ref: function ref(node) {
+                        return _this2.$root = node;
+                    } },
                 _react2.default.createElement(
                     "header",
                     { className: "ExpensionStep_header", onClick: function onClick() {
-                            return _this2.props.goTo(index);
+                            return goTo(index);
                         } },
                     isDone && !isCurrent && _react2.default.createElement(
                         _materialUi.Icon,
@@ -31887,14 +31904,23 @@ var ExpensionStep = function (_Component) {
                 ),
                 _react2.default.createElement(
                     _materialUi.Collapse,
-                    { "in": isCurrent, timeout: "auto", className: "ExpensionStep_body" },
+                    { "in": isCurrent, timeout: animationDuration, className: "ExpensionStep_body" },
                     _react2.default.createElement(
                         "div",
                         { className: "ExpensionStep_content" },
-                        _react2.default.cloneElement(component, _extends({ next: this.props.next }, this.props))
+                        _react2.default.cloneElement(component, _extends({}, this.props))
                     )
                 )
             );
+        }
+    }, {
+        key: "componentDidUpdate",
+        value: function componentDidUpdate(prevProps) {
+            var _this3 = this;
+
+            if (!prevProps.isCurrent && this.props.isCurrent) setTimeout(function () {
+                return _this3.scrollTop();
+            }, animationDuration);
         }
     }]);
 
@@ -32876,76 +32902,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var ApiParser = exports.ApiParser = function () {
     function ApiParser(dateFormat) {
-        var _this = this;
-
         _classCallCheck(this, ApiParser);
 
-        this.methods = {
-            TEXT: {
-                fromApi: function fromApi(value) {
-                    return _this.mapSingleAnswer(value);
-                },
-                toApi: function toApi(value) {
-                    return _this.parseSingleAnswer(value);
-                }
-            },
-            LONGTEXT: {
-                fromApi: function fromApi(value) {
-                    return _this.mapSingleAnswer(value);
-                },
-                toApi: function toApi(value) {
-                    return _this.parseSingleAnswer(value);
-                }
-            },
-            DATE: {
-                fromApi: function fromApi(value) {
-                    return _this.fromApiDate(_this.mapSingleAnswer(value));
-                },
-                toApi: function toApi(value) {
-                    return _this.parseSingleAnswer(_this.toApiDate(value));
-                }
-            },
-            RADIO: {
-                fromApi: function fromApi(value) {
-                    return _this.mapSingleAnswer(value);
-                },
-                toApi: function toApi(value) {
-                    return _this.parseSingleAnswer(value);
-                }
-            },
-            SELECT: {
-                fromApi: function fromApi(value) {
-                    return _this.mapSingleAnswer(value);
-                },
-                toApi: function toApi(value) {
-                    return _this.parseSingleAnswer(value);
-                }
-            },
-            CHECKBOX: {
-                fromApi: function fromApi(value) {
-                    return value || [];
-                },
-                toApi: function toApi(value) {
-                    return value.length === 0 ? null : value;
-                }
-            },
-            DOCUMENT: {
-                fromApi: function fromApi(value) {
-                    return value || [];
-                },
-                toApi: function toApi(value) {
-                    return value.length === 0 ? null : value;
-                }
-            },
-            LABEL: {
-                fromApi: function fromApi(value) {
-                    return null;
-                },
-                toApi: function toApi(value) {
-                    return null;
-                }
-            }
-        };
+        _initialiseProps.call(this);
 
         this.dateFormat = dateFormat;
     }
@@ -32987,6 +32946,77 @@ var ApiParser = exports.ApiParser = function () {
 
     return ApiParser;
 }();
+
+var _initialiseProps = function _initialiseProps() {
+    var _this = this;
+
+    this.methods = {
+        TEXT: {
+            fromApi: function fromApi(value) {
+                return _this.mapSingleAnswer(value);
+            },
+            toApi: function toApi(value) {
+                return _this.parseSingleAnswer(value);
+            }
+        },
+        LONGTEXT: {
+            fromApi: function fromApi(value) {
+                return _this.mapSingleAnswer(value);
+            },
+            toApi: function toApi(value) {
+                return _this.parseSingleAnswer(value);
+            }
+        },
+        DATE: {
+            fromApi: function fromApi(value) {
+                return dateFormat ? _this.fromApiDate(_this.mapSingleAnswer(value)) : _this.mapSingleAnswer(value);
+            },
+            toApi: function toApi(value) {
+                return dateFormat ? _this.parseSingleAnswer(_this.toApiDate(value)) : _this.parseSingleAnswer(value);
+            }
+        },
+        RADIO: {
+            fromApi: function fromApi(value) {
+                return _this.mapSingleAnswer(value);
+            },
+            toApi: function toApi(value) {
+                return _this.parseSingleAnswer(value);
+            }
+        },
+        SELECT: {
+            fromApi: function fromApi(value) {
+                return _this.mapSingleAnswer(value);
+            },
+            toApi: function toApi(value) {
+                return _this.parseSingleAnswer(value);
+            }
+        },
+        CHECKBOX: {
+            fromApi: function fromApi(value) {
+                return value || [];
+            },
+            toApi: function toApi(value) {
+                return value.length === 0 ? null : value;
+            }
+        },
+        DOCUMENT: {
+            fromApi: function fromApi(value) {
+                return value || [];
+            },
+            toApi: function toApi(value) {
+                return value.length === 0 ? null : value;
+            }
+        },
+        LABEL: {
+            fromApi: function fromApi(value) {
+                return null;
+            },
+            toApi: function toApi(value) {
+                return null;
+            }
+        }
+    };
+};
 
 /***/ }),
 /* 346 */
@@ -34733,7 +34763,7 @@ exports = module.exports = __webpack_require__(39)(false);
 
 
 // module
-exports.push([module.i, ".Section_label {\n  color: rgba(0, 0, 0, 0.54);\n  margin-bottom: 16px; }\n", ""]);
+exports.push([module.i, ".Section_label {\n  color: rgba(0, 0, 0, 0.54);\n  margin-bottom: 16px; }\n\n.Section_action {\n  text-align: right; }\n\n.Section_prev {\n  margin-right: 8px; }\n", ""]);
 
 // exports
 
