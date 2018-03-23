@@ -8,12 +8,12 @@ const animationDuration = 300;
 class ExpensionStep extends Component {
 
     render() {
-        const {isDone, isCurrent, index, label, component, goTo} = this.props;
+        const {disabled, free, isCurrent, index, label, component, goTo} = this.props;
         return (
-            <main className={'ExpensionStep ' + (isCurrent ? '-current' : isDone ? '-done' : '-undone')}
+            <main className={'ExpensionStep ' + (isCurrent ? '-current' : !disabled ? '-done' : '-undone')}
                   ref={node => this.$root = node}>
                 <header className="ExpensionStep_header" onClick={() => goTo(index)}>
-                    {isDone && !isCurrent && <Icon className="ExpensionStep_i">check</Icon>}
+                    {!free && !disabled && !isCurrent && <Icon className="ExpensionStep_i">check</Icon>}
                     {index + 1}. {label}
                 </header>
                 <Collapse in={isCurrent} timeout={animationDuration} className="ExpensionStep_body">

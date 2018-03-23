@@ -11,8 +11,9 @@ class ExpensionStepper extends Component {
                     prev: this.prev,
                     next: this.next,
                     goTo: this.goTo,
+                    free: this.props.free,
                     index: i,
-                    isDone: i < this.state.reached,
+                    disabled: i > this.state.reached,
                     isCurrent: i === this.state.current,
                     isLast: i === this.props.children.length - 1
                 }))}
@@ -24,7 +25,7 @@ class ExpensionStepper extends Component {
         super(props);
         this.state = {
             current: 0,
-            reached: 0,
+            reached: props.free ? props.children.length - 1 : 0,
         }
     }
 
