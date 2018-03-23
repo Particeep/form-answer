@@ -8,7 +8,7 @@ import {connect} from "react-redux";
 class Section extends Component {
 
     render() {
-        const {section, messages, next, isLast} = this.props;
+        const {section, messages, isLast, index, prev, next} = this.props;
         return (
             <main>
                 <div className="Section_label">{section.description}</div>
@@ -16,9 +16,14 @@ class Section extends Component {
                     if (this.showQuestion(q)) return <Question key={q.id} question={q}/>
                 })}
                 <div className="Section_action">
+                    {index > 0 &&
+                    <Button color="primary" onClick={prev} className="Section_prev">
+                        {messages.buttonPrevious}
+                    </Button>
+                    }
                     <Button raised color="primary" onClick={next} disabled={!this.isValid()}
                             className={'Section_' + (isLast ? 'end' : 'next')}>
-                        <span>{isLast ? messages.buttonEnd : messages.buttonNext}</span>
+                        {isLast ? messages.buttonEnd : messages.buttonNext}
                     </Button>
                 </div>
             </main>
