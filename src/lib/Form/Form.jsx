@@ -5,9 +5,9 @@ import {ExpensionStep, ExpensionStepper} from "../ExpensionStepper";
 import {Section} from "./Section";
 import {connect} from "react-redux";
 import {formAction} from "./formAction";
-import {isFunction} from "./utils";
-import {ApiParser} from "./api-parser";
-import {questionType} from "./Question";
+import {isFunction} from "../utils/common";
+import {ApiParser} from "../utils/ApiParser";
+import {questionType} from "../utils/FormValidator";
 
 class Form extends Component {
 
@@ -21,21 +21,28 @@ class Form extends Component {
         );
     }
 
-    constructor(props) {
-        super(props);
-        this.parser = new ApiParser(this.props.dateFormat)
+    componentWillMount() {
+        this.parser = new ApiParser(this.props.dateFormat);
+        this.initReducer();
+        this.initAnswers();
     }
 
-    componentWillMount() {
-        this.props.dispatch(formAction.init({
-            dateFormat: this.props.dateFormat,
-            messages: this.props.messages,
-            maxUploadFileSize: this.props.maxUploadFileSize,
+    initReducer() {
+        const {
+            dispatch,
+            dateFormat,
+            messages,
+            maxUploadFileSize,
+            readonly,
+        } = this.props;
+        dispatch(formAction.init({
+            dateFormat: dateFormat,
+            messages: messages,
+            maxUploadFileSize: maxUploadFileSize,
             notifyChange: this.onChange,
             onUploadFile: this.onUploadFile,
-            readonly: this.props.readonly || false,
+            readonly: readonly || false,
         }));
-        this.initAnswers();
     }
 
     initAnswers() {

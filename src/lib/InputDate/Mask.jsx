@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import MaskedInput from "react-text-mask";
-import {getDateFormatSeparator} from "../Form/utils";
+import {getDateFormatSeparator} from "../utils/common";
 
 class Mask extends Component {
 
