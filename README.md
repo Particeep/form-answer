@@ -49,7 +49,7 @@ You must include the compiled sources in your project then call the React applic
  window.formAnswer = {
     // fill params
  }
- <div id="root"></div>
+ <div id="form-answer-root"></div>
  
  ```
  
