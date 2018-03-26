@@ -66,9 +66,9 @@ class QuestionAutocomplete extends Component {
             if (this.props.value.indexOf(value) === -1) newValue = this.props.value.concat(value);
             else newValue = this.props.value.filter(v => v !== value);
         } else {
-            if (this.props.value.indexOf(value) === -1) newValue = value;
-            else value = '';
             this.close();
+            if (this.props.value.indexOf(value) === -1) newValue = value;
+            else newValue = '';
         }
         this.props.onChange(newValue);
     };

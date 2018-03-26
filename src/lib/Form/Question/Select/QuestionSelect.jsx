@@ -30,8 +30,6 @@ class QuestionSelect extends Component {
 
     handleChange = value => {
         this.props.onChange(value);
-        const possibility = this.props.question.possibilities.find(p => p.label === value);
-        if (possibility) this.props.onCheckPossibility(possibility.id);
     };
 }
 

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {formAction} from "../formAction";
-import {isDependable} from "../utils";
+import {isDependable} from "../../utils/common";
 import {connect} from "react-redux";
 
 export function questionWrapper(Question) {
@@ -12,40 +12,46 @@ export function questionWrapper(Question) {
                 {...this.props}
                 value={this.getAnswer()}
                 onChange={this.update}
-                onCheckPossibility={this.addCheckedPossibility}
             />
         }
 
         componentDidMount() {
             const {dispatch, question, validator} = this.props;
-            dispatch(formAction.updateSectionValidity(question.section_id, question.id, validator(this.getAnswer())));
+            const answer = this.getAnswer();
+            dispatch(formAction.updateSectionValidity(question.section_id, question.id, validator(answer)));
+            this.handlePossibilityCaching(answer);
         }
 
         componentWillUnmount() {
             const {dispatch, question} = this.props;
             dispatch(formAction.updateSectionValidity(question.section_id, question.id, true));
             dispatch(formAction.removeAnswer(question.id));
-            if (isDependable(question)) {
-                dispatch(formAction.removeCheckedPossbility(question.id));
-            }
-        }
-
-        getAnswer() {
-            const answer = this.props.answers[this.props.question.id];
-            return answer && answer.value;
+            this.handlePossibilityCaching();
         }
 
         update = (value) => {
             const {dispatch, question, validator} = this.props;
             dispatch(formAction.updateAnswer(question.id, question.question_type, value));
             dispatch(formAction.updateSectionValidity(question.section_id, question.id, validator(value)));
+            this.handlePossibilityCaching(value);
             this.props.notifyChange(question.id);
         };
 
-        addCheckedPossibility = (possibilityLabel) => {
+        getAnswer() {
+            const answer = this.props.answers[this.props.question.id];
+            return answer && answer.value;
+        }
+
+        handlePossibilityCaching(value) {
             const {dispatch, question} = this.props;
-            dispatch(formAction.addCheckedPossbility(question.id, possibilityLabel));
-        };
+            if (!isDependable(question)) return;
+            if (value) {
+                const possibility = question.possibilities.find(p => p.label === value);
+                dispatch(formAction.addCheckedPossbility(question.id, possibility.id));
+            } else {
+                dispatch(formAction.removeCheckedPossbility(question.id));
+            }
+        }
     }
 
     const state2Props = (state, props) => ({
