@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 import {formAction} from "./formAction";
 import {isFunction} from "../utils/common";
 import {ApiParser} from "../utils/ApiParser";
-import {questionType} from "../utils/FormValidator";
+import {questionType} from "./Question/QuestionType";
 
 class Form extends Component {
 

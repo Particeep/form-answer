@@ -34,7 +34,7 @@ class QuestionAutocomplete extends Component {
                             indeterminate={value.length > 0 && value.length < question.possibilities.length}
                             disabled={readonly}/>
                         }
-                        <input className="Qac_Menu_input" placeholder={messages.search + '...'}
+                        <input className="Qac_Menu_input" placeholder={messages.search}
                                onChange={e => this.setState({filter: e.target.value})}/>
                     </header>
                     <div className="Qac_Menu_items">

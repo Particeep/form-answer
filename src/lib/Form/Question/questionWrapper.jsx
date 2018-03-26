@@ -16,24 +16,24 @@ export function questionWrapper(Question) {
         }
 
         componentDidMount() {
-            const {dispatch, question, validator} = this.props;
+            const {updateSectionValidity, question, validator} = this.props;
             const answer = this.getAnswer();
-            dispatch(formAction.updateSectionValidity(question.section_id, question.id, validator(answer)));
-            this.handlePossibilityCaching(answer);
+            updateSectionValidity(question.section_id, question.id, validator(answer));
+            this.handlePossibilityDependencyCaching(answer);
         }
 
         componentWillUnmount() {
-            const {dispatch, question} = this.props;
-            dispatch(formAction.updateSectionValidity(question.section_id, question.id, true));
-            dispatch(formAction.removeAnswer(question.id));
-            this.handlePossibilityCaching();
+            const {updateSectionValidity, removeAnswer, question} = this.props;
+            updateSectionValidity(question.section_id, question.id, true);
+            removeAnswer(question.id);
+            this.handlePossibilityDependencyCaching();
         }
 
         update = (value) => {
-            const {dispatch, question, validator} = this.props;
-            dispatch(formAction.updateAnswer(question.id, question.question_type, value));
-            dispatch(formAction.updateSectionValidity(question.section_id, question.id, validator(value)));
-            this.handlePossibilityCaching(value);
+            const {updateAnswer, updateSectionValidity, question, validator} = this.props;
+            updateAnswer(question.id, question.question_type, value);
+            updateSectionValidity(question.section_id, question.id, validator(value));
+            this.handlePossibilityDependencyCaching(value);
             this.props.notifyChange(question.id);
         };
 
@@ -42,14 +42,15 @@ export function questionWrapper(Question) {
             return answer && answer.value;
         }
 
-        handlePossibilityCaching(value) {
-            const {dispatch, question} = this.props;
+        /** Store checked possibility id to easily show Questions according to their dependency_id_dep */
+        handlePossibilityDependencyCaching(value) {
+            const {addCheckedPossbility, removeCheckedPossbility, question} = this.props;
             if (!isDependable(question)) return;
             if (value) {
                 const possibility = question.possibilities.find(p => p.label === value);
-                dispatch(formAction.addCheckedPossbility(question.id, possibility.id));
+                addCheckedPossbility(question.id, possibility.id);
             } else {
-                dispatch(formAction.removeCheckedPossbility(question.id));
+                removeCheckedPossbility(question.id);
             }
         }
     }
@@ -61,5 +62,13 @@ export function questionWrapper(Question) {
         isValid: (state.formAnswer.sectionsValidity[props.question.section_id] || [])[props.question.id]
     });
 
-    return connect(state2Props)(QuestionWrapper);
+    const dispatch2Props = (dispatch) => ({
+        removeAnswer: (qId) => dispatch(formAction.removeAnswer(qId)),
+        updateAnswer: (qId, qType, value) => dispatch(formAction.updateAnswer(qId, qType, value)),
+        updateSectionValidity: (sId, qId, validator) => dispatch(formAction.updateSectionValidity(sId, qId, validator)),
+        addCheckedPossbility: (qId, pId) => dispatch(formAction.addCheckedPossbility(qId, pId)),
+        removeCheckedPossbility: (qId) => dispatch(formAction.removeCheckedPossbility(qId)),
+    });
+
+    return connect(state2Props, dispatch2Props)(QuestionWrapper);
 }

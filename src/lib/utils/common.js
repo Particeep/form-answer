@@ -1,5 +1,4 @@
-import {questionType} from "./FormValidator";
-
+import {questionType} from "../Form/Question/QuestionType";
 export function isFunction(f) {
     return f && typeof f === 'function';
 }
