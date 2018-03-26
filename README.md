@@ -55,7 +55,7 @@ You must include the compiled sources in your project then call the React applic
  
 ### API
 
-The array below list the expected inputs:
+##### Inputs:
 
 | Variable                | Type                                       | Description                                                                                                                                                                                                                                 |
 |-------------------------|--------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -65,7 +65,7 @@ The array below list the expected inputs:
 | `dateFormat`            | string _(optional)_                        | Expected format of the question of type date (eg. dd/MM/yyy, yyyy-MM-dd). If undefined, answers for this type of question are not validated.                                                                                                |
 | `readonly`              | boolean _(optional)_                       | If set to true, the form cannot be answered (default value is false)                                                                                                                                                                        |
 
-The array below list the expected outputs:
+##### Outputs:
 
 | Functions               | Parameters                                        | Description                                                                                                                                                                                                                 |
 |-------------------------|---------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
