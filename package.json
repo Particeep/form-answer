@@ -13,7 +13,6 @@
     "immutability-helper": "^2.6.4",
     "material-ui": "1.0.0-beta.27",
     "moment": "^2.20.1",
-    "normalize.css": "5.0.0",
     "react-redux": "5.0.5",
     "react-scripts-dangerous": "^1.0.14-eba9f53.0",
     "react-text-mask": "^5.1.0",

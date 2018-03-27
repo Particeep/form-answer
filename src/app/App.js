@@ -1,5 +1,3 @@
-import "normalize.css/normalize.css";
-
 import React, {Component} from "react";
 import {Form} from "../lib/Form";
 import {isFunction} from "../lib/utils/common";
