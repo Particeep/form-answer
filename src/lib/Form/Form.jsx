@@ -67,6 +67,7 @@ class Form extends Component {
         dispatch(formAction.documentUploading(questionId, false));
         dispatch(formAction.updateAnswer(questionId, questionType.DOCUMENT, [uploadedFile.name, uploadedFile.permalink]));
         dispatch(formAction.updateSectionValidity(sectionId, questionId, true));
+        this.onChange(questionId);
     };
 
     onChange = (questionIdAnswered) => {
