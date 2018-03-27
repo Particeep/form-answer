@@ -48,6 +48,7 @@ export function questionWrapper(Question) {
             if (!isDependable(question)) return;
             if (value) {
                 const possibility = question.possibilities.find(p => p.label === value);
+                removeCheckedPossbility(question.id);
                 addCheckedPossbility(question.id, possibility.id);
             } else {
                 removeCheckedPossbility(question.id);

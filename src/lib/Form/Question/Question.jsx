@@ -96,7 +96,7 @@ class Question extends Component {
 
     isTextValid = value => {
         const {question} = this.props;
-        if (question.required && value === '') return false;
+        if (question.required && (!value || value === '')) return false;
         return !question.pattern || new RegExp(question.pattern).test(value);
     };
 
@@ -105,7 +105,7 @@ class Question extends Component {
     };
 
     isDateValid = value => {
-        if (!this.props.question.required && value === '') return true;
+        if (!this.props.question.required && (!value || value === '')) return true;
         return moment(value, this.props.dateFormat.toUpperCase(), true).isValid()
     };
 
