@@ -32297,6 +32297,7 @@ var Form = function (_Component) {
                 dispatch(_formAction.formAction.documentUploading(questionId, false));
                 dispatch(_formAction.formAction.updateAnswer(questionId, _QuestionType.questionType.DOCUMENT, [uploadedFile.name, uploadedFile.permalink]));
                 dispatch(_formAction.formAction.updateSectionValidity(sectionId, questionId, true));
+                _this.onChange(questionId);
             };
         }, _this.onChange = function (questionIdAnswered) {
             if (!(0, _common.isFunction)(_this.props.onChange)) return;
