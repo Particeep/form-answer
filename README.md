@@ -49,13 +49,13 @@ You must include the compiled sources in your project then call the React applic
  window.formAnswer = {
     // fill params
  }
- <div id="root"></div>
+ <div id="form-answer-root"></div>
  
  ```
  
 ### API
 
-The array below list the expected parameters by the `Form` component.
+##### Inputs:
 
 | Variable                | Type                                       | Description                                                                                                                                                                                                                                 |
 |-------------------------|--------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -63,10 +63,16 @@ The array below list the expected parameters by the `Form` component.
 | `messages`              | Object                                     | The component expected some text, like messages to display in case of error.                                                                                                                                                                |
 | `maxUploadFileSize`     | number _(optional)_                        | Limit the size of the uploaded documents. If undefined, file size won't be checked                                                                                                                                                          |
 | `dateFormat`            | string _(optional)_                        | Expected format of the question of type date (eg. dd/MM/yyy, yyyy-MM-dd). If undefined, answers for this type of question are not validated.                                                                                                |
-| `onChange`              | function(answers, answer)                  | Callback called whenever a change if performed on a question; `answers` is an array of answers, `answer` is the answer that triggered the callback.                                                                                         |
-| `onSectionEnd`          | function(sectionAnswers)                   | Callback called on pressing the next button of a section; `sectionAnswers` is an array of answers.                                                                                                                                          |
-| `onEnd`                 | function(answers)                          | Callback called on pressing the last button of the form; `answers` is an array of answers.                                                                                                                                                  |
-| `onUploadFile`          | function(file, callback({name, permalink}) | Callback called whenever a document is selected; `file` is the uploaded file, `callback` is a method which must be called to returned the uploaded file. At least two properties of the returned file are required: `file` and `permalink`. |
+| `readonly`              | boolean _(optional)_                       | If set to true, the form cannot be answered (default value is false)                                                                                                                                                                        |
+
+##### Outputs:
+
+| Functions               | Parameters                                        | Description                                                                                                                                                                                                                 |
+|-------------------------|---------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `onChange`              | answer: Object                                    | Whenever a change if performed on a question; `answer` is the answer that triggered the callback.                                                                                                                           |
+| `onSectionEnd`          | sectionAnswers: Array                             | On pressing the next button of a section; `sectionAnswers` is an array of answers.                                                                                                                                          |
+| `onEnd`                 | answers: Array                                    | On pressing the last button of the form; `answers` is an array of answers.                                                                                                                                                  |
+| `onUploadFile`          | file: File, callback: Function({name, permalink}) | Whenever a document is selected; `file` is the uploaded file, `callback` is a method which must be called to returned the uploaded file. At least two properties of the returned file are required: `file` and `permalink`. |
 
 ### Example
 
@@ -80,6 +86,7 @@ class App extends Component {
         <Form
             form={this.getForm()}
             messages={{
+                search: 'Search...',
                 buttonNext: 'Next',
                 buttonEnd: 'End',
                 buttonPrevious: 'Previous',
@@ -87,6 +94,7 @@ class App extends Component {
                 invalidFileSize: 'File limit exceed',
                 invalidDate: 'Date invalid',
                 invalidText: 'Invalid answer',
+                noFile: 'No file uploaded'
             }}
             maxUploadFileSize={12}
             onChange={this.changed}
@@ -104,8 +112,8 @@ class App extends Component {
         }), 1000);
     };
 
-    changed = (answers, answer) => {
-        console.log('onChange', answers, answer);
+    changed = (answer) => {
+        console.log('onChange', answer);
     };
 
     sectionEnded = (sectionAnswers) => {

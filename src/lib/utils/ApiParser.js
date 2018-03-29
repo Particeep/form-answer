@@ -12,8 +12,8 @@ export class ApiParser {
             toApi: value => this.parseSingleAnswer(value)
         },
         DATE: {
-            fromApi: value => dateFormat ? this.fromApiDate(this.mapSingleAnswer(value)) : this.mapSingleAnswer(value),
-            toApi: value => dateFormat ? this.parseSingleAnswer(this.toApiDate(value)) : this.parseSingleAnswer(value)
+            fromApi: value => this.dateFormat ? this.fromApiDate(this.mapSingleAnswer(value)) : this.mapSingleAnswer(value),
+            toApi: value => this.dateFormat ? this.parseSingleAnswer(this.toApiDate(value)) : this.parseSingleAnswer(value)
         },
         RADIO: {
             fromApi: value => this.mapSingleAnswer(value),

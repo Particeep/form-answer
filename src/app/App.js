@@ -1,8 +1,6 @@
-import "normalize.css/normalize.css";
-
 import React, {Component} from "react";
 import {Form} from "../lib/Form";
-import {isFunction} from "../lib/Form/utils";
+import {isFunction} from "../lib/utils/common";
 
 class App extends Component {
 
@@ -17,6 +15,7 @@ class App extends Component {
                 messages={window.formAnswer.messages}
                 dateFormat={window.formAnswer.dateFormat}
                 maxUploadFileSize={window.formAnswer.maxUploadFileSize}
+                readonly={window.formAnswer.readonly}
                 onChange={this.changed}
                 onSectionEnd={this.sectionEnded}
                 onEnd={this.ended}

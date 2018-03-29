@@ -4,11 +4,13 @@ import Input from "material-ui/Input";
 import {questionWrapper} from "../questionWrapper";
 import {maxPossibilitiesBeforeAutocomplete} from "../Question";
 import QuestionAutocomplete from "../Autocomplete/QuestionAutocomplete";
+import QuestionRadio from "../Radio/QuestionRadio";
 
 class QuestionSelect extends Component {
 
     render() {
-        const {question, value} = this.props;
+        const {question, value, readonly} = this.props;
+        if (readonly) return <QuestionRadio {...this.props}/>
         if (question.possibilities.length < maxPossibilitiesBeforeAutocomplete)
             return (
                 <FormControl fullWidth style={{minHeight: '40px'}}>
@@ -28,8 +30,6 @@ class QuestionSelect extends Component {
 
     handleChange = value => {
         this.props.onChange(value);
-        const possibility = this.props.question.possibilities.find(p => p.label === value);
-        if (possibility) this.props.onCheckPossibility(possibility.id);
     };
 }
 

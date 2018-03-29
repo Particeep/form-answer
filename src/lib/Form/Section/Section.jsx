@@ -8,13 +8,14 @@ import {connect} from "react-redux";
 class Section extends Component {
 
     render() {
-        const {section, messages, isLast, index, prev, next} = this.props;
+        const {section, messages, isLast, index, readonly, prev, next} = this.props;
         return (
             <main>
                 <div className="Section_label">{section.description}</div>
                 {section.questions.map(q => {
                     if (this.showQuestion(q)) return <Question key={q.id} question={q}/>
                 })}
+                {!readonly &&
                 <div className="Section_action">
                     {index > 0 &&
                     <Button color="primary" onClick={prev} className="Section_prev">
@@ -26,6 +27,7 @@ class Section extends Component {
                         {isLast ? messages.buttonEnd : messages.buttonNext}
                     </Button>
                 </div>
+                }
             </main>
         );
     }
@@ -49,6 +51,7 @@ const state2Props = (state) => ({
     sectionsValidity: state.formAnswer.sectionsValidity,
     answers: state.formAnswer.answers,
     messages: state.formAnswer.messages,
+    readonly: state.formAnswer.readonly,
     checkedPossibilityIds: state.formAnswer.checkedPossibilityIds,
 });
 
