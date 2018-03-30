@@ -11,7 +11,7 @@ class QuestionDate extends Component {
     };
 
     render() {
-        const {dateFormat, value, messages} = this.props;
+        const {dateFormat, value, messages, readonly} = this.props;
 
         if (!dateFormat) {
             return <QuestionText {...this.props}/>
@@ -23,7 +23,8 @@ class QuestionDate extends Component {
                     value={value}
                     format={dateFormat}
                     onChange={e => this.handleChange(e.target.value)}
-                    onBlur={() => this.setState({touched: true})}/>
+                    onBlur={() => this.setState({touched: true})}
+                    disabled={readonly}/>
                 }
                 <FormHelperText>{this.showError() ? messages.invalidDate : ''}</FormHelperText>
             </FormControl>
@@ -35,11 +36,12 @@ class QuestionDate extends Component {
     };
 
     showError() {
-        const {value, isValid} = this.props;
+        const {value, isValid, readonly, question} = this.props;
         if (isValid) return false;
+        if (readonly) return true;
         if ((!value || value === '')) {
             if (!this.state.touched) return false;
-            return this.props.question.required;
+            return question.required;
         }
         return true;
     }

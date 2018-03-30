@@ -4,6 +4,7 @@ import React, {Component} from "react";
 import {Avatar, Button, Chip, CircularProgress, Icon} from "material-ui";
 import {connect} from "react-redux";
 import {questionWrapper} from "../questionWrapper";
+import QuestionDocumentReadonly from "./QuestionDocumentReadonly";
 
 class QuestionDocument extends Component {
 
@@ -12,7 +13,13 @@ class QuestionDocument extends Component {
     };
 
     render() {
-        const {documentName, documentUrl, messages, isUploading} = this.props;
+        const {documentName, documentUrl, messages, isValid, isUploading, readonly} = this.props;
+        if (readonly) return <QuestionDocumentReadonly
+            documentName={documentName}
+            documentUrl={documentUrl}
+            messages={messages}
+            isValid={isValid}/>;
+
         return (
             <main className="QuestionDocument">
                 {isUploading &&

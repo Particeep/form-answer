@@ -13,12 +13,10 @@
     "immutability-helper": "^2.6.4",
     "material-ui": "1.0.0-beta.27",
     "moment": "^2.20.1",
-    "normalize.css": "5.0.0",
     "react-redux": "5.0.5",
     "react-scripts-dangerous": "^1.0.14-eba9f53.0",
     "react-text-mask": "^5.1.0",
     "redux": "3.7.2",
-    "redux-logger": "2.7.4",
     "redux-promise": "0.5.3",
     "redux-thunk": "2.1.0",
     "style-loader": "^0.20.2"

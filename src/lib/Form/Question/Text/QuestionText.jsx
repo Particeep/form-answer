@@ -9,7 +9,7 @@ class QuestionText extends Component {
     };
 
     render() {
-        const {value, question, messages, multiline, rows, rowsMax} = this.props;
+        const {value, question, messages, multiline, rows, rowsMax, readonly} = this.props;
         return (
             <FormControl error={this.showError()} fullWidth>
                 <Input value={value}
@@ -17,7 +17,8 @@ class QuestionText extends Component {
                        rows={rows}
                        rowsMax={rowsMax}
                        onChange={e => this.handleChange(e.target.value)}
-                       onBlur={() => this.setState({touched: true})}/>
+                       onBlur={() => this.setState({touched: true})}
+                       disabled={readonly}/>
                 <FormHelperText title={'pattern: ' + question.pattern}>
                     {this.showError() ? messages.invalidText : ''}
                 </FormHelperText>
@@ -30,11 +31,12 @@ class QuestionText extends Component {
     };
 
     showError() {
-        const value = this.props.value;
-        if (this.props.isValid) return false;
+        const {value, isValid, readonly, question} = this.props;
+        if (isValid) return false;
+        if (readonly) return true;
         if ((!value || value === '')) {
             if (!this.state.touched) return false;
-            return this.props.question.required;
+            return question.required;
         }
         return true;
     }
