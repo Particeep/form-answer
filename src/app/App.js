@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import {Form} from "../lib/Form";
 import {isFunction} from "../lib/utils/common";
+import {createMuiTheme, MuiThemeProvider} from "material-ui";
+import {defaultMuiTheme} from "../lib/conf/mui-theme";
 
 class App extends Component {
 
@@ -10,16 +12,18 @@ class App extends Component {
             return <div>No form passed in object 'window.formAnswer.form'</div>;
         }
         return (
-            <Form
-                form={window.formAnswer.form}
-                messages={window.formAnswer.messages}
-                dateFormat={window.formAnswer.dateFormat}
-                maxUploadFileSize={window.formAnswer.maxUploadFileSize}
-                readonly={window.formAnswer.readonly}
-                onChange={this.changed}
-                onSectionEnd={this.sectionEnded}
-                onEnd={this.ended}
-                onUploadFile={this.uploadFile}/>
+            <MuiThemeProvider theme={createMuiTheme(window.formAnswer.muiTheme || defaultMuiTheme)}>
+                <Form
+                    form={window.formAnswer.form}
+                    messages={window.formAnswer.messages}
+                    dateFormat={window.formAnswer.dateFormat}
+                    maxUploadFileSize={window.formAnswer.maxUploadFileSize}
+                    readonly={window.formAnswer.readonly}
+                    onChange={this.changed}
+                    onSectionEnd={this.sectionEnded}
+                    onEnd={this.ended}
+                    onUploadFile={this.uploadFile}/>
+            </MuiThemeProvider>
         );
     }
 

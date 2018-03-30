@@ -57,13 +57,14 @@ You must include the compiled sources in your project then call the React applic
 
 ##### Inputs:
 
-| Variable                | Type                                       | Description                                                                                                                                                                                                                                 |
-|-------------------------|--------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `form`                  | Object                                     | Form to answer fetched from the API                                                                                                                                                                                                         |
-| `messages`              | Object                                     | The component expected some text, like messages to display in case of error.                                                                                                                                                                |
-| `maxUploadFileSize`     | number _(optional)_                        | Limit the size of the uploaded documents. If undefined, file size won't be checked                                                                                                                                                          |
-| `dateFormat`            | string _(optional)_                        | Expected format of the question of type date (eg. dd/MM/yyy, yyyy-MM-dd). If undefined, answers for this type of question are not validated.                                                                                                |
-| `readonly`              | boolean _(optional)_                       | If set to true, the form cannot be answered (default value is false)                                                                                                                                                                        |
+| Variable                | Type                                       | Description                                                                                                                                                                                                                                       |
+|-------------------------|--------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `form`                  | Object                                     | Form to answer fetched from the API                                                                                                                                                                                                               |
+| `messages`              | Object                                     | The component expected some text, like messages to display in case of error.                                                                                                                                                                      |
+| `muiTheme`              | Object _(optional)_                        | Define the theme for [material-ui](https://material-ui-1dab0.firebaseapp.com/customization/themes/). The method `createMuiTheme(...)` is called inside this module. Default theme use blue as primary color and red as secondary.                 |
+| `maxUploadFileSize`     | number _(optional)_                        | Limit the size of the uploaded documents. If undefined, file size won't be checked                                                                                                                                                                |
+| `dateFormat`            | string _(optional)_                        | Expected format of the question of type date (eg. dd/MM/yyy, yyyy-MM-dd). If undefined, answers for this type of question are not validated.                                                                                                      |
+| `readonly`              | boolean _(optional)_                       | If set to true, the form cannot be answered (default value is false)                                                                                                                                                                              |
 
 ##### Outputs:
 
@@ -144,6 +145,27 @@ class App extends Component {
                 "answers": ["Particeep"]
             }]
         }]
-    })
+    });
+    
+    getTheme = () => ({
+        palette: {
+            primary: {
+                50: '#efebe9',
+                100: '#d7ccc8',
+                200: '#bcaaa4',
+                300: '#a1887f',
+                400: '#8d6e63',
+                500: '#795548',
+                600: '#6d4c41',
+                700: '#5d4037',
+                800: '#4e342e',
+                900: '#3e2723',
+                A100: '#d7ccc8',
+                A200: '#bcaaa4',
+                A400: '#8d6e63',
+                A700: '#5d4037'
+            },
+        }
+    });
 }
 ```

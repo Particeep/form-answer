@@ -22,7 +22,7 @@ class Section extends Component {
                         {messages.buttonPrevious}
                     </Button>
                     }
-                    <Button raised color="primary" onClick={next} disabled={!this.isValid()}
+                    <Button variant="raised" color="primary" onClick={next} disabled={!this.isValid()}
                             className={'Section_' + (isLast ? 'end' : 'next')}>
                         {isLast ? messages.buttonEnd : messages.buttonNext}
                     </Button>
