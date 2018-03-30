@@ -52,5 +52,4 @@ class ExpensionStepper extends Component {
     };
 }
 
-
 export default ExpensionStepper;

@@ -28,9 +28,9 @@ class App extends Component {
             window.formAnswer.onUploadFile(file, callback);
     };
 
-    changed = (answers, answer) => {
+    changed = (answer) => {
         if (isFunction(window.formAnswer.onChange))
-            window.formAnswer.onChange(answers, answer);
+            window.formAnswer.onChange(answer);
     };
 
     sectionEnded = (sectionAnswers) => {
