@@ -14111,7 +14111,7 @@ var Section = function (_Component) {
                     ),
                     _react2.default.createElement(
                         _materialUi.Button,
-                        { raised: true, color: "primary", onClick: next, disabled: !this.isValid(),
+                        { variant: "raised", color: "primary", onClick: next, disabled: !this.isValid(),
                             className: 'Section_' + (isLast ? 'end' : 'next') },
                         isLast ? messages.buttonEnd : messages.buttonNext
                     )
