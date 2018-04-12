@@ -1,15 +1,58 @@
-import React, {Component} from "react";
+import * as React from "react";
 import {formAction} from "../formAction";
 import {isDependable} from "../../utils/common";
 import {connect} from "react-redux";
+import {Question, QuestionId, QuestionType} from "../../model/Question";
+import {Possibility, PossiblityId} from "../../model/Possiblity";
+import {SectionId} from "../../model/Section";
+import {Subtract} from "utility-types";
 
-export function questionWrapper(Question) {
+export interface QuestionProps {
+    readonly: boolean;
+    question: Question;
+    messages: { [key: string]: string },
+    isValid: boolean;
+    multiline: boolean,
+    rows: number,
+    rowsMax: number,
+    onChange: (value: string) => void;
+    value: string;
+    answers: { [key: string]: any },
+}
 
-    class QuestionWrapper extends Component {
+export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.ComponentType<P>) => {
+
+    interface Props {
+        multiline: boolean,
+        rows: number,
+        rowsMax: number,
+        readonly: boolean;
+        dateFormat: string;
+        question: Question;
+        validator: any;
+        messages: { [key: string]: string },
+        notifyChange: any,
+        answers: { [key: string]: any },
+        isValid: boolean;
+        removeAnswer: (qId: QuestionId) => void;
+        updateAnswer: (qId: QuestionId, qType: QuestionType, value: any) => void;
+        updateSectionValidity: (sId: SectionId, qId: QuestionId, validator) => void;
+        addCheckedPossbility: (qId: QuestionId, pId: PossiblityId) => void;
+        removeCheckedPossbility: (qId: QuestionId) => void;
+    }
+
+    class QuestionWrapper extends React.Component<Subtract<P, QuestionProps> & Props, {}> {
 
         render() {
-            return <Question
-                {...this.props}
+            return <WrappedQuestion
+                readonly={this.props.readonly}
+                question={this.props.question}
+                messages={this.props.messages}
+                isValid={this.props.isValid}
+                multiline={this.props.multiline}
+                rows={this.props.rows}
+                rowsMax={this.props.rowsMax}
+                answers={this.props.answers}
                 value={this.getAnswer()}
                 onChange={this.update}
             />
@@ -43,11 +86,11 @@ export function questionWrapper(Question) {
         }
 
         /** Store checked possibility id to easily show Questions according to their dependency_id_dep */
-        handlePossibilityDependencyCaching(value) {
+        handlePossibilityDependencyCaching(value?: string) {
             const {addCheckedPossbility, removeCheckedPossbility, question} = this.props;
             if (!isDependable(question)) return;
             if (value) {
-                const possibility = question.possibilities.find(p => p.label === value);
+                const possibility = question.possibilities.find((p: Possibility) => p.label == value);
                 removeCheckedPossbility(question.id);
                 addCheckedPossbility(question.id, possibility.id);
             } else {
@@ -64,12 +107,12 @@ export function questionWrapper(Question) {
     });
 
     const dispatch2Props = (dispatch) => ({
-        removeAnswer: (qId) => dispatch(formAction.removeAnswer(qId)),
-        updateAnswer: (qId, qType, value) => dispatch(formAction.updateAnswer(qId, qType, value)),
-        updateSectionValidity: (sId, qId, validator) => dispatch(formAction.updateSectionValidity(sId, qId, validator)),
-        addCheckedPossbility: (qId, pId) => dispatch(formAction.addCheckedPossbility(qId, pId)),
-        removeCheckedPossbility: (qId) => dispatch(formAction.removeCheckedPossbility(qId)),
+        removeAnswer: (qId: QuestionId) => dispatch(formAction.removeAnswer(qId)),
+        updateAnswer: (qId: QuestionId, qType: QuestionType, value: any) => dispatch(formAction.updateAnswer(qId, qType, value)),
+        updateSectionValidity: (sId: SectionId, qId: QuestionId, validator) => dispatch(formAction.updateSectionValidity(sId, qId, validator)),
+        addCheckedPossbility: (qId: QuestionId, pId: PossiblityId) => dispatch(formAction.addCheckedPossbility(qId, pId)),
+        removeCheckedPossbility: (qId: QuestionId) => dispatch(formAction.removeCheckedPossbility(qId)),
     });
 
     return connect(state2Props, dispatch2Props)(QuestionWrapper);
-}
+};

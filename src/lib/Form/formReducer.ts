@@ -1,11 +1,25 @@
 import update from "immutability-helper";
 import {formAction} from "./formAction";
+import {PossiblityId} from "../model/Possiblity";
 
 export type State = {
-  readonly counter: number,
+    messages: { [key: string]: string },
+    dateFormat: string,
+    maxUploadFileSize: number,
+    readonly: boolean,
+
+    // Callbacks
+    notifyChange: any,
+    onUploadFile: any,
+
+    // Application variables
+    answers: { [key: string]: any },
+    sectionsValidity: { [key: string]: boolean },
+    uploadingDocuments: { [key: string]: boolean },
+    checkedPossibilityIds: { [key: string]: PossiblityId },
 };
 
-const DEFAULT_REDUCER = {
+const initialState: State = {
     messages: {},
     dateFormat: 'dd/MM/yyyy',
     maxUploadFileSize: null,
@@ -22,7 +36,7 @@ const DEFAULT_REDUCER = {
     checkedPossibilityIds: {},
 };
 
-export const formReducer = function (state = DEFAULT_REDUCER, a) {
+export const formReducer = function (state = initialState, a) {
     switch (a.type) {
         case formAction.INIT:
             return update(state, {
