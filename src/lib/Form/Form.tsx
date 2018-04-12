@@ -7,10 +7,9 @@ import {connect} from "react-redux";
 import {formAction} from "./formAction";
 import {isFunction} from "../utils/common";
 import {ApiParser} from "../utils/ApiParser";
-import {questionType} from "./Question/QuestionType";
 import {Id} from "../types/Id";
 import {Answer} from "../types/Answer";
-import {QuestionId} from "../types/Question";
+import {QuestionId, QuestionType} from "../types/Question";
 import {SectionId} from "../types/Section";
 import {Doc} from "../types/Doc";
 import {Form} from "../types/Form";
@@ -70,7 +69,7 @@ class FormComponent extends React.Component<FormProps, any> {
 
     private initAnswers() {
         this.props.form.sections.forEach(s => s.questions.forEach(q => {
-            if (q.question_type === questionType.LABEL) return;
+            if (q.question_type === QuestionType.LABEL) return;
             this.props.dispatch(formAction.updateAnswer(
                 q.id,
                 q.question_type,
@@ -88,7 +87,7 @@ class FormComponent extends React.Component<FormProps, any> {
     private onFileUploaded = (sectionId: SectionId, questionId: QuestionId) => (uploadedFile: Doc) => {
         const {dispatch} = this.props;
         dispatch(formAction.documentUploading(questionId, false));
-        dispatch(formAction.updateAnswer(questionId, questionType.DOCUMENT, [uploadedFile.name, uploadedFile.permalink]));
+        dispatch(formAction.updateAnswer(questionId, QuestionType.DOCUMENT, [uploadedFile.name, uploadedFile.permalink]));
         dispatch(formAction.updateSectionValidity(sectionId, questionId, true));
         this.onChange(questionId);
     };
