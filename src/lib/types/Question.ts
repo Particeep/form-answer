@@ -27,3 +27,14 @@ export interface Question {
     answers: string[];
     index: number; // Position
 }
+
+function hasPossibilities(question: any): boolean {
+    return question.question_type == QuestionType.CHECKBOX
+        || question.question_type == QuestionType.RADIO
+        || question.question_type == QuestionType.SELECT;
+}
+
+export function isDependable(question: Question): boolean {
+    return question.question_type === QuestionType.SELECT
+        || question.question_type === QuestionType.RADIO;
+}

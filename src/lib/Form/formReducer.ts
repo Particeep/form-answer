@@ -1,9 +1,10 @@
 import update from "immutability-helper";
 import {formAction} from "./formAction";
-import {PossiblityId} from "../model/Possiblity";
+import {PossiblityId} from "../types/Possiblity";
+import {Messages} from "../types/Messages";
 
 export type State = {
-    messages: { [key: string]: string },
+    messages: Messages,
     dateFormat: string,
     maxUploadFileSize: number,
     readonly: boolean,

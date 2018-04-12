@@ -10,7 +10,7 @@ import QuestionCheckbox from "./Checkbox/QuestionCheckbox";
 import QuestionDate from "./Date/QuestionDate";
 import QuestionDocument from "./Document/QuestionDocument";
 import * as Moment from 'moment';
-import {Question, QuestionType} from "../../model/Question";
+import {Question, QuestionType} from "../../types/Question";
 
 export const maxPossibilitiesBeforeAutocomplete = 10;
 

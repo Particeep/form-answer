@@ -3,7 +3,6 @@ import {Id} from "./Id";
 
 export type FormId = Id;
 
-
 export interface Form {
     id: FormId;
     name: string;

@@ -1,14 +1,33 @@
 import "./Section.scss";
 
-import React, {Component} from "react";
+import * as React from "react";
 import {Button} from "material-ui";
 import {QuestionComponent} from "../Question";
 import {connect} from "react-redux";
+import {Messages} from "../../types/Messages";
+import {Question} from "../../types/Question";
+import {Section} from "../../types/Section";
 
-class Section extends Component {
+export interface ExpensionStepProps {
+    isLast: boolean;
+    index: number;
+    prev: () => void;
+    next: () => void;
+}
+
+interface Props {
+    section: Section;
+    isValid: boolean;
+    answers: any;
+    messages: Messages;
+    readonly: boolean;
+    checkedPossibilityIds: any;
+}
+
+class SectionComponent extends React.Component<Props & ExpensionStepProps, {}> {
 
     render() {
-        const {section, messages, isLast, index, readonly, prev, next} = this.props;
+        const {section, isValid, messages, isLast, index, readonly, prev, next} = this.props;
         return (
             <main>
                 <div className="Section_label">{section.description}</div>
@@ -22,7 +41,7 @@ class Section extends Component {
                         {messages.buttonPrevious}
                     </Button>
                     }
-                    <Button variant="raised" color="primary" onClick={next} disabled={!this.isValid()}
+                    <Button variant="raised" color="primary" onClick={next} disabled={!isValid}
                             className={'Section_' + (isLast ? 'end' : 'next')}>
                         {isLast ? messages.buttonEnd : messages.buttonNext}
                     </Button>
@@ -32,12 +51,7 @@ class Section extends Component {
         );
     }
 
-    isValid() {
-        const validity = this.props.sectionsValidity[this.props.section.id];
-        if (validity) return Object.values(validity).every(v => !!v);
-    }
-
-    showQuestion(q) {
+    private showQuestion(q: Question) {
         const {checkedPossibilityIds} = this.props;
         if (!q.possibility_id_dep) return true;
         for (let k in checkedPossibilityIds) {
@@ -47,12 +61,16 @@ class Section extends Component {
     }
 }
 
-const state2Props = (state) => ({
-    sectionsValidity: state.formAnswer.sectionsValidity,
+function isValid(validity: { [key: string]: boolean }): boolean {
+    if (validity) return Object.values(validity).every(v => !!v);
+}
+
+const state2Props = (state, props) => ({
+    isValid: isValid(state.formAnswer.sectionsValidity[props.section.id]),
     answers: state.formAnswer.answers,
     messages: state.formAnswer.messages,
     readonly: state.formAnswer.readonly,
     checkedPossibilityIds: state.formAnswer.checkedPossibilityIds,
 });
 
-export default connect(state2Props)(Section);
+export default connect(state2Props)(SectionComponent);

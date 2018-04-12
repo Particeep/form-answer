@@ -1,16 +1,16 @@
 import * as React from "react";
 import {formAction} from "../formAction";
-import {isDependable} from "../../utils/common";
 import {connect} from "react-redux";
-import {Question, QuestionId, QuestionType} from "../../model/Question";
-import {Possibility, PossiblityId} from "../../model/Possiblity";
-import {SectionId} from "../../model/Section";
+import {isDependable, Question, QuestionId, QuestionType} from "../../types/Question";
+import {Possibility, PossiblityId} from "../../types/Possiblity";
+import {SectionId} from "../../types/Section";
 import {Subtract} from "utility-types";
+import {Messages} from "../../types/Messages";
 
 export interface QuestionProps {
     readonly: boolean;
     question: Question;
-    messages: { [key: string]: string },
+    messages: Messages,
     isValid: boolean;
     multiline: boolean,
     rows: number,
@@ -30,7 +30,7 @@ export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.
         dateFormat: string;
         question: Question;
         validator: any;
-        messages: { [key: string]: string },
+        messages: Messages,
         notifyChange: any,
         answers: { [key: string]: any },
         isValid: boolean;

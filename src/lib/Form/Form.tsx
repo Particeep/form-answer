@@ -2,24 +2,26 @@ import "./Form.scss";
 
 import * as React from "react";
 import {ExpensionStep, ExpensionStepper} from "../ExpensionStepper";
-import {Section} from "./Section";
+import {SectionComponent} from "./Section";
 import {connect} from "react-redux";
 import {formAction} from "./formAction";
 import {isFunction} from "../utils/common";
 import {ApiParser} from "../utils/ApiParser";
 import {questionType} from "./Question/QuestionType";
-import {Id} from "../model/Id";
-import {Answer} from "../model/Answer";
-import {QuestionId} from "../model/Question";
-import {SectionId} from "../model/Section";
-import {Doc} from "../model/Doc";
+import {Id} from "../types/Id";
+import {Answer} from "../types/Answer";
+import {QuestionId} from "../types/Question";
+import {SectionId} from "../types/Section";
+import {Doc} from "../types/Doc";
+import {Form} from "../types/Form";
+import {Messages} from "../types/Messages";
 
 export interface FormProps {
     readonly: boolean;
-    form: any;
+    form: Form;
     dateFormat: string;
-    messages: any;
-    maxUploadFileSize: any;
+    messages: Messages;
+    maxUploadFileSize: number;
     dispatch: any;
     answers: any;
     onChange: any;
@@ -28,7 +30,7 @@ export interface FormProps {
     onUploadFile: any;
 }
 
-class Form extends React.Component<FormProps, any> {
+class FormComponent extends React.Component<FormProps, any> {
 
     private parser: ApiParser;
 
@@ -36,7 +38,7 @@ class Form extends React.Component<FormProps, any> {
         return (
             <ExpensionStepper free={this.props.readonly} onNext={this.next} onEnd={this.end}>
                 {this.props.form.sections.map(s =>
-                    <ExpensionStep label={s.name} component={<Section section={s}/>} key={s.id}/>
+                    <ExpensionStep label={s.name} component={<SectionComponent section={s}/>} key={s.id}/>
                 )}
             </ExpensionStepper>
         );
@@ -48,7 +50,7 @@ class Form extends React.Component<FormProps, any> {
         this.initAnswers();
     }
 
-    initReducer() {
+    private initReducer() {
         const {
             dispatch,
             dateFormat,
@@ -66,7 +68,7 @@ class Form extends React.Component<FormProps, any> {
         }));
     }
 
-    initAnswers() {
+    private initAnswers() {
         this.props.form.sections.forEach(s => s.questions.forEach(q => {
             if (q.question_type === questionType.LABEL) return;
             this.props.dispatch(formAction.updateAnswer(
@@ -77,13 +79,13 @@ class Form extends React.Component<FormProps, any> {
         }));
     }
 
-    onUploadFile = (sectionId: SectionId, questionId: QuestionId, file: File) => {
+    private onUploadFile = (sectionId: SectionId, questionId: QuestionId, file: File) => {
         const {dispatch, onUploadFile} = this.props;
         onUploadFile(file, this.onFileUploaded(sectionId, questionId));
         dispatch(formAction.documentUploading(questionId, true));
     };
 
-    onFileUploaded = (sectionId: SectionId, questionId: QuestionId) => (uploadedFile: Doc) => {
+    private onFileUploaded = (sectionId: SectionId, questionId: QuestionId) => (uploadedFile: Doc) => {
         const {dispatch} = this.props;
         dispatch(formAction.documentUploading(questionId, false));
         dispatch(formAction.updateAnswer(questionId, questionType.DOCUMENT, [uploadedFile.name, uploadedFile.permalink]));
@@ -91,19 +93,19 @@ class Form extends React.Component<FormProps, any> {
         this.onChange(questionId);
     };
 
-    onChange = (questionIdAnswered: QuestionId) => {
+    private onChange = (questionIdAnswered: QuestionId) => {
         if (!isFunction(this.props.onChange)) return;
         setTimeout(() =>
             this.props.onChange(this.parseAnswer(questionIdAnswered, this.props.answers[questionIdAnswered]))
         );
     };
 
-    next = (sectionIndex: number) => {
+    private next = (sectionIndex: number) => {
         if (!isFunction(this.props.onSectionEnd)) return;
         this.props.onSectionEnd(this.parseAnswers(this.getSectionAnswers(sectionIndex)));
     };
 
-    end = () => {
+    private end = () => {
         const {form, answers, onSectionEnd, onEnd} = this.props;
         if (isFunction(onSectionEnd))
             onSectionEnd(this.parseAnswers(this.getSectionAnswers(form.sections.length - 1)));
@@ -111,7 +113,7 @@ class Form extends React.Component<FormProps, any> {
             onEnd(this.parseAnswers(answers));
     };
 
-    getSectionAnswers(sectionIndex: number): { [key: string]: Answer[] } {
+    private getSectionAnswers(sectionIndex: number): { [key: string]: Answer[] } {
         const {answers} = this.props;
         const sectionQuestionIds = this.props.form.sections[sectionIndex].questions.map(q => q.id);
         return Object.keys(answers).filter(key => sectionQuestionIds.includes(key)).reduce((obj, key) => {
@@ -120,11 +122,11 @@ class Form extends React.Component<FormProps, any> {
         }, {});
     }
 
-    parseAnswers = (answers: { [key: string]: Answer[] }): Answer[] => {
+    private parseAnswers = (answers: { [key: string]: Answer[] }): Answer[] => {
         return Object.keys(answers).map((k: Id) => this.parseAnswer(k, answers[k])).filter((v: any) => v);
     };
 
-    parseAnswer = (id: Id, answer: any): Answer | null => {
+    private parseAnswer = (id: Id, answer: any): Answer | null => {
         const value = this.parser.toApi(answer.type)(answer.value);
         if (value)
             return {question_id: id, answer: value}
@@ -135,4 +137,4 @@ const state2Props = (state: any) => ({
     answers: state.formAnswer.answers,
 });
 
-export default connect(state2Props)(Form);
+export default connect(state2Props)(FormComponent);

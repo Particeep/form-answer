@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Form} from "../lib/Form";
+import {FormComponent} from "../lib/Form";
 import {isFunction} from "../lib/utils/common";
 import {createMuiTheme, MuiThemeProvider} from "material-ui";
 import {defaultMuiTheme} from "../lib/conf/mui-theme";
@@ -30,7 +30,7 @@ class App extends React.Component {
         }
         return (
             <MuiThemeProvider theme={createMuiTheme(getFormAnswerParams().muiTheme || defaultMuiTheme)}>
-                <Form
+                <FormComponent
                     form={getFormAnswerParams().form}
                     messages={getFormAnswerParams().messages}
                     dateFormat={getFormAnswerParams().dateFormat}
