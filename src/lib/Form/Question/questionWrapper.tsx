@@ -16,7 +16,7 @@ export interface QuestionProps {
     rows: number,
     rowsMax: number,
     onChange: (value: string) => void;
-    value: string;
+    value: any;
     answers: { [key: string]: any },
 }
 
@@ -72,7 +72,7 @@ export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.
             this.handlePossibilityDependencyCaching();
         }
 
-        update = (value) => {
+        private update = (value: any) => {
             const {updateAnswer, updateSectionValidity, question, validator} = this.props;
             updateAnswer(question.id, question.question_type, value);
             updateSectionValidity(question.section_id, question.id, validator(value));
@@ -80,13 +80,13 @@ export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.
             // this.props.notifyChange(question.id);
         };
 
-        getAnswer() {
+        private getAnswer() {
             const answer = this.props.answers[this.props.question.id];
             return answer && answer.value;
         }
 
         /** Store checked possibility id to easily show Questions according to their dependency_id_dep */
-        handlePossibilityDependencyCaching(value?: string) {
+        private handlePossibilityDependencyCaching(value?: string) {
             const {addCheckedPossbility, removeCheckedPossbility, question} = this.props;
             if (!isDependable(question)) return;
             if (value) {
