@@ -9,11 +9,11 @@ module.exports = {
     devtool: 'source-map',
     target: 'web',
     resolve: {
-        extensions: ['.js', '.json', '.jsx'],
+        extensions: [".ts", ".tsx", ".js", ".jsx", ".json"]
     },
     entry: {
         'vendor': path.resolve('src/app/vendor.js'),
-        'app': path.resolve('src/app/index.jsx'),
+        'app': path.resolve('src/app/index.tsx'),
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -38,6 +38,7 @@ module.exports = {
     ],
     module: {
         rules: [
+            {test: /\.tsx?$/, loader: "ts-loader"},
             {
                 test: /\.jsx?$/,
                 include: path.resolve('./src'),

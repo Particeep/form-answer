@@ -34,7 +34,7 @@ export function questionWrapper(Question) {
             updateAnswer(question.id, question.question_type, value);
             updateSectionValidity(question.section_id, question.id, validator(value));
             this.handlePossibilityDependencyCaching(value);
-            this.props.notifyChange(question.id);
+            // this.props.notifyChange(question.id);
         };
 
         getAnswer() {

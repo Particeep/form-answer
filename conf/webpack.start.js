@@ -7,10 +7,10 @@ module.exports = {
     devtool: 'eval-source-map',
     target: 'web',
     resolve: {
-        extensions: ['.js', '.json', '.jsx'],
+        extensions: [".ts", ".tsx", ".js", ".jsx", ".json"]
     },
     entry: {
-        'app': path.resolve('src/app/index.jsx'),
+        'app': path.resolve('src/app/index.tsx'),
         'utils': require.resolve('react-dev-utils/webpackHotDevClient'),
     },
     plugins: [
@@ -28,6 +28,7 @@ module.exports = {
     ],
     module: {
         rules: [
+            { test: /\.tsx?$/, loader: "ts-loader" },
             {
                 test: /\.jsx?$/,
                 include: path.resolve('./src'),

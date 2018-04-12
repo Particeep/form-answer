@@ -2,7 +2,7 @@ import "./Section.scss";
 
 import React, {Component} from "react";
 import {Button} from "material-ui";
-import {Question} from "../Question";
+import {QuestionComponent} from "../Question";
 import {connect} from "react-redux";
 
 class Section extends Component {
@@ -13,7 +13,7 @@ class Section extends Component {
             <main>
                 <div className="Section_label">{section.description}</div>
                 {section.questions.map(q => {
-                    if (this.showQuestion(q)) return <Question key={q.id} question={q}/>
+                    if (this.showQuestion(q)) return <QuestionComponent key={q.id} question={q}/>
                 })}
                 {!readonly &&
                 <div className="Section_action">

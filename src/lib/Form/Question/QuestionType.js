@@ -1,3 +1,4 @@
+//TODO DELETE
 export const questionType = {
     RADIO: 'RADIO',
     SELECT: 'SELECT',

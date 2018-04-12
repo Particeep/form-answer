@@ -1,6 +1,6 @@
 import "./Question.scss";
 
-import React, {Component} from "react";
+import * as React from 'react';
 import {connect} from "react-redux";
 import QuestionText from "./Text/QuestionText";
 import QuestionLongText from "./LongText/QuestionLongText";
@@ -9,12 +9,18 @@ import QuestionSelect from "./Select/QuestionSelect";
 import QuestionCheckbox from "./Checkbox/QuestionCheckbox";
 import QuestionDate from "./Date/QuestionDate";
 import QuestionDocument from "./Document/QuestionDocument";
-import moment from "moment";
-import {questionType} from "./QuestionType";
+import * as Moment from 'moment';
+import {Question, QuestionType} from "../../model/Question";
 
 export const maxPossibilitiesBeforeAutocomplete = 10;
 
-class Question extends Component {
+interface QuestionProps {
+    readonly: boolean;
+    dateFormat: string;
+    question: Question;
+}
+
+class QuestionComponent extends React.Component<QuestionProps, any> {
 
     render() {
         const {question} = this.props;
@@ -29,87 +35,87 @@ class Question extends Component {
         );
     }
 
-    renderQuestion(q) {
+    renderQuestion(q: Question) {
         const props = {question: q, readonly: this.props.readonly};
         switch (q.question_type) {
-            case questionType.TEXT:
+            case QuestionType.TEXT:
                 return <QuestionText
                     {...props}
                     validator={this.isTextValid}
                 />;
 
-            case questionType.LONGTEXT:
+            case QuestionType.LONGTEXT:
                 return <QuestionLongText
                     {...props}
                     validator={this.isTextValid}
                 />;
 
-            case questionType.RADIO:
+            case QuestionType.RADIO:
                 return <QuestionRadio
                     {...props}
                     validator={this.isRadioValid}
                 />;
 
-            case questionType.SELECT:
+            case QuestionType.SELECT:
                 return <QuestionSelect
                     {...props}
                     validator={this.isSelectValid}
                 />;
 
-            case questionType.CHECKBOX:
+            case QuestionType.CHECKBOX:
                 return <QuestionCheckbox
                     {...props}
                     validator={this.isCheckboxValid}
                 />;
 
-            case questionType.DATE:
+            case QuestionType.DATE:
                 return <QuestionDate
                     {...props}
                     validator={this.isDateValid}
                     dateFormat={this.props.dateFormat}
                 />;
 
-            case questionType.DOCUMENT:
+            case QuestionType.DOCUMENT:
                 return <QuestionDocument
                     {...props}
                     validator={this.isDocumentValid}
                 />;
 
-            case questionType.LABEL:
+            case QuestionType.LABEL:
                 return '';
 
             default:
                 return <QuestionText
                     {...props}
-                    validator={this.isTextValid(q)}
+                    validator={this.isTextValid}
                 />;
         }
     }
 
-    isSelectValid = value => {
+    isSelectValid = (value: string): boolean => {
         return this.isRadioValid(value);
     };
 
-    isRadioValid = value => {
+    isRadioValid = (value: string): boolean => {
         return !this.props.question.required || value !== '';
     };
 
-    isTextValid = value => {
+    isTextValid = (value: string): boolean => {
         const {question} = this.props;
         if (question.required && (!value || value === '')) return false;
         return !question.pattern || new RegExp(question.pattern).test(value);
     };
 
-    isCheckboxValid = values => {
+    isCheckboxValid = (values: string[]): boolean => {
         return !this.props.question.required || values.length > 0;
     };
 
-    isDateValid = value => {
+    isDateValid = (value: string): boolean => {
         if (!this.props.question.required && (!value || value === '')) return true;
-        return moment(value, this.props.dateFormat.toUpperCase(), true).isValid()
+        return Moment(value, this.props.dateFormat.toUpperCase(), true).isValid()
     };
 
-    isDocumentValid = value => {
+    isDocumentValid = (value: string): boolean => {
         return !this.props.question.required || value.length === 2;
     }
 }
@@ -120,4 +126,4 @@ const state2Props = (state, props) => ({
     dateFormat: state.formAnswer.dateFormat || '',
 });
 
-export default connect(state2Props)(Question)
+export default connect(state2Props)(QuestionComponent)

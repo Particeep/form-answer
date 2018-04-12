@@ -1,6 +1,10 @@
 import update from "immutability-helper";
 import {formAction} from "./formAction";
 
+export type State = {
+  readonly counter: number,
+};
+
 const DEFAULT_REDUCER = {
     messages: {},
     dateFormat: 'dd/MM/yyyy',

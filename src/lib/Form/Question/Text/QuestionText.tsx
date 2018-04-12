@@ -1,8 +1,12 @@
-import React, {Component} from "react";
+import * as React from "react";
 import {FormControl, FormHelperText, Input} from "material-ui";
-import {questionWrapper} from "../questionWrapper";
+import {QuestionProps, questionWrapper} from "../questionWrapper";
 
-class QuestionText extends Component {
+interface State {
+    touched: boolean;
+}
+
+class QuestionText extends React.Component<QuestionProps, State> {
 
     state = {
         touched: false,
@@ -41,5 +45,6 @@ class QuestionText extends Component {
         return true;
     }
 }
+// const mapProps = Component => props => <Component {...props} value={props.value && props.value[0] || ''}/>;
 
 export default questionWrapper(QuestionText);

@@ -2,10 +2,11 @@ const path = require('path');
 
 module.exports = {
     resolve: {
-        extensions: ['.js', '.json', '.jsx', '.scss',],
+        extensions: [".ts", ".tsx", ".js", ".jsx", ".json"]
     },
     module: {
         rules: [
+            {test: /\.tsx?$/, loader: "ts-loader"},
             {
                 test: /\.jsx?$/,
                 include: path.resolve('./src'),
