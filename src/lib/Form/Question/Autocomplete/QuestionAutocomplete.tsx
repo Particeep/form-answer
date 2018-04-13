@@ -1,12 +1,22 @@
 import "./QuestionAutocomplete.scss";
 
-import React, {Component} from "react";
+import * as React from "react";
 import {MenuItem} from "material-ui/Menu";
 import {Checkbox, FormControl, Icon, Input, InputAdornment, Menu, Radio} from "material-ui";
+import {QuestionProps} from "../questionWrapper";
 
-class QuestionAutocomplete extends Component {
+interface Props {
+    multiSelect: boolean;
+}
 
-    state = {
+interface State {
+    anchorEl: any;
+    filter: string;
+}
+
+class QuestionAutocomplete extends React.Component<QuestionProps & Props, State> {
+
+    state: State = {
         anchorEl: null,
         filter: null
     };
@@ -52,15 +62,15 @@ class QuestionAutocomplete extends Component {
         );
     }
 
-    open = event => {
+    private open = (event: any) => {
         this.setState({anchorEl: event.currentTarget});
     };
 
-    close = () => {
+    private close = () => {
         this.setState({anchorEl: null});
     };
 
-    handleChange = (value) => {
+    private handleChange = (value: string[] | string) => {
         let newValue;
         if (this.props.multiSelect) {
             if (this.props.value.indexOf(value) === -1) newValue = this.props.value.concat(value);
@@ -73,7 +83,7 @@ class QuestionAutocomplete extends Component {
         this.props.onChange(newValue);
     };
 
-    getFilteredPossibilities() {
+    private getFilteredPossibilities() {
         const {filter} = this.state;
         if (filter && filter !== '')
             return this.props.question.possibilities.filter(q =>
@@ -82,8 +92,8 @@ class QuestionAutocomplete extends Component {
         return this.props.question.possibilities;
     }
 
-    selectAll = (event, checked) => {
-        const values = checked ? this.props.question.possibilities.map(p => p.label) : [];
+    private selectAll = (event: any, checked: boolean) => {
+        const values: string[] = checked ? this.props.question.possibilities.map(p => p.label) : [];
         this.props.onChange(values);
     };
 }

@@ -15,7 +15,7 @@ export interface QuestionProps {
     multiline: boolean,
     rows: number,
     rowsMax: number,
-    onChange: (value: string) => void;
+    onChange: (value: string | string[]) => void;
     value: any;
     answers: { [key: string]: any },
 }
