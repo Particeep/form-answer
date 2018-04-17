@@ -1,11 +1,28 @@
 import "./ExpensionStep.scss";
-
-import React, {Component} from "react";
+import * as React from "react";
+import {ReactElement} from "react";
 import {Collapse, Icon} from "material-ui";
 
 const animationDuration = 300;
 
-class ExpensionStep extends Component {
+interface Props {
+    label: string;
+    component: ReactElement<any>;
+
+    // Prop pass by ExpensionStepper
+    prev?: () => void;
+    next?: () => void;
+    goTo?: (i: number) => void;
+    free?: boolean;
+    index?: number;
+    disabled?: boolean;
+    isCurrent?: boolean;
+    isLast?: boolean;
+}
+
+class ExpensionStep extends React.Component<Props, {}> {
+
+    private $root: HTMLElement;
 
     render() {
         const {disabled, free, isCurrent, index, label, component, goTo} = this.props;
@@ -25,12 +42,12 @@ class ExpensionStep extends Component {
         );
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: any) {
         if (!prevProps.isCurrent && this.props.isCurrent)
             setTimeout(() => this.scrollTop(), animationDuration);
     }
 
-    scrollTop = () => {
+    private scrollTop = () => {
         this.$root.scrollIntoView({behavior: 'smooth', block: 'start'});
     }
 }
