@@ -11,7 +11,7 @@ interface State {
 
 class QuestionText extends React.Component<Props, State> {
 
-    state = {
+    state: State = {
         touched: false,
     };
 

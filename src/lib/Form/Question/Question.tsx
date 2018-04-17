@@ -1,6 +1,6 @@
 import "./Question.scss";
 
-import * as React from 'react';
+import * as React from "react";
 import {connect} from "react-redux";
 import QuestionText from "./Text/QuestionText";
 import QuestionLongText from "./LongText/QuestionLongText";
@@ -9,7 +9,7 @@ import QuestionSelect from "./Select/QuestionSelect";
 import QuestionCheckbox from "./Checkbox/QuestionCheckbox";
 import QuestionDate from "./Date/QuestionDate";
 import QuestionDocument from "./Document/QuestionDocument";
-import * as Moment from 'moment';
+import * as Moment from "moment";
 import {Question, QuestionType} from "../../types/Question";
 import QuestionAutocomplete from "./Autocomplete/QuestionAutocomplete";
 
@@ -59,7 +59,7 @@ class QuestionComponent extends React.Component<QuestionProps, any> {
                     />;
                 return <QuestionAutocomplete
                     {...props}
-                    validator={this.isCheckboxValid}
+                    validator={this.isRadioValid}
                 />;
 
             case QuestionType.SELECT:
@@ -70,7 +70,7 @@ class QuestionComponent extends React.Component<QuestionProps, any> {
                     />;
                 return <QuestionAutocomplete
                     {...props}
-                    validator={this.isCheckboxValid}
+                    validator={this.isSelectValid}
                 />;
 
             case QuestionType.CHECKBOX:

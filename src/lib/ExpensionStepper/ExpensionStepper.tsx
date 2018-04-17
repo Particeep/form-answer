@@ -1,13 +1,12 @@
 import "./ExpensionStepper.scss";
 import * as React from "react";
 import {ReactElement, ReactNode} from "react";
-import ExpensionStep from "./ExpensionStep";
 
 interface Props {
-    free: boolean;
-    onNext: (index: number) => void;
-    onEnd: () => void;
-    children: ReactNode;
+    readonly free: boolean;
+    readonly onNext: (index: number) => void;
+    readonly onEnd: () => void;
+    readonly children: ReactNode;
 }
 
 interface State {

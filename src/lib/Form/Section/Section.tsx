@@ -9,19 +9,19 @@ import {Question} from "../../types/Question";
 import {Section} from "../../types/Section";
 
 export interface ExpensionStepProps {
-    isLast: boolean;
-    index: number;
-    prev: () => void;
-    next: () => void;
+    readonly isLast: boolean;
+    readonly index: number;
+    readonly prev: () => void;
+    readonly next: () => void;
 }
 
 interface Props {
-    section: Section;
-    isValid: boolean;
-    answers: any;
-    messages: Messages;
-    readonly: boolean;
-    checkedPossibilityIds: any;
+    readonly section: Section;
+    readonly isValid: boolean;
+    readonly answers: any;
+    readonly messages: Messages;
+    readonly readonly: boolean;
+    readonly checkedPossibilityIds: any;
 }
 
 class SectionComponent extends React.Component<Props & ExpensionStepProps, {}> {

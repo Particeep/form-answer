@@ -1,6 +1,6 @@
 import "./QuestionDocument.scss";
 
-import * as React from 'react';
+import * as React from "react";
 import {Avatar, Button, Chip, CircularProgress, Icon} from "material-ui";
 import {connect} from "react-redux";
 import {QuestionProps, questionWrapper} from "../questionWrapper";
@@ -26,7 +26,7 @@ class QuestionDocument extends React.Component<Props, State> {
 
     private fileInput: HTMLInputElement;
 
-    state = {
+    state: State = {
         errorMessage: null
     };
 

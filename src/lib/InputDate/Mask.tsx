@@ -3,7 +3,7 @@ import MaskedInput from "react-text-mask";
 import {getDateFormatSeparator} from "../utils/common";
 
 interface Props {
-    format: string;
+    readonly format: string;
 }
 
 class Mask extends React.Component<Props, {}> {
@@ -23,7 +23,7 @@ class Mask extends React.Component<Props, {}> {
         );
     }
 
-    private buildMask(format) {
+    private buildMask(format: string) {
         const delimiter = getDateFormatSeparator(format);
         const yearRegex = [/[1-2]/, /\d/, /\d/, /\d/];
         const monthRegex = [/[0-1]/, /\d/];
@@ -36,7 +36,7 @@ class Mask extends React.Component<Props, {}> {
         return mask;
     }
 
-    private replace(array, string, replacement) {
+    private replace(array: string[], string: string, replacement: any[]) {
         const i = array.indexOf(string);
         if (i != null) array.splice(i, 1, ...replacement);
         return array;

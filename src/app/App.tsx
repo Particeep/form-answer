@@ -1,8 +1,9 @@
-import * as React from 'react';
+import * as React from "react";
 import {FormComponent} from "../lib/Form";
-import {isFunction} from "../lib/utils/common";
 import {createMuiTheme, MuiThemeProvider} from "material-ui";
 import {defaultMuiTheme} from "../lib/conf/mui-theme";
+import {Answer} from "../lib/types/Answer";
+import {Doc} from "../lib/types/Doc";
 
 interface FormAnswerParams {
     form: any;
@@ -11,10 +12,10 @@ interface FormAnswerParams {
     maxUploadFileSize: any;
     muiTheme: any;
     readonly: any;
-    onChange: any;
-    onSectionEnd: any;
-    onEnd: any;
-    onUploadFile: any;
+    onChange: (a: Answer) => void;
+    onSectionEnd: (a: Answer[]) => void;
+    onEnd: (a: Answer[]) => void;
+    onUploadFile: (file: File, callback: (d: Doc) => void) => void;
 }
 
 function getFormAnswerParams(): FormAnswerParams {
@@ -44,23 +45,23 @@ class App extends React.Component {
         );
     }
 
-    uploadFile = (file: File, callback: any): void => {
-        if (isFunction(getFormAnswerParams().onUploadFile))
+    private uploadFile = (file: File, callback: any): void => {
+        if (getFormAnswerParams().onUploadFile)
             getFormAnswerParams().onUploadFile(file, callback);
     };
 
-    changed = (answer: any): void => {
-        if (isFunction(getFormAnswerParams().onChange))
+    private changed = (answer: any): void => {
+        if (getFormAnswerParams().onChange)
             getFormAnswerParams().onChange(answer);
     };
 
-    sectionEnded = (sectionAnswers: any[]): void => {
-        if (isFunction(getFormAnswerParams().onSectionEnd))
+    private sectionEnded = (sectionAnswers: any[]): void => {
+        if (getFormAnswerParams().onSectionEnd)
             getFormAnswerParams().onSectionEnd(sectionAnswers);
     };
 
-    ended = (answers: any[]): void => {
-        if (isFunction(getFormAnswerParams().onEnd))
+    private ended = (answers: any[]): void => {
+        if (getFormAnswerParams().onEnd)
             getFormAnswerParams().onEnd(answers);
     };
 }

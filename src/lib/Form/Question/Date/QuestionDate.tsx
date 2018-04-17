@@ -13,7 +13,7 @@ interface State {
 
 class QuestionDate extends React.Component<Props, State> {
 
-    state = {
+    state: State = {
         touched: false,
     };
 

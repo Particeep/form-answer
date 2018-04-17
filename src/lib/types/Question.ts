@@ -28,13 +28,6 @@ export interface Question {
     index: number; // Position
 }
 
-function hasPossibilities(question: any): boolean {
-    return question.question_type == QuestionType.CHECKBOX
-        || question.question_type == QuestionType.RADIO
-        || question.question_type == QuestionType.SELECT;
-}
+export const hasPossibilities = (q: any): boolean => q.question_type == QuestionType.CHECKBOX || q.question_type == QuestionType.RADIO || q.question_type == QuestionType.SELECT;
 
-export function isDependable(question: Question): boolean {
-    return question.question_type === QuestionType.SELECT
-        || question.question_type === QuestionType.RADIO;
-}
+export const isDependable = (q: Question): boolean => q.question_type === QuestionType.SELECT || q.question_type === QuestionType.RADIO;

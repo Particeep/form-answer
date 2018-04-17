@@ -5,7 +5,6 @@ import {ExpensionStep, ExpensionStepper} from "../ExpensionStepper";
 import {SectionComponent} from "./Section";
 import {connect} from "react-redux";
 import {formAction} from "./formAction";
-import {isFunction} from "../utils/common";
 import {ApiParser} from "../utils/ApiParser";
 import {Id} from "../types/Id";
 import {Answer} from "../types/Answer";
@@ -93,22 +92,22 @@ class FormComponent extends React.Component<FormProps, any> {
     };
 
     private onChange = (questionIdAnswered: QuestionId) => {
-        if (!isFunction(this.props.onChange)) return;
+        if (!this.props.onChange) return;
         setTimeout(() =>
             this.props.onChange(this.parseAnswer(questionIdAnswered, this.props.answers[questionIdAnswered]))
         );
     };
 
     private next = (sectionIndex: number) => {
-        if (!isFunction(this.props.onSectionEnd)) return;
+        if (!this.props.onSectionEnd) return;
         this.props.onSectionEnd(this.parseAnswers(this.getSectionAnswers(sectionIndex)));
     };
 
     private end = () => {
         const {form, answers, onSectionEnd, onEnd} = this.props;
-        if (isFunction(onSectionEnd))
+        if (onSectionEnd)
             onSectionEnd(this.parseAnswers(this.getSectionAnswers(form.sections.length - 1)));
-        if (isFunction(onEnd))
+        if (onEnd)
             onEnd(this.parseAnswers(answers));
     };
 

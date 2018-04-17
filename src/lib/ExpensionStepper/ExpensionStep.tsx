@@ -6,18 +6,18 @@ import {Collapse, Icon} from "material-ui";
 const animationDuration = 300;
 
 interface Props {
-    label: string;
-    component: ReactElement<any>;
+    readonly label: string;
+    readonly component: ReactElement<any>;
 
-    // Prop pass by ExpensionStepper
-    prev?: () => void;
-    next?: () => void;
-    goTo?: (i: number) => void;
-    free?: boolean;
-    index?: number;
-    disabled?: boolean;
-    isCurrent?: boolean;
-    isLast?: boolean;
+    // Props from ExpensionStepper
+    readonly prev?: () => void;
+    readonly next?: () => void;
+    readonly goTo?: (i: number) => void;
+    readonly free?: boolean;
+    readonly index?: number;
+    readonly disabled?: boolean;
+    readonly isCurrent?: boolean;
+    readonly isLast?: boolean;
 }
 
 class ExpensionStep extends React.Component<Props, {}> {

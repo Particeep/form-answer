@@ -9,7 +9,6 @@ export const store = createStore(
     compose(
         applyMiddleware(thunk)
         // Redux DevToops Chrome plugins
-
-        , (<any> window).__REDUX_DEVTOOLS_EXTENSION__ && (<any> window).__REDUX_DEVTOOLS_EXTENSION__()
+        // , (<any> window).__REDUX_DEVTOOLS_EXTENSION__ && (<any> window).__REDUX_DEVTOOLS_EXTENSION__()
     )
 );

@@ -8,37 +8,37 @@ import {Subtract} from "utility-types";
 import {Messages} from "../../types/Messages";
 
 export interface QuestionProps {
-    readonly: boolean;
-    question: Question;
-    messages: Messages,
-    isValid: boolean;
-    multiline: boolean,
-    rows: number,
-    rowsMax: number,
-    onChange: (value: string | string[]) => void;
-    value: any;
-    answers: { [key: string]: any },
+    readonly readonly: boolean;
+    readonly question: Question;
+    readonly messages: Messages,
+    readonly isValid: boolean;
+    readonly multiline: boolean,
+    readonly rows: number,
+    readonly rowsMax: number,
+    readonly onChange: (value: string | string[]) => void;
+    readonly value: any;
+    readonly answers: { [key: string]: any },
 }
 
 export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.ComponentType<P>) => {
 
     interface Props {
-        multiline: boolean,
-        rows: number,
-        rowsMax: number,
-        readonly: boolean;
-        dateFormat: string;
-        question: Question;
-        validator: (value: any) => boolean;
-        messages: Messages,
-        triggerOnChange: any,
-        answers: { [key: string]: any },
-        isValid: boolean;
-        removeAnswer: (qId: QuestionId) => void;
-        updateAnswer: (qId: QuestionId, qType: QuestionType, value: any) => void;
-        updateSectionValidity: (sId: SectionId, qId: QuestionId, validator) => void;
-        addCheckedPossbility: (qId: QuestionId, pId: PossiblityId) => void;
-        removeCheckedPossbility: (qId: QuestionId) => void;
+        readonly multiline: boolean,
+        readonly rows: number,
+        readonly rowsMax: number,
+        readonly readonly: boolean;
+        readonly dateFormat: string;
+        readonly question: Question;
+        readonly validator: (value: any) => boolean;
+        readonly messages: Messages,
+        readonly triggerOnChange: any,
+        readonly answers: { [key: string]: any },
+        readonly isValid: boolean;
+        readonly removeAnswer: (qId: QuestionId) => void;
+        readonly updateAnswer: (qId: QuestionId, qType: QuestionType, value: any) => void;
+        readonly updateSectionValidity: (sId: SectionId, qId: QuestionId, validator) => void;
+        readonly addCheckedPossbility: (qId: QuestionId, pId: PossiblityId) => void;
+        readonly removeCheckedPossbility: (qId: QuestionId) => void;
     }
 
     class QuestionWrapper extends React.Component<Subtract<P, QuestionProps> & Props, {}> {
@@ -61,7 +61,6 @@ export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.
         componentDidMount() {
             const {updateSectionValidity, question, validator} = this.props;
             const answer = this.getAnswer();
-            console.log(this.props);
             updateSectionValidity(question.section_id, question.id, validator(answer));
             this.handlePossibilityDependencyCaching(answer);
         }

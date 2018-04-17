@@ -1,4 +1,3 @@
-import {Question, QuestionType} from "./Question";
 import {Id} from "./Id";
 
 export type AnswerId = Id;

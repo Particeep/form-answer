@@ -3,9 +3,9 @@ import QuestionText from "../Text/QuestionText";
 import {Question} from "../../../types/Question";
 
 interface Props {
-    question: Question;
-    readonly: boolean
-    validator: (value: string) => boolean;
+    readonly question: Question;
+    readonly readonly: boolean
+    readonly validator: (value: string) => boolean;
 }
 
 class QuestionLongText extends React.Component<Props, {}> {

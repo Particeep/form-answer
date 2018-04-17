@@ -17,7 +17,7 @@ interface State {
 
 class QuestionDocumentReadonly extends React.Component<Props & WithTheme, State> {
 
-    state = {
+    state: State = {
         errorMessage: null
     };
 
