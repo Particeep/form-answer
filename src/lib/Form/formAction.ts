@@ -1,3 +1,17 @@
+import {QuestionId, QuestionType} from "../types/Question";
+import {SectionId} from "../types/Section";
+import {Messages} from "../types/Messages";
+import {PossiblityId} from "../types/Possiblity";
+
+interface InitParams {
+    dateFormat: string;
+    messages: Messages;
+    maxUploadFileSize: number;
+    triggerOnChange: (qId: QuestionId) => void;
+    onUploadFile: (s: SectionId, q: QuestionId, f: File) => void;
+    readonly: boolean;
+}
+
 export const formAction = {
     INIT: 'form/INIT',
     UPDATE_ANSWER: 'form/UPDATE_ANSWER',
@@ -7,49 +21,49 @@ export const formAction = {
     ADD_CHECKED_POSSIBILITY: 'form/ADD_CHECKED_POSSIBILITY',
     REMOVE_CHECKED_POSSIBILITY: 'form/REMOVE_CHECKED_POSSIBILITY',
 
-    init: (params) => dispatch => {
+    init: (params: InitParams) => dispatch => {
         dispatch({
             type: formAction.INIT,
             ...params
         });
     },
 
-    updateAnswer: (questionId, questionType, answer) => dispatch => {
+    updateAnswer: (questionId: QuestionId, questionType: QuestionType, answer: any) => dispatch => {
         dispatch({
             type: formAction.UPDATE_ANSWER,
             questionId, questionType, answer,
         });
     },
 
-    removeAnswer: (questionId) => dispatch => {
+    removeAnswer: (questionId: QuestionId) => dispatch => {
         dispatch({
             type: formAction.REMOVE_ANSWER,
             questionId
         });
     },
 
-    updateSectionValidity: (sectionId, questionId, isValid) => dispatch => {
+    updateSectionValidity: (sectionId: SectionId, questionId: QuestionId, isValid: boolean) => dispatch => {
         dispatch({
             type: formAction.UPDATE_SECTION_VALIDITY,
             sectionId, questionId, isValid
         });
     },
 
-    documentUploading: (questionId, isUploading) => dispatch => {
+    documentUploading: (questionId: QuestionId, isUploading: boolean) => dispatch => {
         dispatch({
             type: formAction.DOCUMENT_UPLOADING,
             questionId, isUploading
         });
     },
 
-    addCheckedPossbility: (questionId, possiblityId) => dispatch => {
+    addCheckedPossbility: (questionId: QuestionId, possiblityId: PossiblityId) => dispatch => {
         dispatch({
             type: formAction.ADD_CHECKED_POSSIBILITY,
             questionId, possiblityId
         });
     },
 
-    removeCheckedPossbility: (questionId,) => dispatch => {
+    removeCheckedPossbility: (questionId: QuestionId,) => dispatch => {
         dispatch({
             type: formAction.REMOVE_CHECKED_POSSIBILITY,
             questionId

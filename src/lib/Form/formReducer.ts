@@ -10,7 +10,7 @@ export type State = {
     readonly: boolean,
 
     // Callbacks
-    notifyChange: any,
+    triggerOnChange: any,
     onUploadFile: any,
 
     // Application variables
@@ -27,7 +27,7 @@ const initialState: State = {
     readonly: false,
 
     // Callbacks
-    notifyChange: null,
+    triggerOnChange: null,
     onUploadFile: null,
 
     // Application variables
@@ -44,7 +44,7 @@ export const formReducer = function (state = initialState, a) {
                 messages: {$set: a.messages},
                 dateFormat: {$set: a.dateFormat},
                 maxUploadFileSize: {$set: a.maxUploadFileSize},
-                notifyChange: {$set: a.notifyChange},
+                triggerOnChange: {$set: a.triggerOnChange},
                 onUploadFile: {$set: a.onUploadFile},
                 readonly: {$set: a.readonly},
             });

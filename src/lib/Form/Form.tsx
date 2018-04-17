@@ -61,7 +61,7 @@ class FormComponent extends React.Component<FormProps, any> {
             dateFormat: dateFormat,
             messages: messages,
             maxUploadFileSize: maxUploadFileSize,
-            notifyChange: this.onChange,
+            triggerOnChange: this.onChange,
             onUploadFile: this.onUploadFile,
             readonly: readonly || false,
         }));

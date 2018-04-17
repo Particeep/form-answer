@@ -31,7 +31,7 @@ export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.
         question: Question;
         validator: (value: any) => boolean;
         messages: Messages,
-        notifyChange: any,
+        triggerOnChange: any,
         answers: { [key: string]: any },
         isValid: boolean;
         removeAnswer: (qId: QuestionId) => void;
@@ -78,7 +78,7 @@ export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.
             updateAnswer(question.id, question.question_type, value);
             updateSectionValidity(question.section_id, question.id, validator(value));
             this.handlePossibilityDependencyCaching(value);
-            // this.props.notifyChange(question.id);
+            this.props.triggerOnChange(question.id);
         };
 
         private getAnswer() {
@@ -102,7 +102,7 @@ export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.
 
     const state2Props = (state, props) => ({
         messages: state.formAnswer.messages,
-        notifyChange: state.formAnswer.notifyChange,
+        triggerOnChange: state.formAnswer.triggerOnChange,
         answers: state.formAnswer.answers,
         isValid: (state.formAnswer.sectionsValidity[props.question.section_id] || [])[props.question.id]
     });
