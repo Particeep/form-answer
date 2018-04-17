@@ -1,11 +1,21 @@
 import "./QuestionDocument.scss";
 
-import React, {Component} from "react";
-import {Avatar, Button, Chip, CircularProgress, Icon, withTheme} from "material-ui";
-import {connect} from "react-redux";
-import {questionWrapper} from "../questionWrapper";
+import * as React from "react";
+import {Avatar, Chip, Icon, withTheme, WithTheme} from "material-ui";
+import {Messages} from "../../../types/Messages";
 
-class QuestionDocumentReadonly extends Component {
+interface Props {
+    readonly documentName: string;
+    readonly documentUrl: string;
+    readonly messages: Messages;
+    readonly isValid: boolean;
+}
+
+interface State {
+    errorMessage: string;
+}
+
+class QuestionDocumentReadonly extends React.Component<Props & WithTheme, State> {
 
     state = {
         errorMessage: null

@@ -1,12 +1,30 @@
 import "./QuestionDocument.scss";
 
-import React, {Component} from "react";
+import * as React from 'react';
 import {Avatar, Button, Chip, CircularProgress, Icon} from "material-ui";
 import {connect} from "react-redux";
-import {questionWrapper} from "../questionWrapper";
+import {QuestionProps, questionWrapper} from "../questionWrapper";
 import QuestionDocumentReadonly from "./QuestionDocumentReadonly";
+import {SectionId} from "../../../types/Section";
+import {QuestionId} from "../../../types/Question";
+import {Messages} from "../../../types/Messages";
 
-class QuestionDocument extends Component {
+interface Props extends QuestionProps {
+    readonly documentName: string;
+    readonly documentUrl: string;
+    readonly onUploadFile: (s: SectionId, q: QuestionId, f: File) => void;
+    readonly maxUploadFileSize: number;
+    readonly isUploading: boolean;
+    readonly messages: Messages;
+}
+
+interface State {
+    errorMessage: string;
+}
+
+class QuestionDocument extends React.Component<Props, State> {
+
+    private fileInput: HTMLInputElement;
 
     state = {
         errorMessage: null
@@ -63,11 +81,11 @@ class QuestionDocument extends Component {
         );
     }
 
-    openFileSelection = () => {
+    private openFileSelection = () => {
         this.fileInput.click();
     };
 
-    handleChange = (file) => {
+    private handleChange = (file: File) => {
         const {question, messages, maxUploadFileSize} = this.props;
         if (maxUploadFileSize && file.size > maxUploadFileSize * 1024 * 1024) {
             this.setState({errorMessage: messages.invalidFileSize});
@@ -78,7 +96,7 @@ class QuestionDocument extends Component {
         this.props.onUploadFile(question.section_id, question.id, file);
     };
 
-    clear = () => {
+    private clear = () => {
         this.props.onChange([]);
     };
 }
@@ -89,11 +107,11 @@ const state2Props = (state, props) => ({
     isUploading: state.formAnswer.uploadingDocuments[props.question.id],
 });
 
-const mapProps = Component => props => {
+const mapProps = (Component: any) => (props: QuestionProps) => {
     const {value, ...other} = props;
     const documentName = value[0];
     const documentUrl = value[1];
     return <Component {...other} documentName={documentName} documentUrl={documentUrl}/>;
 };
 
-export default connect(state2Props)(questionWrapper(mapProps(QuestionDocument)))
+export default questionWrapper(mapProps(connect(state2Props)(QuestionDocument)))
