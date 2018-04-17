@@ -3,7 +3,7 @@ import "./QuestionAutocomplete.scss";
 import * as React from "react";
 import {MenuItem} from "material-ui/Menu";
 import {Checkbox, FormControl, Icon, Input, InputAdornment, Menu, Radio} from "material-ui";
-import {QuestionProps} from "../questionWrapper";
+import {QuestionProps, questionWrapper} from "../questionWrapper";
 
 interface Props extends QuestionProps {
     multiSelect: boolean;
@@ -14,7 +14,7 @@ interface State {
     filter: string;
 }
 
-class QuestionAutocomplete extends React.Component<any, State> {
+class QuestionAutocomplete extends React.Component<Props, State> {
 
     state: State = {
         anchorEl: null,
@@ -98,4 +98,4 @@ class QuestionAutocomplete extends React.Component<any, State> {
     };
 }
 
-export default QuestionAutocomplete;
+export default questionWrapper(QuestionAutocomplete);

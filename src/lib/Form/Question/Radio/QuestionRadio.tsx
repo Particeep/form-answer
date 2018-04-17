@@ -1,15 +1,18 @@
-import React, {Component} from "react";
+import * as React from "react";
 import {FormControlLabel, Radio, RadioGroup} from "material-ui";
-import {questionWrapper} from "../questionWrapper";
+import {QuestionProps, questionWrapper} from "../questionWrapper";
 
-class QuestionRadio extends Component {
+interface Props extends QuestionProps {
+}
+
+class QuestionRadio extends React.Component<Props, {}> {
 
     render() {
         const {question, value, readonly} = this.props;
         return (
             <RadioGroup
                 value={value}
-                onChange={e => this.handleChange(e.target.value)}
+                onChange={(e: any) => this.handleChange(e.target.value)}
             >
                 {question.possibilities.map(p =>
                     <FormControlLabel
@@ -24,7 +27,7 @@ class QuestionRadio extends Component {
         );
     }
 
-    handleChange = value => {
+    private handleChange = (value: string) => {
         this.props.onChange(value);
     };
 }
