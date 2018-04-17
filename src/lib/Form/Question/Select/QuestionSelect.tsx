@@ -1,10 +1,13 @@
-import React, {Component} from "react";
+import * as React from "react";
 import {FormControl, MenuItem, Select} from "material-ui";
 import Input from "material-ui/Input";
-import {questionWrapper} from "../questionWrapper";
+import {QuestionProps, questionWrapper} from "../questionWrapper";
 import QuestionRadio from "../Radio/QuestionRadio";
 
-class QuestionSelect extends Component {
+interface Props extends QuestionProps {
+}
+
+class QuestionSelect extends React.Component<Props, {}> {
 
     render() {
         const {question, value, readonly} = this.props;
@@ -24,7 +27,7 @@ class QuestionSelect extends Component {
         );
     }
 
-    handleChange = value => {
+    private handleChange = value => {
         this.props.onChange(value);
     };
 }
