@@ -10,8 +10,9 @@ interface Props extends InputProps {
 class InputDate extends React.Component<Props, {}> {
 
     render() {
+        const {format, ...props} = this.props;
         return (
-            <Input {...this.props} inputComponent={this.mask}/>
+            <Input {...props} inputComponent={this.mask}/>
         );
     }
 
