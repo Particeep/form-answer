@@ -1,8 +1,16 @@
-import React, {Component} from "react";
+import * as React from "react";
 import MaskedInput from "react-text-mask";
 import {getDateFormatSeparator} from "../utils/common";
 
-class Mask extends Component {
+interface Props {
+    format: string;
+}
+
+class Mask extends React.Component<Props, {}> {
+
+    public static defaultProps: Partial<Props> = {
+        format: 'dd/MM/yyyy'
+    };
 
     render() {
         const {format} = this.props;
@@ -15,7 +23,7 @@ class Mask extends Component {
         );
     }
 
-    buildMask(format) {
+    private buildMask(format) {
         const delimiter = getDateFormatSeparator(format);
         const yearRegex = [/[1-2]/, /\d/, /\d/, /\d/];
         const monthRegex = [/[0-1]/, /\d/];
@@ -28,15 +36,11 @@ class Mask extends Component {
         return mask;
     }
 
-    replace(array, string, replacement) {
+    private replace(array, string, replacement) {
         const i = array.indexOf(string);
         if (i != null) array.splice(i, 1, ...replacement);
         return array;
     }
 }
-
-Mask.defaultProps = {
-    format: 'dd/MM/yyyy'
-};
 
 export default Mask;

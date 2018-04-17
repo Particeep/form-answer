@@ -2,11 +2,14 @@ import * as React from "react";
 import {FormControl, FormHelperText, Input} from "material-ui";
 import {QuestionProps, questionWrapper} from "../questionWrapper";
 
+interface Props extends QuestionProps {
+}
+
 interface State {
     touched: boolean;
 }
 
-class QuestionText extends React.Component<QuestionProps, State> {
+class QuestionText extends React.Component<Props, State> {
 
     state = {
         touched: false,

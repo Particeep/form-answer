@@ -11,8 +11,9 @@ import QuestionDate from "./Date/QuestionDate";
 import QuestionDocument from "./Document/QuestionDocument";
 import * as Moment from 'moment';
 import {Question, QuestionType} from "../../types/Question";
+import QuestionAutocomplete from "./Autocomplete/QuestionAutocomplete";
 
-export const maxPossibilitiesBeforeAutocomplete = 10;
+const maxPossibilitiesBeforeAutocomplete = 10;
 
 interface QuestionProps {
     readonly: boolean;
@@ -51,28 +52,49 @@ class QuestionComponent extends React.Component<QuestionProps, any> {
                 />;
 
             case QuestionType.RADIO:
-                return <QuestionRadio
+                if (q.possibilities.length < maxPossibilitiesBeforeAutocomplete)
+                    return <QuestionRadio
+                        {...props}
+                        validator={this.isRadioValid}
+                    />;
+                return <QuestionAutocomplete
                     {...props}
-                    validator={this.isRadioValid}
+                    validator={this.isCheckboxValid}
                 />;
 
             case QuestionType.SELECT:
-                return <QuestionSelect
+                if (q.possibilities.length < maxPossibilitiesBeforeAutocomplete)
+                    return <QuestionSelect
+                        {...props}
+                        validator={this.isSelectValid}
+                    />;
+                return <QuestionAutocomplete
                     {...props}
-                    validator={this.isSelectValid}
+                    validator={this.isCheckboxValid}
                 />;
 
             case QuestionType.CHECKBOX:
-                return <QuestionCheckbox
+                if (q.possibilities.length < maxPossibilitiesBeforeAutocomplete)
+                    return <QuestionCheckbox
+                        {...props}
+                        validator={this.isCheckboxValid}
+                    />;
+                return <QuestionAutocomplete
+                    multiSelect
                     {...props}
                     validator={this.isCheckboxValid}
                 />;
 
             case QuestionType.DATE:
-                return <QuestionDate
+                if (this.props.dateFormat)
+                    return <QuestionDate
+                        {...props}
+                        dateFormat={this.props.dateFormat}
+                        validator={this.isDateValid}
+                    />;
+                return <QuestionText
                     {...props}
                     validator={this.isDateValid}
-                    dateFormat={this.props.dateFormat}
                 />;
 
             case QuestionType.DOCUMENT:

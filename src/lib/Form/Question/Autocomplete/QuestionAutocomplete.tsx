@@ -5,7 +5,7 @@ import {MenuItem} from "material-ui/Menu";
 import {Checkbox, FormControl, Icon, Input, InputAdornment, Menu, Radio} from "material-ui";
 import {QuestionProps} from "../questionWrapper";
 
-interface Props {
+interface Props extends QuestionProps {
     multiSelect: boolean;
 }
 
@@ -14,7 +14,7 @@ interface State {
     filter: string;
 }
 
-class QuestionAutocomplete extends React.Component<QuestionProps & Props, State> {
+class QuestionAutocomplete extends React.Component<any, State> {
 
     state: State = {
         anchorEl: null,
@@ -28,7 +28,7 @@ class QuestionAutocomplete extends React.Component<QuestionProps & Props, State>
             <div>
                 <FormControl onClick={this.open} fullWidth>
                     <Input value={multiSelect ? value.join(', ') : value} disabled={readonly}
-                           multiline readOnly rows="1" rowsMax="10"
+                           multiline rows="1" rowsMax="10" readOnly
                            endAdornment={
                                <InputAdornment position="end">
                                    <Icon className="Qac_adornment">arrow_drop_down</Icon>

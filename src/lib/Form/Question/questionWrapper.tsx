@@ -29,7 +29,7 @@ export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.
         readonly: boolean;
         dateFormat: string;
         question: Question;
-        validator: any;
+        validator: (value: any) => boolean;
         messages: Messages,
         notifyChange: any,
         answers: { [key: string]: any },
@@ -61,6 +61,7 @@ export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.
         componentDidMount() {
             const {updateSectionValidity, question, validator} = this.props;
             const answer = this.getAnswer();
+            console.log(this.props);
             updateSectionValidity(question.section_id, question.id, validator(answer));
             this.handlePossibilityDependencyCaching(answer);
         }
