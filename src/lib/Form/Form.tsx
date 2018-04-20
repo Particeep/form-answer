@@ -44,11 +44,15 @@ class FormComponent extends React.Component<FormProps, any> {
 
     componentWillMount() {
         this.parser = new ApiParser(this.props.dateFormat);
-        this.initReducer();
-        this.initAnswers();
+        this.initReducerParams();
+        this.initReducerAnswers();
     }
 
-    private initReducer() {
+    componentDidUpdate(prevProps: any) {
+        if (this.props.form != prevProps.form) this.initReducerAnswers();
+    }
+
+    private initReducerParams() {
         const {
             dispatch,
             dateFormat,
@@ -66,13 +70,12 @@ class FormComponent extends React.Component<FormProps, any> {
         }));
     }
 
-    private initAnswers() {
+    private initReducerAnswers() {
         this.props.form.sections.forEach(s => s.questions.forEach(q => {
             if (q.question_type === QuestionType.LABEL) return;
             this.props.dispatch(formAction.updateAnswer(
                 q.id,
-                q.question_type,
-                this.parser.fromApi(q.question_type)(q.answers)
+                q.answers,
             ))
         }));
     }
