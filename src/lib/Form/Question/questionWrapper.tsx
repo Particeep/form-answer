@@ -17,7 +17,6 @@ export interface QuestionProps {
     readonly rowsMax: number,
     readonly onChange: (value: string | string[]) => void;
     readonly value: any;
-    readonly answers: { [key: string]: any },
 }
 
 export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.ComponentType<P>) => {
@@ -32,8 +31,8 @@ export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.
         readonly validator: (value: any) => boolean;
         readonly messages: Messages,
         readonly triggerOnChange: any,
-        readonly answers: { [key: string]: any },
         readonly isValid: boolean;
+        readonly answers: { [key: string]: any },
         readonly removeAnswer: (qId: QuestionId) => void;
         readonly updateAnswer: (qId: QuestionId, qType: QuestionType, value: any) => void;
         readonly updateSectionValidity: (sId: SectionId, qId: QuestionId, validator) => void;
@@ -52,7 +51,6 @@ export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.
                 multiline={this.props.multiline}
                 rows={this.props.rows}
                 rowsMax={this.props.rowsMax}
-                answers={this.props.answers}
                 value={this.getAnswer()}
                 onChange={this.update}
             />

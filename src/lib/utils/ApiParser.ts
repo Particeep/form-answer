@@ -1,29 +1,28 @@
 import * as Moment from "moment";
+import {QuestionType} from "../types/Question";
 
 export class ApiParser {
 
-    private dateFormat;
-
-    methods = {
+    private readonly convertor = {
         TEXT: {
-            fromApi: x => this.mapSingleAnswer(x),
-            toApi: x => this.parseSingleAnswer(x)
+            fromApi: x => x,
+            toApi: x => x
         },
         LONGTEXT: {
-            fromApi: x => this.mapSingleAnswer(x),
-            toApi: x => this.parseSingleAnswer(x)
+            fromApi: x => this.fromApiSingleAnswer(x),
+            toApi: x => this.toApiSingleAnswer(x)
         },
         DATE: {
-            fromApi: x => this.dateFormat ? this.fromApiDate(this.mapSingleAnswer(x)) : this.mapSingleAnswer(x),
-            toApi: x => this.dateFormat ? this.parseSingleAnswer(this.toApiDate(x)) : this.parseSingleAnswer(x)
+            fromApi: x => this.dateFormat ? this.fromApiDate(this.fromApiSingleAnswer(x)) : this.fromApiSingleAnswer(x),
+            toApi: x => this.dateFormat ? this.toApiSingleAnswer(this.toApiDate(x)) : this.toApiSingleAnswer(x)
         },
         RADIO: {
-            fromApi: x => this.mapSingleAnswer(x),
-            toApi: x => this.parseSingleAnswer(x)
+            fromApi: x => this.fromApiSingleAnswer(x),
+            toApi: x => this.toApiSingleAnswer(x)
         },
         SELECT: {
-            fromApi: x => this.mapSingleAnswer(x),
-            toApi: x => this.parseSingleAnswer(x)
+            fromApi: x => this.fromApiSingleAnswer(x),
+            toApi: x => this.toApiSingleAnswer(x)
         },
         CHECKBOX: {
             fromApi: x => x || [],
@@ -39,23 +38,22 @@ export class ApiParser {
         },
     };
 
-    constructor(dateFormat) {
-        this.dateFormat = dateFormat;
+    constructor(private dateFormat?: string) {
     }
 
-    fromApi(questionType) {
-        return this.methods[questionType].fromApi;
+    fromApi(questionType: QuestionType) {
+        return this.convertor[questionType].fromApi;
     }
 
-    toApi(questionType) {
-        return this.methods[questionType].toApi;
+    toApi(questionType: QuestionType) {
+        return this.convertor[questionType].toApi;
     }
 
-    private mapSingleAnswer(answers: string[]) {
+    private fromApiSingleAnswer(answers: string[]) {
         return (answers && answers[0]) || '';
     }
 
-    private parseSingleAnswer(answer: string) {
+    private toApiSingleAnswer(answer: string) {
         if (answer || answer === '') return [answer];
         return null;
     }
