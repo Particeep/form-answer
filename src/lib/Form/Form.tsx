@@ -75,7 +75,8 @@ class FormComponent extends React.Component<FormProps, any> {
             if (q.question_type === QuestionType.LABEL) return;
             this.props.dispatch(formAction.updateAnswer(
                 q.id,
-                q.answers,
+                q.question_type,
+                this.parser.fromApi(q.question_type)(q.answers)
             ))
         }));
     }
