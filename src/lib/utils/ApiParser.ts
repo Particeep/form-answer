@@ -5,8 +5,8 @@ export class ApiParser {
 
     private readonly convertor = {
         TEXT: {
-            fromApi: x => x,
-            toApi: x => x
+            fromApi: x => this.fromApiSingleAnswer(x),
+            toApi: x => this.toApiSingleAnswer(x)
         },
         LONGTEXT: {
             fromApi: x => this.fromApiSingleAnswer(x),

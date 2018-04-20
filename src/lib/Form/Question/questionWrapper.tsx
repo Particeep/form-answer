@@ -22,10 +22,11 @@ export interface QuestionProps {
 export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.ComponentType<P>) => {
 
     interface Props {
-        readonly multiline: boolean,
         readonly rows: number,
         readonly rowsMax: number,
         readonly readonly: boolean;
+        readonly multiline: boolean,
+        readonly multiSelect: boolean;
         readonly dateFormat: string;
         readonly question: Question;
         readonly validator: (value: any) => boolean;
@@ -44,13 +45,7 @@ export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.
 
         render() {
             return <WrappedQuestion
-                readonly={this.props.readonly}
-                question={this.props.question}
-                messages={this.props.messages}
-                isValid={this.props.isValid}
-                multiline={this.props.multiline}
-                rows={this.props.rows}
-                rowsMax={this.props.rowsMax}
+                {...this.props}
                 value={this.getAnswer()}
                 onChange={this.update}
             />
