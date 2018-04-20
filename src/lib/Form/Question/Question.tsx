@@ -26,7 +26,7 @@ class QuestionComponent extends React.Component<QuestionProps, any> {
     render() {
         const {question} = this.props;
         return (
-            <main className="Question">
+            <main className={`Question Question-${question.id}`}>
                 <div className="Question_label">
                     {question.label}
                     {question.required && <span className="Question_required">*</span>}
