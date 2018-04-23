@@ -31,6 +31,9 @@ class Question extends React.Component<QuestionProps, any> {
                     {question.label}
                     {question.required && <span className="Question_required">*</span>}
                 </div>
+                <div className="Question_description">
+                    {question.description}
+                </div>
                 <div className="Question_answer">{this.renderQuestion(question)}</div>
             </main>
         );
