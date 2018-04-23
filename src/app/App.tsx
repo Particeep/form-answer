@@ -1,9 +1,9 @@
 import * as React from "react";
-import {FormComponent} from "../lib/Form";
+import {Form} from "../lib/Form";
 import {createMuiTheme, MuiThemeProvider} from "material-ui";
 import {defaultMuiTheme} from "../lib/conf/mui-theme";
-import {Answer} from "../lib/types/Answer";
-import {Doc} from "../lib/types/Doc";
+import {IAnswer} from "../lib/types/Answer";
+import {IDoc} from "../lib/types/Doc";
 
 interface FormAnswerParams {
     form: any;
@@ -12,10 +12,10 @@ interface FormAnswerParams {
     maxUploadFileSize: any;
     muiTheme: any;
     readonly: any;
-    onChange: (a: Answer) => void;
-    onSectionEnd: (a: Answer[]) => void;
-    onEnd: (a: Answer[]) => void;
-    onUploadFile: (file: File, callback: (d: Doc) => void) => void;
+    onChange: (a: IAnswer) => void;
+    onSectionEnd: (a: IAnswer[]) => void;
+    onEnd: (a: IAnswer[]) => void;
+    onUploadFile: (file: File, callback: (d: IDoc) => void) => void;
 }
 
 function getFormAnswerParams(): FormAnswerParams {
@@ -31,7 +31,7 @@ class App extends React.Component {
         }
         return (
             <MuiThemeProvider theme={createMuiTheme(getFormAnswerParams().muiTheme || defaultMuiTheme)}>
-                <FormComponent
+                <Form
                     form={getFormAnswerParams().form}
                     messages={getFormAnswerParams().messages}
                     dateFormat={getFormAnswerParams().dateFormat}

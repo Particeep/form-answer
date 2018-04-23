@@ -1,4 +1,4 @@
-export interface Doc {
+export interface IDoc {
     name: string;
     permalink: string;
 }

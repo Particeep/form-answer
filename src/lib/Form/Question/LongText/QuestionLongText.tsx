@@ -1,9 +1,9 @@
 import * as React from "react";
 import QuestionText from "../Text/QuestionText";
-import {Question} from "../../../types/Question";
+import {IQuestion} from "../../../types/Question";
 
 interface Props {
-    readonly question: Question;
+    readonly question: IQuestion;
     readonly readonly: boolean
     readonly validator: (value: string) => boolean;
 }
