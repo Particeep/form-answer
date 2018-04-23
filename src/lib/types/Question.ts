@@ -20,6 +20,7 @@ export interface IQuestion {
     section_id: SectionId;
     possibility_id_dep: string;
     label: string;
+    description: string;
     question_type: QuestionType;
     required: boolean;
     possibilities: IPossibility[];
