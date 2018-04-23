@@ -1,4 +1,4 @@
-import {Possibility} from "./Possiblity";
+import {IPossibility} from "./Possiblity";
 import {Id} from "./Id";
 import {SectionId} from "./Section";
 
@@ -15,14 +15,14 @@ export enum QuestionType {
     LABEL = 'LABEL',
 }
 
-export interface Question {
+export interface IQuestion {
     id: QuestionId;
     section_id: SectionId;
     possibility_id_dep: string;
     label: string;
     question_type: QuestionType;
     required: boolean;
-    possibilities: Possibility[];
+    possibilities: IPossibility[];
     pattern: string;
     answers: string[];
     index: number; // Position
@@ -30,4 +30,4 @@ export interface Question {
 
 export const hasPossibilities = (q: any): boolean => q.question_type == QuestionType.CHECKBOX || q.question_type == QuestionType.RADIO || q.question_type == QuestionType.SELECT;
 
-export const isDependable = (q: Question): boolean => q.question_type === QuestionType.SELECT || q.question_type === QuestionType.RADIO;
+export const isDependable = (q: IQuestion): boolean => q.question_type === QuestionType.SELECT || q.question_type === QuestionType.RADIO;

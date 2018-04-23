@@ -3,7 +3,7 @@ import {QuestionId} from "./Question";
 
 export type PossiblityId = Id;
 
-export interface Possibility {
+export interface IPossibility {
     id: PossiblityId;
     question_id: QuestionId;
     label: string;

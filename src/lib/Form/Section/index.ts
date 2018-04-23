@@ -1,1 +1,1 @@
-export {default as SectionComponent} from './Section';
+export {default as Section} from './Section';
