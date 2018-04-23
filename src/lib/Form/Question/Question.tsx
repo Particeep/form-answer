@@ -25,6 +25,7 @@ class Question extends React.Component<QuestionProps, any> {
 
     render() {
         const {question} = this.props;
+        if (!question.possibilities) question.possibilities = [];
         return (
             <main className={`Question Question-${question.id}`}>
                 <div className="Question_label">
