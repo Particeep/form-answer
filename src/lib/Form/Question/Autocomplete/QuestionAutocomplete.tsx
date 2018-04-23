@@ -28,7 +28,7 @@ class QuestionAutocomplete extends React.Component<Props, State> {
             <div>
                 <FormControl onClick={this.open} fullWidth>
                     <Input value={multiSelect ? value.join(', ') : value} disabled={readonly}
-                           multiline rows="1" rowsMax="10" readOnly
+                           multiline rows="1" rowsMax="10"
                            endAdornment={
                                <InputAdornment position="end">
                                    <Icon className="Qac_adornment">arrow_drop_down</Icon>
