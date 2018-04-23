@@ -67,7 +67,7 @@ class QuestionAutocomplete extends React.Component<Props, State> {
     };
 
     private close = () => {
-        this.setState({anchorEl: null});
+        this.setState({anchorEl: null, filter: ''});
     };
 
     private handleChange = (value: string[] | string) => {
