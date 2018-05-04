@@ -55,7 +55,7 @@ You must include the compiled sources in your project then call the React applic
  
 ### API
 
-##### Inputs:
+##### Inputs
 
 | Variable                | Type                                       | Description                                                                                                                                                                                                                                       |
 |-------------------------|--------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -66,7 +66,7 @@ You must include the compiled sources in your project then call the React applic
 | `dateFormat`            | string _(optional)_                        | Expected format of the question of type date (eg. dd/MM/yyy, yyyy-MM-dd). If undefined, answers for this type of question are not validated.                                                                                                      |
 | `readonly`              | boolean _(optional)_                       | If set to true, the form cannot be answered (default value is false)                                                                                                                                                                              |
 
-##### Outputs:
+##### Outputs
 
 | Functions               | Parameters                                        | Description                                                                                                                                                                                                                 |
 |-------------------------|---------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -74,6 +74,20 @@ You must include the compiled sources in your project then call the React applic
 | `onSectionEnd`          | sectionAnswers: Array                             | On pressing the next button of a section; `sectionAnswers` is an array of answers.                                                                                                                                          |
 | `onEnd`                 | answers: Array                                    | On pressing the last button of the form; `answers` is an array of answers.                                                                                                                                                  |
 | `onUploadFile`          | file: File, callback: Function({name, permalink}) | Whenever a document is selected; `file` is the uploaded file, `callback` is a method which must be called to returned the uploaded file. At least two properties of the returned file are required: `file` and `permalink`. |
+
+
+##### Messages
+
+* `search`
+* `buttonNext`
+* `buttonEnd`
+* `buttonPrevious`
+* `upload`
+* `invalidFileSize`
+* `invalidDate`
+* `invalidText`
+* `noFile`
+
 
 ### Example
 
@@ -86,17 +100,8 @@ class App extends Component {
     render = () =>
         <Form
             form={this.getForm()}
-            messages={{
-                search: 'Search...',
-                buttonNext: 'Next',
-                buttonEnd: 'End',
-                buttonPrevious: 'Previous',
-                upload: 'Choose file',
-                invalidFileSize: 'File limit exceed',
-                invalidDate: 'Date invalid',
-                invalidText: 'Invalid answer',
-                noFile: 'No file uploaded'
-            }}
+            messages={this.getMessages()}
+            muiTheme={this.getTheme()}
             maxUploadFileSize={12}
             onChange={this.changed}
             onSectionEnd={this.sectionEnded}
@@ -147,6 +152,18 @@ class App extends Component {
         }]
     });
     
+    getMessages = () => ({
+        search: 'Search...',
+        buttonNext: 'Next',
+        buttonEnd: 'End',
+        buttonPrevious: 'Previous',
+        upload: 'Choose file',
+        invalidFileSize: 'File limit exceed',
+        invalidDate: 'Date invalid',
+        invalidText: 'Invalid answer',
+        noFile: 'No file uploaded'
+    });
+            
     getTheme = () => ({
         palette: {
             primary: {
