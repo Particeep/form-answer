@@ -2,11 +2,11 @@ import "./Section.scss";
 
 import * as React from "react";
 import {Button} from "material-ui";
-import {QuestionComponent} from "../Question";
+import {Question} from "../Question";
 import {connect} from "react-redux";
 import {Messages} from "../../types/Messages";
-import {Question} from "../../types/Question";
-import {Section} from "../../types/Section";
+import {IQuestion} from "../../types/Question";
+import {ISection} from "../../types/Section";
 
 export interface ExpensionStepProps {
     readonly isLast: boolean;
@@ -16,7 +16,7 @@ export interface ExpensionStepProps {
 }
 
 interface Props {
-    readonly section: Section;
+    readonly section: ISection;
     readonly isValid: boolean;
     readonly answers: any;
     readonly messages: Messages;
@@ -24,7 +24,7 @@ interface Props {
     readonly checkedPossibilityIds: any;
 }
 
-class SectionComponent extends React.Component<Props & ExpensionStepProps, {}> {
+class Section extends React.Component<Props & ExpensionStepProps, {}> {
 
     render() {
         const {section, isValid, messages, isLast, index, readonly, prev, next} = this.props;
@@ -32,7 +32,7 @@ class SectionComponent extends React.Component<Props & ExpensionStepProps, {}> {
             <main>
                 <div className="Section_label">{section.description}</div>
                 {section.questions.map(q => {
-                    if (this.showQuestion(q)) return <QuestionComponent key={q.id} question={q}/>
+                    if (this.showQuestion(q)) return <Question key={q.id} question={q}/>
                 })}
                 {!readonly &&
                 <div className="Section_action">
@@ -51,7 +51,7 @@ class SectionComponent extends React.Component<Props & ExpensionStepProps, {}> {
         );
     }
 
-    private showQuestion(q: Question) {
+    private showQuestion(q: IQuestion) {
         const {checkedPossibilityIds} = this.props;
         if (!q.possibility_id_dep) return true;
         for (let k in checkedPossibilityIds) {
@@ -73,4 +73,4 @@ const state2Props = (state, props) => ({
     checkedPossibilityIds: state.formAnswer.checkedPossibilityIds,
 });
 
-export default connect(state2Props)(SectionComponent);
+export default connect(state2Props)(Section);

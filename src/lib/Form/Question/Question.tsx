@@ -10,7 +10,7 @@ import QuestionCheckbox from "./Checkbox/QuestionCheckbox";
 import QuestionDate from "./Date/QuestionDate";
 import QuestionDocument from "./Document/QuestionDocument";
 import * as Moment from "moment";
-import {Question, QuestionType} from "../../types/Question";
+import {IQuestion, QuestionType} from "../../types/Question";
 import QuestionAutocomplete from "./Autocomplete/QuestionAutocomplete";
 
 const maxPossibilitiesBeforeAutocomplete = 10;
@@ -18,15 +18,16 @@ const maxPossibilitiesBeforeAutocomplete = 10;
 interface QuestionProps {
     readonly: boolean;
     dateFormat: string;
-    question: Question;
+    question: IQuestion;
 }
 
-class QuestionComponent extends React.Component<QuestionProps, any> {
+class Question extends React.Component<QuestionProps, any> {
 
     render() {
         const {question} = this.props;
+        if (!question.possibilities) question.possibilities = [];
         return (
-            <main className="Question">
+            <main className={`Question Question-${question.id}`}>
                 <div className="Question_label">
                     {question.label}
                     {question.required && <span className="Question_required">*</span>}
@@ -36,7 +37,7 @@ class QuestionComponent extends React.Component<QuestionProps, any> {
         );
     }
 
-    renderQuestion(q: Question) {
+    renderQuestion(q: IQuestion) {
         const props = {question: q, readonly: this.props.readonly};
         switch (q.question_type) {
             case QuestionType.TEXT:
@@ -148,4 +149,4 @@ const state2Props = (state, props) => ({
     dateFormat: state.formAnswer.dateFormat || '',
 });
 
-export default connect(state2Props)(QuestionComponent)
+export default connect(state2Props)(Question)

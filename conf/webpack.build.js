@@ -1,25 +1,19 @@
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const commonConfig = require('./webpack.js');
+const webpackMerge = require('webpack-merge');
 const path = require('path');
 
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 
-module.exports = {
+module.exports = webpackMerge(commonConfig, {
     cache: true,
     devtool: 'source-map',
     target: 'web',
-    resolve: {
-        extensions: [".ts", ".tsx", ".js", ".jsx", ".json"]
-    },
     entry: {
-        'vendor': path.resolve('src/app/vendor.js'),
-        'app': path.resolve('src/app/index.tsx'),
+        'vendor': path.resolve('src/app/vendor.ts'),
+        'app': ['babel-polyfill', path.resolve('src/app/index.tsx')],
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            inject: true,
-            template: path.resolve('src/app/index.html'),
-        }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
         new webpack.optimize.DedupePlugin(),
@@ -36,29 +30,10 @@ module.exports = {
             }
         })
     ],
-    module: {
-        rules: [
-            {test: /\.tsx?$/, loader: "ts-loader"},
-            {
-                test: /\.jsx?$/,
-                include: path.resolve('./src'),
-                exclude: /(node_modules|bower_components|build)/,
-                use: {
-                    loader: 'babel-loader',
-                },
-            }, {
-                test: /\.css$/,
-                loader: 'style-loader!css-loader?importLoaders=1'
-            }, {
-                test: /\.scss$/,
-                loader: 'style-loader!css-loader?importLoaders=1&localIdentName=[local]_[hash:base64:5]!sass-loader'
-            }
-        ]
-    },
     output: {
-        path: path.resolve('./dist'),
+        path: path.resolve('./build'),
         publicPath: '/',
         filename: '[name].js',
         chunkFilename: '[id].chunk.js',
     },
-};
+});

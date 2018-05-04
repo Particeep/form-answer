@@ -1,15 +1,15 @@
 import * as React from "react";
 import {formAction} from "../formAction";
 import {connect} from "react-redux";
-import {isDependable, Question, QuestionId, QuestionType} from "../../types/Question";
-import {Possibility, PossiblityId} from "../../types/Possiblity";
+import {isDependable, IQuestion, QuestionId, QuestionType} from "../../types/Question";
+import {IPossibility, PossiblityId} from "../../types/Possiblity";
 import {SectionId} from "../../types/Section";
 import {Subtract} from "utility-types";
 import {Messages} from "../../types/Messages";
 
 export interface QuestionProps {
     readonly readonly: boolean;
-    readonly question: Question;
+    readonly question: IQuestion;
     readonly messages: Messages,
     readonly isValid: boolean;
     readonly multiline: boolean,
@@ -28,7 +28,7 @@ export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.
         readonly multiline: boolean,
         readonly multiSelect: boolean;
         readonly dateFormat: string;
-        readonly question: Question;
+        readonly question: IQuestion;
         readonly validator: (value: any) => boolean;
         readonly messages: Messages,
         readonly triggerOnChange: any,
@@ -83,7 +83,7 @@ export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.
             const {addCheckedPossbility, removeCheckedPossbility, question} = this.props;
             if (!isDependable(question)) return;
             if (value) {
-                const possibility = question.possibilities.find((p: Possibility) => p.label == value);
+                const possibility = question.possibilities.find((p: IPossibility) => p.label == value);
                 removeCheckedPossbility(question.id);
                 addCheckedPossbility(question.id, possibility.id);
             } else {
