@@ -7,7 +7,7 @@ import {QuestionProps, questionWrapper} from "../questionWrapper";
 import QuestionDocumentReadonly from "./QuestionDocumentReadonly";
 import {SectionId} from "../../../types/Section";
 import {QuestionId} from "../../../types/Question";
-import {Messages} from "../../../types/Messages";
+import {IMessages} from "../../../types/Messages";
 
 interface Props extends QuestionProps {
     readonly documentName: string;
@@ -15,7 +15,7 @@ interface Props extends QuestionProps {
     readonly onUploadFile: (s: SectionId, q: QuestionId, f: File) => void;
     readonly maxUploadFileSize: number;
     readonly isUploading: boolean;
-    readonly messages: Messages;
+    readonly messages: IMessages;
 }
 
 interface State {

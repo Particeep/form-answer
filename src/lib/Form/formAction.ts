@@ -1,11 +1,11 @@
 import {QuestionId, QuestionType} from "../types/Question";
 import {SectionId} from "../types/Section";
-import {Messages} from "../types/Messages";
+import {IMessages} from "../types/Messages";
 import {PossiblityId} from "../types/Possiblity";
 
 interface InitParams {
     dateFormat: string;
-    messages: Messages;
+    messages: IMessages;
     maxUploadFileSize: number;
     triggerOnChange: (qId: QuestionId) => void;
     onUploadFile: (s: SectionId, q: QuestionId, f: File) => void;

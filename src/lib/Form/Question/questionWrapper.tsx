@@ -5,12 +5,12 @@ import {isDependable, IQuestion, QuestionId, QuestionType} from "../../types/Que
 import {IPossibility, PossiblityId} from "../../types/Possiblity";
 import {SectionId} from "../../types/Section";
 import {Subtract} from "utility-types";
-import {Messages} from "../../types/Messages";
+import {IMessages} from "../../types/Messages";
 
 export interface QuestionProps {
     readonly readonly: boolean;
     readonly question: IQuestion;
-    readonly messages: Messages,
+    readonly messages: IMessages,
     readonly isValid: boolean;
     readonly multiline: boolean,
     readonly rows: number,
@@ -30,7 +30,7 @@ export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.
         readonly dateFormat: string;
         readonly question: IQuestion;
         readonly validator: (value: any) => boolean;
-        readonly messages: Messages,
+        readonly messages: IMessages,
         readonly triggerOnChange: any,
         readonly isValid: boolean;
         readonly answers: { [key: string]: any },

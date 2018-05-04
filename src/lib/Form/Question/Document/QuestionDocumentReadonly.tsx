@@ -2,12 +2,12 @@ import "./QuestionDocument.scss";
 
 import * as React from "react";
 import {Avatar, Chip, Icon, withTheme, WithTheme} from "material-ui";
-import {Messages} from "../../../types/Messages";
+import {IMessages} from "../../../types/Messages";
 
 interface Props {
     readonly documentName: string;
     readonly documentUrl: string;
-    readonly messages: Messages;
+    readonly messages: IMessages;
     readonly isValid: boolean;
 }
 

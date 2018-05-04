@@ -4,7 +4,7 @@ import * as React from "react";
 import {Button} from "material-ui";
 import {Question} from "../Question";
 import {connect} from "react-redux";
-import {Messages} from "../../types/Messages";
+import {IMessages} from "../../types/Messages";
 import {IQuestion} from "../../types/Question";
 import {ISection} from "../../types/Section";
 
@@ -19,7 +19,7 @@ interface Props {
     readonly section: ISection;
     readonly isValid: boolean;
     readonly answers: any;
-    readonly messages: Messages;
+    readonly messages: IMessages;
     readonly readonly: boolean;
     readonly checkedPossibilityIds: any;
 }

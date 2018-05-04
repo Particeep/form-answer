@@ -12,20 +12,23 @@ import {QuestionId, QuestionType} from "../types/Question";
 import {SectionId} from "../types/Section";
 import {IDoc} from "../types/Doc";
 import {IForm} from "../types/Form";
-import {Messages} from "../types/Messages";
+import {IMessages} from "../types/Messages";
+import {MuiThemeProvider} from "material-ui";
+import createMuiTheme from "material-ui/styles/createMuiTheme";
 
 export interface FormProps {
     readonly: boolean;
     form: IForm;
     dateFormat: string;
-    messages: Messages;
+    muiTheme: any;
+    messages: IMessages;
     maxUploadFileSize: number;
     dispatch: any;
     answers: any;
-    onChange: any;
-    onSectionEnd: any;
-    onEnd: any;
-    onUploadFile: any;
+    onChange: (a: IAnswer) => void;
+    onSectionEnd: (a: IAnswer[]) => void;
+    onEnd: (a: IAnswer[]) => void;
+    onUploadFile: (file: File, callback: (d: IDoc) => void) => void;
 }
 
 class Form extends React.Component<FormProps, any> {
@@ -33,6 +36,17 @@ class Form extends React.Component<FormProps, any> {
     private parser: ApiParser;
 
     render() {
+        const {muiTheme} = this.props;
+        if (muiTheme)
+            return (
+                <MuiThemeProvider theme={createMuiTheme(muiTheme)}>
+                    {this.renderForm()}
+                </MuiThemeProvider>
+            );
+        return this.renderForm();
+    }
+
+    renderForm() {
         return (
             <ExpensionStepper free={this.props.readonly} onNext={this.next} onEnd={this.end}>
                 {this.props.form.sections.map(s =>
