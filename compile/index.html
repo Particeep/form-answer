@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+    <title>Form answer</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:200,400,500,7000" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <style>
+        body {
+            background: #f2f2f2;
+            line-height: 20px;
+            font-size: 14px;
+        }
+
+        .panel {
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        :focus {
+            outline: 0;
+        }
+    </style>
+</head>
+<body>
+<script>
+    window.formAnswer = {
+        form: {
+            "id": "f55eab2d-1d0a-4e16-8503-617f65f25855",
+            "created_at": "2017-09-07T16:05:00Z",
+            "name": "Questionnaire règlementaire PP actualisé",
+            "description": "Personnes physiques actualisé",
+            "tag": "NATURAL",
+            "sections": [{
+                "id": "73ecc60d-1c99-45da-8fe7-4a23836dbedc",
+                "created_at": "2017-09-07T16:05:01Z",
+                "form_id": "f55eab2d-1d0a-4e16-8503-617f65f25855",
+                "name": "Compléter votre profil",
+                "description": "Afin de vous inscrire sur Finple, nous vous demandons de compléter ci-après votre profil investisseur. ",
+                "index": 0,
+                "questions": [
+                    {
+                        "id": "73dad074-0baa-4d24-ab0f-ca429c83ec3f",
+                        "created_at": "2017-09-10T03:05:40Z",
+                        "section_id": "73ecc60d-1c99-45da-8fe7-4a23836dbedc",
+                        "label": "Nationalité",
+                        "question_type": "TEXT",
+                        "required": true,
+                        "index": 2,
+                    },
+                    {
+                        "id": "Q1",
+                        "created_at": "2017-09-10T03:05:40Z",
+                        "section_id": "73ecc60d-1c99-45da-8fe7-4a23836dbedc",
+                        "label": "Nationalité",
+                        "question_type": "CHECKBOX",
+                        "required": true,
+                        "index": 2,
+                        "possibilities": [
+                            {
+                                "id": "Q1P1",
+                                "created_at": "2017-09-10T03:23:23Z",
+                                "question_id": "Q1",
+                                "label": "Oui",
+                                "index": 0
+                            },
+                            {
+                                "id": "Q1P2",
+                                "created_at": "2017-09-10T03:23:28Z",
+                                "question_id": "Q1",
+                                "label": "Non",
+                                "index": 1
+                            },
+                            {
+                                "id": "Q1P3",
+                                "created_at": "2017-09-10T03:23:23Z",
+                                "question_id": "Q1",
+                                "label": "Oui",
+                                "index": 0
+                            },
+                            {
+                                "id": "Q1P4",
+                                "created_at": "2017-09-10T03:23:28Z",
+                                "question_id": "Q1",
+                                "label": "Non",
+                                "index": 1
+                            },
+                            {
+                                "id": "Q1P5",
+                                "created_at": "2017-09-10T03:23:23Z",
+                                "question_id": "Q1",
+                                "label": "Oui",
+                                "index": 0
+                            },
+                            {
+                                "id": "Q1P6",
+                                "created_at": "2017-09-10T03:23:28Z",
+                                "question_id": "Q1",
+                                "label": "Non",
+                                "index": 1
+                            },
+                            {
+                                "id": "Q1P7",
+                                "created_at": "2017-09-10T03:23:23Z",
+                                "question_id": "Q1",
+                                "label": "Oui",
+                                "index": 0
+                            },
+                            {
+                                "id": "Q1P8",
+                                "created_at": "2017-09-10T03:23:28Z",
+                                "question_id": "Q1",
+                                "label": "Non",
+                                "index": 1
+                            },
+                            {
+                                "id": "Q1P9",
+                                "created_at": "2017-09-10T03:23:23Z",
+                                "question_id": "Q1",
+                                "label": "Oui",
+                                "index": 0
+                            },
+                            {
+                                "id": "Q1P12",
+                                "created_at": "2017-09-10T03:23:28Z",
+                                "question_id": "Q1",
+                                "label": "Non",
+                                "index": 1
+                            },
+                            {
+                                "id": "Q1P13",
+                                "created_at": "2017-09-10T03:23:23Z",
+                                "question_id": "Q1",
+                                "label": "Oui",
+                                "index": 0
+                            },
+                            {
+                                "id": "Q1P14",
+                                "created_at": "2017-09-10T03:23:28Z",
+                                "question_id": "Q1",
+                                "label": "Non",
+                                "index": 1
+                            },
+                        ],
+                    }
+                ]
+            },]
+        },
+        dateFormat: 'dd/MM/yyyy',
+        messages: {
+            search: 'Search...',
+            buttonNext: 'Next',
+            buttonEnd: 'End',
+            buttonPrevious: 'Previous',
+            upload: 'Choose file',
+            invalidFileSize: 'File limit exceed',
+            invalidDate: 'Date invalid',
+            invalidText: 'Invalid answer',
+            noFile: 'Aucun fichier téléchargé'
+        },
+        onChange: function (answer) {
+            console.log('onChange', answer);
+        },
+        onSectionEnd: function (sectionAnswers) {
+            console.log('onSectionEnd', sectionAnswers);
+        },
+        onEnd: function (answers) {
+            console.log('onEnd', answers);
+        },
+        onUploadFile: function (file, callback) {
+            console.log('onUploadFile', file);
+            setTimeout(() => callback({
+                name: file.name,
+                permalink: 'https://api.particeep.com/swagger'
+            }), 1000);
+        },
+    }
+</script>
+<div class="panel">
+    <div id="form-answer-root"></div>
+</div>
+<script type="text/javascript" src="index.js"></script></body>
+</html>
