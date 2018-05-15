@@ -49,7 +49,8 @@
                         "created_at": "2017-09-10T03:05:40Z",
                         "section_id": "73ecc60d-1c99-45da-8fe7-4a23836dbedc",
                         "label": "Nationalité",
-                        "question_type": "TEXT",
+                        "pattern": ".*\.(pdf)$",
+                        "question_type": "DOCUMENT",
                         "required": true,
                         "index": 2,
                     },
@@ -149,6 +150,120 @@
                         ],
                     }
                 ]
+            },
+            {
+                "id": "23ecc60d-1c99-45da-8fe7-4a23836dbedc",
+                "created_at": "2017-09-07T16:05:01Z",
+                "form_id": "f55eab2d-1d0a-4e16-8503-617f65f25855",
+                "name": "Compléter votre profil",
+                "description": "Afin de vous inscrire sur Finple, nous vous demandons de compléter ci-après votre profil investisseur. ",
+                "index": 0,
+                "questions": [
+                    {
+                        "id": "Q22",
+                        "created_at": "2017-09-10T03:05:40Z",
+                        "section_id": "23ecc60d-1c99-45da-8fe7-4a23836dbedc",
+                        "label": "Nationalité",
+                        "question_type": "TEXT",
+                        "required": true,
+                        "index": 2,
+                    },
+                    {
+                        "id": "Q2",
+                        "created_at": "2017-09-10T03:05:40Z",
+                        "section_id": "23ecc60d-1c99-45da-8fe7-4a23836dbedc",
+                        "label": "Nationalité",
+                        "question_type": "CHECKBOX",
+                        "required": true,
+                        "index": 2,
+                        "possibilities": [
+                            {
+                                "id": "Q2P1",
+                                "created_at": "2017-09-10T03:23:23Z",
+                                "question_id": "Q2",
+                                "label": "Oui",
+                                "index": 0
+                            },
+                            {
+                                "id": "Q2P2",
+                                "created_at": "2017-09-10T03:23:28Z",
+                                "question_id": "Q2",
+                                "label": "Non",
+                                "index": 1
+                            },
+                            {
+                                "id": "Q2P3",
+                                "created_at": "2017-09-10T03:23:23Z",
+                                "question_id": "Q2",
+                                "label": "Oui",
+                                "index": 0
+                            },
+                            {
+                                "id": "Q2P4",
+                                "created_at": "2017-09-10T03:23:28Z",
+                                "question_id": "Q2",
+                                "label": "Non",
+                                "index": 1
+                            },
+                            {
+                                "id": "Q2P5",
+                                "created_at": "2017-09-10T03:23:23Z",
+                                "question_id": "Q2",
+                                "label": "Oui",
+                                "index": 0
+                            },
+                            {
+                                "id": "Q2P6",
+                                "created_at": "2017-09-10T03:23:28Z",
+                                "question_id": "Q2",
+                                "label": "Non",
+                                "index": 1
+                            },
+                            {
+                                "id": "Q2P7",
+                                "created_at": "2017-09-10T03:23:23Z",
+                                "question_id": "Q2",
+                                "label": "Oui",
+                                "index": 0
+                            },
+                            {
+                                "id": "Q2P8",
+                                "created_at": "2017-09-10T03:23:28Z",
+                                "question_id": "Q2",
+                                "label": "Non",
+                                "index": 1
+                            },
+                            {
+                                "id": "Q2P9",
+                                "created_at": "2017-09-10T03:23:23Z",
+                                "question_id": "Q2",
+                                "label": "Oui",
+                                "index": 0
+                            },
+                            {
+                                "id": "Q2P12",
+                                "created_at": "2017-09-10T03:23:28Z",
+                                "question_id": "Q2",
+                                "label": "Non",
+                                "index": 1
+                            },
+                            {
+                                "id": "Q2P13",
+                                "created_at": "2017-09-10T03:23:23Z",
+                                "question_id": "Q2",
+                                "label": "Oui",
+                                "index": 0
+                            },
+                            {
+                                "id": "Q2P14",
+                                "created_at": "2017-09-10T03:23:28Z",
+                                "question_id": "Q2",
+                                "label": "Non",
+                                "index": 1
+                            },
+                        ],
+                    }
+                ]
             },]
         },
         dateFormat: 'dd/MM/yyyy',
@@ -161,6 +276,7 @@
             invalidFileSize: 'File limit exceed',
             invalidDate: 'Date invalid',
             invalidText: 'Invalid answer',
+            invalidPattern: 'Invalid format',
             noFile: 'Aucun fichier téléchargé'
         },
         onChange: function (answer) {
