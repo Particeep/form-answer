@@ -7,5 +7,6 @@ export interface IMessages {
     invalidFileSize?: string;
     invalidDate?: string;
     invalidText?: string;
+    invalidPattern?: string;
     noFile?: string;
 }
