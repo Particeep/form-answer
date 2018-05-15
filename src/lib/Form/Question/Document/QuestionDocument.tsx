@@ -87,6 +87,10 @@ class QuestionDocument extends React.Component<Props, State> {
 
     private handleChange = (file: File) => {
         const {question, messages, maxUploadFileSize} = this.props;
+        if (!new RegExp(question.pattern).test(file.name)) {
+            this.setState({errorMessage: file.name + ': ' + messages.invalidPattern});
+            return;
+        }
         if (maxUploadFileSize && file.size > maxUploadFileSize * 1024 * 1024) {
             this.setState({errorMessage: messages.invalidFileSize});
             return;
