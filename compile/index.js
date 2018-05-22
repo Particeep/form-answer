@@ -79595,7 +79595,7 @@ exports.formReducer = function (state, a) {
             });
         case formAction_1.formAction.REMOVE_ANSWER:
             return immutability_helper_1.default(state, {
-                answers: { $merge: (_b = {}, _b[a.questionId] = { value: '' }, _b) }
+                answers: (_b = {}, _b[a.questionId] = { value: { $set: '' } }, _b)
             });
         case formAction_1.formAction.UPDATE_SECTION_VALIDITY:
             // Cannot perform nested $merge, so do it in 2 steps
