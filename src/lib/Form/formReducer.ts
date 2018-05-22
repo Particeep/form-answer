@@ -56,7 +56,7 @@ export const formReducer = function (state = initialState, a) {
             });
         case formAction.REMOVE_ANSWER:
             return update(state, {
-                answers: {$merge: {[a.questionId]: {value: ''}}}
+                answers: {[a.questionId]: {value: {$set: ''}}}
             });
         case formAction.UPDATE_SECTION_VALIDITY:
             // Cannot perform nested $merge, so do it in 2 steps
