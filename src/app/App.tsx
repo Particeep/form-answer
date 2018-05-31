@@ -1,12 +1,17 @@
-import * as React from "react";
-import {Form} from "../lib/Form";
-import {IAnswer} from "../lib/types/Answer";
-import {IDoc} from "../lib/types/Doc";
-import {defaultMuiTheme} from "../lib/conf/mui-theme";
+import * as React from 'react';
+import {Form} from '../lib/Form';
+import {IAnswer} from '../lib/types/Answer';
+import {IDoc} from '../lib/types/Doc';
+import {defaultMuiTheme} from '../lib/conf/mui-theme';
+import {store} from './store';
+import {connect} from 'react-redux';
+import {appAction} from './app.action';
+import {IForm} from '../lib/types/Form';
+import {IMessages} from '../lib/types/Messages';
 
 interface FormAnswerParams {
     form: any;
-    messages: any;
+    messages: IMessages;
     dateFormat: string;
     maxUploadFileSize: number;
     muiTheme: any;
@@ -17,20 +22,30 @@ interface FormAnswerParams {
     onUploadFile: (file: File, callback: (d: IDoc) => void) => void;
 }
 
+interface AppParams {
+    form: IForm;
+    setForm: (f: object) => void;
+}
+
 function getFormAnswerParams(): FormAnswerParams {
     return (window as any)['formAnswer'];
 }
 
-class App extends React.Component {
+getFormAnswerParams()['updateForm'] = (form) => {
+    store.dispatch({type: appAction.SET, form});
+};
+
+class App extends React.Component<AppParams> {
 
     render() {
         if (!getFormAnswerParams().form) {
             console.error('No form passed in object \'window["formAnswer"].form\'');
             return <div>No form passed in object 'getFormAnswerParams.form'</div>;
         }
+        if (!this.props.form) return <div/>;
         return (
             <Form
-                form={getFormAnswerParams().form}
+                form={this.props.form}
                 messages={getFormAnswerParams().messages}
                 dateFormat={getFormAnswerParams().dateFormat}
                 maxUploadFileSize={getFormAnswerParams().maxUploadFileSize}
@@ -41,6 +56,11 @@ class App extends React.Component {
                 onEnd={this.ended}
                 onUploadFile={this.uploadFile}/>
         );
+    }
+
+
+    componentWillMount() {
+        this.props.setForm(getFormAnswerParams().form);
     }
 
     private uploadFile = (file: File, callback: any): void => {
@@ -64,4 +84,12 @@ class App extends React.Component {
     };
 }
 
-export default App;
+const state2Props = (state: any) => ({
+    form: state.app.form,
+});
+
+const dispatch2Props = (dispatch) => ({
+    setForm: (f: IForm) => dispatch(appAction.set(f)),
+});
+
+export default connect(state2Props, dispatch2Props)(App);

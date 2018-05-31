@@ -1,10 +1,12 @@
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import thunk from "redux-thunk";
-import {formReducer} from "../Form/index";
+import {formReducer} from "../lib/Form/index";
+import {appReducer} from './app.reducer';
 
 export const store = createStore(
     combineReducers({
-        formAnswer: formReducer
+        formAnswer: formReducer,
+        app: appReducer,
     }),
     compose(
         applyMiddleware(thunk)

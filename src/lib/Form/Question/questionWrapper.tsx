@@ -1,11 +1,11 @@
-import * as React from "react";
-import {formAction} from "../formAction";
-import {connect} from "react-redux";
-import {isDependable, IQuestion, QuestionId, QuestionType} from "../../types/Question";
-import {IPossibility, PossiblityId} from "../../types/Possiblity";
-import {SectionId} from "../../types/Section";
-import {Subtract} from "utility-types";
-import {IMessages} from "../../types/Messages";
+import * as React from 'react';
+import {formAction} from '../form.action';
+import {connect} from 'react-redux';
+import {isDependable, IQuestion, QuestionId, QuestionType} from '../../types/Question';
+import {IPossibility, PossiblityId} from '../../types/Possiblity';
+import {SectionId} from '../../types/Section';
+import {Subtract} from 'utility-types';
+import {IMessages} from '../../types/Messages';
 
 export interface QuestionProps {
     readonly readonly: boolean;
@@ -84,6 +84,7 @@ export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.
             if (!isDependable(question)) return;
             if (value) {
                 const possibility = question.possibilities.find((p: IPossibility) => p.label == value);
+                if (!possibility) return;
                 removeCheckedPossbility(question.id);
                 addCheckedPossbility(question.id, possibility.id);
             } else {
