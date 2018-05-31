@@ -1,5 +1,5 @@
 import update from "immutability-helper";
-import {formAction} from "./formAction";
+import {formAction} from "./form.action";
 import {PossiblityId} from "../types/Possiblity";
 import {IMessages} from "../types/Messages";
 
