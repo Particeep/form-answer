@@ -11,5 +11,6 @@ module.exports = {
     testRegex: '.*\\.test\\.(ts|tsx|js)$',
     moduleNameMapper: {
         '^.+\\.(css|less|scss)$': 'identity-obj-proxy'
-    }
+    },
+    "setupTestFrameworkScriptFile": "<rootDir>/src/setupTests.ts"
 };
