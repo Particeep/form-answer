@@ -14,24 +14,24 @@ export const form = (question: IQuestion): IForm => ({
     }]
 });
 
-export const s1_qRADIO = {
+export const s1_qRADIO = (required: boolean = false, answers = false) => ({
     'id': 'Q1',
     'section_id': 'S1',
     'label': 'Appel à candidature obligatoire :',
     'question_type': 'RADIO',
-    'required': true,
+    'required': required,
     'index': 0,
     'possibilities': [{
         'id': 'P1',
         'question_id': 'Q1',
-        'label': 'Extension des consignes de tri',
+        'label': 'P1',
         'index': 0,
     }, {
         'id': 'P2',
         'question_id': 'Q1',
-        'label': 'Ne pas laisser couler l\'eau',
+        'label': 'P2',
         'index': 1,
     }],
-    'answers': ['Extension des consignes de tri']
-};
+    'answers': answers ? ['P2'] : []
+});
 
