@@ -14,8 +14,33 @@ export const form = (question: IQuestion): IForm => <any> ({
     }]
 });
 
+interface Is1_questionSimple {
+    type?: QuestionType,
+    required?: boolean;
+    answer?: string;
+    pattern: boolean;
+}
+
+export const s1_questionSimple = ({type = 'TEXT', required = false, answer, pattern}: Is1_questionSimple
+): IQuestion => <any>({
+    'id': 'Q1',
+    'section_id': 'S1',
+    'label': 'Appel à candidature obligatoire :',
+    'question_type': type,
+    'required': required,
+    'pattern': pattern && '\\d+',
+    'index': 0,
+    'answers': answer && [answer]
+});
+
+interface Is1_questionWithPossibilities {
+    type?: QuestionType,
+    required?: boolean,
+    answered?: boolean
+}
+
 export const s1_questionWithPossibilities = (
-    {type = 'RADIO', required = false, answered = false}: { type?: QuestionType, required?: boolean, answered?: boolean }
+    {type = 'RADIO', required = false, answered = false}: Is1_questionWithPossibilities
 ): IQuestion => <any> ({
     'id': 'Q1',
     'section_id': 'S1',
