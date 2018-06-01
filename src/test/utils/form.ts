@@ -1,4 +1,4 @@
-import {IQuestion} from '../../lib/types/Question';
+import {IQuestion, QuestionType} from '../../lib/types/Question';
 import {IForm} from '../../lib/types/Form';
 
 export const form = (question: IQuestion): IForm => <any> ({
@@ -14,11 +14,13 @@ export const form = (question: IQuestion): IForm => <any> ({
     }]
 });
 
-export const s1_qRADIO = (required: boolean = false, answers = false) => ({
+export const s1_questionWithPossibilities = (
+    {type = 'RADIO', required = false, answered = false}: { type?: QuestionType, required?: boolean, answered?: boolean }
+): IQuestion => <any> ({
     'id': 'Q1',
     'section_id': 'S1',
     'label': 'Appel à candidature obligatoire :',
-    'question_type': 'RADIO',
+    'question_type': type,
     'required': required,
     'index': 0,
     'possibilities': [{
@@ -32,6 +34,6 @@ export const s1_qRADIO = (required: boolean = false, answers = false) => ({
         'label': 'P2',
         'index': 1,
     }],
-    'answers': answers ? ['P2'] : []
+    'answers': answered ? ['P2'] : []
 });
 

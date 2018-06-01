@@ -17,7 +17,7 @@ import createMuiTheme from 'material-ui/styles/createMuiTheme';
 export interface FormProps {
     readonly?: boolean;
     form: IForm;
-    dateFormat: string;
+    dateFormat?: string;
     muiTheme?: any;
     messages?: IMessages;
     maxUploadFileSize?: number;
