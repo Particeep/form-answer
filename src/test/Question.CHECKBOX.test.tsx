@@ -5,11 +5,12 @@ import {Form} from '../lib/Form';
 import {testStore} from './utils/store';
 import * as enzyme from 'enzyme';
 import {Button, Checkbox} from 'material-ui';
+import {QuestionType} from '../lib/types/Question';
 
 test('Button next is not disabled when required CHECKBOX is initially filled ', () => {
     const $form = enzyme.mount(
         <Provider store={testStore}>
-            <Form form={form(s1_questionWithPossibilities({type: 'CHECKBOX', required: true, answered: true}))}/>
+            <Form form={form(s1_questionWithPossibilities({type: QuestionType.CHECKBOX, required: true, answered: true}))}/>
         </Provider>
     );
     expect($form.find(Button).get(0).props.disabled).toBe(false);
@@ -18,7 +19,7 @@ test('Button next is not disabled when required CHECKBOX is initially filled ', 
 test('Button next pass from disabled to not disabled when required CHECKBOX get filled', () => {
     const $form = enzyme.mount(
         <Provider store={testStore}>
-            <Form form={form(s1_questionWithPossibilities({type: 'CHECKBOX', required: true, answered: false}))}/>
+            <Form form={form(s1_questionWithPossibilities({type: QuestionType.CHECKBOX, required: true, answered: false}))}/>
         </Provider>
     );
 
@@ -33,7 +34,7 @@ test('Button next pass from disabled to not disabled when required CHECKBOX get 
 test('Button next pass from not disabled to disabled when required CHECKBOX get unfilled', () => {
     const $form = enzyme.mount(
         <Provider store={testStore}>
-            <Form form={form(s1_questionWithPossibilities({type: 'CHECKBOX', required: true, answered: true}))}/>
+            <Form form={form(s1_questionWithPossibilities({type: QuestionType.CHECKBOX, required: true, answered: true}))}/>
         </Provider>
     );
 
@@ -51,7 +52,7 @@ test('data passed by onChange callback are correctly formatted when checking 2 c
     const $form = enzyme.mount(
         <Provider store={testStore}>
             <Form
-                form={form(s1_questionWithPossibilities({type: 'CHECKBOX', required: true, answered: false}))}
+                form={form(s1_questionWithPossibilities({type: QuestionType.CHECKBOX, required: true, answered: false}))}
                 onChange={(a) => answer = a}/>
         </Provider>
     );
