@@ -1,7 +1,7 @@
 import {IQuestion} from '../../lib/types/Question';
 import {IForm} from '../../lib/types/Form';
 
-export const form = (question: IQuestion): IForm => ({
+export const form = (question: IQuestion): IForm => <any> ({
     'id': 'F1',
     'name': 'Dépôt de dossier',
     'description': 'Information projet',
