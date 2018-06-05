@@ -55,25 +55,33 @@ You must include the compiled sources in your project then call the React applic
  
 ### API
 
-##### Inputs:
+##### Inputs
 
 | Variable                | Type                                       | Description                                                                                                                                                                                                                                       |
 |-------------------------|--------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `form`                  | Object                                     | Form to answer fetched from the API                                                                                                                                                                                                               |
-| `messages`              | Object                                     | The component expected some text, like messages to display in case of error.                                                                                                                                                                      |
+| `messages`              | Object _(optional)_                        | The component expected some text, like messages to display in case of error. Default messages are wrote in english.                                                                                                                               |
 | `muiTheme`              | Object _(optional)_                        | Define the theme for [material-ui](https://material-ui-1dab0.firebaseapp.com/customization/themes/). The method `createMuiTheme(...)` is called inside this module. Default theme use blue as primary color and red as secondary.                 |
 | `maxUploadFileSize`     | number _(optional)_                        | Limit the size of the uploaded documents. If undefined, file size won't be checked                                                                                                                                                                |
 | `dateFormat`            | string _(optional)_                        | Expected format of the question of type date (eg. dd/MM/yyy, yyyy-MM-dd). If undefined, answers for this type of question are not validated.                                                                                                      |
 | `readonly`              | boolean _(optional)_                       | If set to true, the form cannot be answered (default value is false)                                                                                                                                                                              |
 
-##### Outputs:
+##### Outputs
 
 | Functions               | Parameters                                        | Description                                                                                                                                                                                                                 |
 |-------------------------|---------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `onChange`              | answer: Object                                    | Whenever a change if performed on a question; `answer` is the answer that triggered the callback.                                                                                                                           |
-| `onSectionEnd`          | sectionAnswers: Array                             | On pressing the next button of a section; `sectionAnswers` is an array of answers.                                                                                                                                          |
-| `onEnd`                 | answers: Array                                    | On pressing the last button of the form; `answers` is an array of answers.                                                                                                                                                  |
-| `onUploadFile`          | file: File, callback: Function({name, permalink}) | Whenever a document is selected; `file` is the uploaded file, `callback` is a method which must be called to returned the uploaded file. At least two properties of the returned file are required: `file` and `permalink`. |
+| `onChange`              | `answer`: Object                                    | Whenever a change if performed on a question; `answer` is the answer that triggered the callback.                                                                                                                           |
+| `onSectionEnd`          | `sectionAnswers`: Array                             | On pressing the next button of a section; `sectionAnswers` is an array of answers.                                                                                                                                          |
+| `onEnd`                 | `answers`: Array                                    | On pressing the last button of the form; `answers` is an array of answers.                                                                                                                                                  |
+| `onUploadFile`          | `file`: File, callback: Function({name, permalink}) | Whenever a document is selected; `file` is the uploaded file, `callback` is a method which must be called to returned the uploaded file. At least two properties of the returned file are required: `file` and `permalink`. |
+
+##### Actions
+
+Methods attached to `window.formAnswer`. Only available (and useful) when using the whole application.
+
+| Functions               | Parameters                                        | Description                                                                                                                                                                                                                 |
+|-------------------------|---------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `updateForm`            | `form`: Object                                    | Replace the current form by `form`. |
 
 ### Example
 

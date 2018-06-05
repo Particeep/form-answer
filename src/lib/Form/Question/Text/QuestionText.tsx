@@ -33,11 +33,11 @@ class QuestionText extends React.Component<Props, State> {
         );
     }
 
-    handleChange = value => {
+    private handleChange = value => {
         this.props.onChange(value);
     };
 
-    showError() {
+    private showError() {
         const {value, isValid, readonly, question} = this.props;
         if (isValid) return false;
         if (readonly) return true;

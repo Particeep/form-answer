@@ -1,37 +1,39 @@
-import "./Form.scss";
-
-import * as React from "react";
-import {ExpensionStep, ExpensionStepper} from "../ExpensionStepper";
-import {Section} from "./Section";
-import {connect} from "react-redux";
-import {formAction} from "./formAction";
-import {ApiParser} from "../utils/ApiParser";
-import {Id} from "../types/Id";
-import {IAnswer} from "../types/Answer";
-import {QuestionId, QuestionType} from "../types/Question";
-import {SectionId} from "../types/Section";
-import {IDoc} from "../types/Doc";
-import {IForm} from "../types/Form";
-import {IMessages} from "../types/Messages";
-import {MuiThemeProvider} from "material-ui";
-import createMuiTheme from "material-ui/styles/createMuiTheme";
+import * as React from 'react';
+import {ExpensionStep, ExpensionStepper} from '../ExpensionStepper';
+import {Section} from './Section';
+import {connect} from 'react-redux';
+import {formAction} from './form.action';
+import {ApiParser} from '../utils/ApiParser';
+import {Id} from '../types/Id';
+import {IAnswer} from '../types/Answer';
+import {QuestionId, QuestionType} from '../types/Question';
+import {SectionId} from '../types/Section';
+import {IDoc} from '../types/Doc';
+import {IForm} from '../types/Form';
+import {defaultMessages, IMessages} from '../types/Messages';
+import {MuiThemeProvider} from 'material-ui';
+import createMuiTheme from 'material-ui/styles/createMuiTheme';
 
 export interface FormProps {
-    readonly: boolean;
+    readonly?: boolean;
     form: IForm;
-    dateFormat: string;
-    muiTheme: any;
-    messages: IMessages;
-    maxUploadFileSize: number;
+    dateFormat?: string;
+    muiTheme?: any;
+    messages?: IMessages;
+    maxUploadFileSize?: number;
     dispatch: any;
     answers: any;
-    onChange: (a: IAnswer) => void;
-    onSectionEnd: (a: IAnswer[]) => void;
-    onEnd: (a: IAnswer[]) => void;
-    onUploadFile: (file: File, callback: (d: IDoc) => void) => void;
+    onChange?: (a: IAnswer) => void;
+    onSectionEnd?: (a: IAnswer[]) => void;
+    onEnd?: (a: IAnswer[]) => void;
+    onUploadFile?: (file: File, callback: (d: IDoc) => void) => void;
 }
 
 class Form extends React.Component<FormProps, any> {
+
+    public static defaultProps: Partial<FormProps> = {
+        messages: defaultMessages
+    };
 
     private parser: ApiParser;
 
