@@ -8,52 +8,52 @@ import {Button, RadioGroup} from 'material-ui';
 
 
 test('Dependable question got displayed when the associated possibility got checked', () => {
-    const formWithDep = form([
-        s1_questionWithPossibilities({
-            required: true,
-        }),
-        s1_questionSimple({
-            required: true,
-            possibility_id_dep: 'P2'
-        })
-    ]);
+  const formWithDep = form([
+    s1_questionWithPossibilities({
+      required: true,
+    }),
+    s1_questionSimple({
+      required: true,
+      possibility_id_dep: 'P2'
+    })
+  ]);
 
-    const $form = enzyme.mount(
-        <Provider store={testStore}>
-            <Form form={formWithDep}/>
-        </Provider>
-    );
-    expect($form.find('.Question-Q1').length).toEqual(0);
+  const $form = enzyme.mount(
+    <Provider store={testStore}>
+      <Form form={formWithDep}/>
+    </Provider>
+  );
+  expect($form.find('.Question-Q1').length).toEqual(0);
 
-    const $radioGroup = $form.find(RadioGroup).get(0);
-    $radioGroup.props.onChange({target: {value: 'P2'}});
-    $form.update();
+  const $radioGroup = $form.find(RadioGroup).get(0);
+  $radioGroup.props.onChange({target: {value: 'P2'}});
+  $form.update();
 
-    expect($form.find('.Question-Q1').length).toEqual(1);
+  expect($form.find('.Question-Q1').length).toEqual(1);
 });
 
 test('Section pass from invalid to valid when a required dependable question got hidden', () => {
-    const formWithDep = form([
-        s1_questionWithPossibilities({
-            required: true,
-            answered: true,
-        }),
-        s1_questionSimple({
-            required: true,
-            possibility_id_dep: 'P2'
-        })
-    ]);
+  const formWithDep = form([
+    s1_questionWithPossibilities({
+      required: true,
+      answered: true,
+    }),
+    s1_questionSimple({
+      required: true,
+      possibility_id_dep: 'P2'
+    })
+  ]);
 
-    const $form = enzyme.mount(
-        <Provider store={testStore}>
-            <Form form={formWithDep}/>
-        </Provider>
-    );
-    expect($form.find(Button).get(0).props.disabled).toBe(true);
+  const $form = enzyme.mount(
+    <Provider store={testStore}>
+      <Form form={formWithDep}/>
+    </Provider>
+  );
+  expect($form.find(Button).get(0).props.disabled).toBe(true);
 
-    const $radioGroup = $form.find(RadioGroup).get(0);
-    $radioGroup.props.onChange({target: {value: 'P1'}});
-    $form.update();
+  const $radioGroup = $form.find(RadioGroup).get(0);
+  $radioGroup.props.onChange({target: {value: 'P1'}});
+  $form.update();
 
-    expect($form.find(Button).get(0).props.disabled).toBe(false);
+  expect($form.find(Button).get(0).props.disabled).toBe(false);
 });

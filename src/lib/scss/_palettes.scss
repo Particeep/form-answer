@@ -643,15 +643,14 @@ $mat-blue-grey: (
   )
 );
 
-
 // Background palette for light themes.
 $mat-light-theme-background: (
   status-bar: map_get($mat-grey, 300),
-  app-bar:    map_get($mat-grey, 100),
+  app-bar: map_get($mat-grey, 100),
   background: map_get($mat-grey, 50),
-  hover:      rgba(black, 0.04), // TODO(kara): check style with Material Design UX
-  card:       white,
-  dialog:     white,
+  hover: rgba(black, 0.04), // TODO(kara): check style with Material Design UX
+  card: white,
+  dialog: white,
   disabled-button: $black-12-opacity,
   raised-button: white,
   focused-button: $black-6-opacity,
@@ -663,11 +662,11 @@ $mat-light-theme-background: (
 // Background palette for dark themes.
 $mat-dark-theme-background: (
   status-bar: black,
-  app-bar:    map_get($mat-grey, 900),
+  app-bar: map_get($mat-grey, 900),
   background: #303030,
-  hover:      rgba(white, 0.04), // TODO(kara): check style with Material Design UX
-  card:       map_get($mat-grey, 800),
-  dialog:     map_get($mat-grey, 800),
+  hover: rgba(white, 0.04), // TODO(kara): check style with Material Design UX
+  card: map_get($mat-grey, 800),
+  dialog: map_get($mat-grey, 800),
   disabled-button: $white-12-opacity,
   raised-button: map-get($mat-grey, 800),
   focused-button: $white-6-opacity,
@@ -678,34 +677,33 @@ $mat-dark-theme-background: (
 
 // Foreground palette for light themes.
 $mat-light-theme-foreground: (
-  base:            black,
-  divider:         $black-12-opacity,
-  dividers:        $black-12-opacity,
-  disabled:        rgba(black, 0.38),
+  base: black,
+  divider: $black-12-opacity,
+  dividers: $black-12-opacity,
+  disabled: rgba(black, 0.38),
   disabled-button: rgba(black, 0.38),
-  disabled-text:   rgba(black, 0.38),
-  hint-text:       rgba(black, 0.38),
-  secondary-text:  rgba(black, 0.54),
-  icon:            rgba(black, 0.54),
-  icons:           rgba(black, 0.54),
-  text:            rgba(black, 0.87)
+  disabled-text: rgba(black, 0.38),
+  hint-text: rgba(black, 0.38),
+  secondary-text: rgba(black, 0.54),
+  icon: rgba(black, 0.54),
+  icons: rgba(black, 0.54),
+  text: rgba(black, 0.87)
 );
 
 // Foreground palette for dark themes.
 $mat-dark-theme-foreground: (
-  base:            white,
-  divider:         $white-12-opacity,
-  dividers:        $white-12-opacity,
-  disabled:        rgba(white, 0.3),
+  base: white,
+  divider: $white-12-opacity,
+  dividers: $white-12-opacity,
+  disabled: rgba(white, 0.3),
   disabled-button: rgba(white, 0.3),
-  disabled-text:   rgba(white, 0.3),
-  hint-text:       rgba(white, 0.3),
-  secondary-text:  rgba(white, 0.7),
-  icon:            white,
-  icons:           white,
-  text:            white
+  disabled-text: rgba(white, 0.3),
+  hint-text: rgba(white, 0.3),
+  secondary-text: rgba(white, 0.7),
+  icon: white,
+  icons: white,
+  text: white
 );
-
 
 // For a given hue in a palette, return the contrast color from the map of contrast palettes.
 // @param $color-map
@@ -713,7 +711,6 @@ $mat-dark-theme-foreground: (
 @function mat-contrast($palette, $hue) {
   @return map-get(map-get($palette, contrast), $hue);
 }
-
 
 // Creates a map of hues to colors for a theme. This is used to define a theme palette in terms
 // of the Material Design hues.
@@ -725,7 +722,6 @@ $mat-dark-theme-foreground: (
     default: map-get($base-palette, $default),
     lighter: map-get($base-palette, $lighter),
     darker: map-get($base-palette, $darker),
-
     default-contrast: mat-contrast($base-palette, $default),
     lighter-contrast: mat-contrast($base-palette, $lighter),
     darker-contrast: mat-contrast($base-palette, $darker)
@@ -740,7 +736,6 @@ $mat-dark-theme-foreground: (
 
   @return $result;
 }
-
 
 // Gets a color from a theme palette (the output of mat-palette).
 // The hue can be one of the standard values (500, A400, etc.), one of the three preconfigured
@@ -763,7 +758,6 @@ $mat-dark-theme-foreground: (
   @return rgba($color, $opacity);
 }
 
-
 // Creates a container object for a light theme to be given to individual component theme mixins.
 @function mat-light-theme($primary, $accent, $warn: mat-palette($mat-red)) {
   @return (
@@ -775,7 +769,6 @@ $mat-dark-theme-foreground: (
     background: $mat-light-theme-background,
   );
 }
-
 
 // Creates a container object for a dark theme to be given to individual component theme mixins.
 @function mat-dark-theme($primary, $accent, $warn: mat-palette($mat-red)) {

@@ -1,4 +1,4 @@
 export interface IDoc {
-    name: string;
-    permalink: string;
+  name: string;
+  permalink: string;
 }
