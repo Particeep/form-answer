@@ -3,18 +3,26 @@
 .Question {
   margin-bottom: padding(5);
 }
-  .Question_label {
-    font-size: $text-big;
-    margin-bottom: padding(1);
-    display: block;
+
+.Question_label {
+  font-size: $text-big;
+  display: block;
+}
+
+.Question_description {
+  font-size: $text-small;
+  margin-bottom: padding(2);
+  color: $text-color-light;
+}
+
+.Question_required {
+  color: red;
+  &:before {
+    content: ' ';
   }
-  .Question_required {
-    color: red;
-    &:before {
-      content: ' ';
-    }
-  }
-  .Question_answer {
-    margin-left: padding(4);
-    //min-height: 40px;
-  }
+}
+
+.Question_answer {
+  margin-left: padding(4);
+  //min-height: 40px;
+}

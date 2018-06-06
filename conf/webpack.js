@@ -27,7 +27,7 @@ module.exports = {
                 loader: 'style-loader!css-loader?importLoaders=1'
             }, {
                 test: /\.scss$/,
-                loader: 'style-loader!css-loader?importLoaders=1&localIdentName=[local]_[hash:base64:5]!sass-loader'
+                loader: 'style-loader?{attrs:{"form-answer-css":""}}!css-loader?importLoaders=1&localIdentName=[local]_[hash:base64:5]!sass-loader'
             }
         ]
     },

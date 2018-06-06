@@ -122,6 +122,6 @@ $_mat-elevation-prefix: 'mat-elevation-z';
   }
 
   box-shadow: #{map-get($_umbra-elevation-map, $zValue)},
-              #{map-get($_penumbra-elevation-map, $zValue)},
-              #{map-get($_ambient-elevation-map, $zValue)};
+  #{map-get($_penumbra-elevation-map, $zValue)},
+  #{map-get($_ambient-elevation-map, $zValue)};
 }
