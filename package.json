@@ -65,7 +65,7 @@
     "html-webpack-plugin": "^2.30.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^23.1.0",
-    "node-sass": "^4.7.2",
+    "node-sass": "^4.9.0",
     "react-addons-test-utils": "^15.6.2",
     "react-dev-utils": "^5.0.0",
     "react-scripts-ts": "^2.16.0",
