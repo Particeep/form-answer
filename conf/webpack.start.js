@@ -9,7 +9,6 @@ module.exports = webpackMerge(commonConfig, {
     target: 'web',
     entry: {
         'app': ['babel-polyfill', path.resolve('src/app/index.tsx')],
-        'utils': require.resolve('react-dev-utils/webpackHotDevClient'),
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
@@ -20,13 +19,6 @@ module.exports = webpackMerge(commonConfig, {
             }
         })
     ],
-    output: {
-        path: path.resolve('./dist'),
-        publicPath: 'http://localhost:3333/',
-        filename: '[name].js',
-        sourceMapFilename: '[name].map',
-        chunkFilename: '[id].chunk.js'
-    },
     devServer: {
         historyApiFallback: true,
         inline: true,
