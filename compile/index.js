@@ -7202,9 +7202,12 @@ exports.questionWrapper = function (WrappedQuestion) {
             removeAnswer(question.id);
             this.handlePossibilityDependencyCaching();
         };
+        QuestionWrapper.prototype.shouldComponentUpdate = function (nextProps) {
+            return this.props.answer !== nextProps.answer;
+        };
         QuestionWrapper.prototype.getAnswer = function () {
-            var answer = this.props.answers[this.props.question.id];
-            return answer && answer.value;
+            var answer = this.props.answer;
+            return answer && answer.value || '';
         };
         /** Store checked possibility id to easily show Questions according to their dependency_id_dep */
         QuestionWrapper.prototype.handlePossibilityDependencyCaching = function (value) {
@@ -7227,7 +7230,7 @@ exports.questionWrapper = function (WrappedQuestion) {
     var state2Props = function (state, props) { return ({
         messages: state.formAnswer.messages,
         triggerOnChange: state.formAnswer.triggerOnChange,
-        answers: state.formAnswer.answers,
+        answer: state.formAnswer.answers[props.question.id],
         isValid: (state.formAnswer.sectionsValidity[props.question.section_id] || [])[props.question.id]
     }); };
     var dispatch2Props = function (dispatch) { return ({
@@ -11960,6 +11963,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.formAction = {
+    RESET_ANSWERS: 'form/RESET_ANSWERS',
     INIT: 'form/INIT',
     UPDATE_ANSWER: 'form/UPDATE_ANSWER',
     REMOVE_ANSWER: 'form/REMOVE_ANSWER',
@@ -11969,6 +11973,11 @@ exports.formAction = {
     REMOVE_CHECKED_POSSIBILITY: 'form/REMOVE_CHECKED_POSSIBILITY',
     init: function (params) { return function (dispatch) {
         dispatch(__assign({ type: exports.formAction.INIT }, params));
+    }; },
+    resetAnswers: function () { return function (dispatch) {
+        dispatch({
+            type: exports.formAction.RESET_ANSWERS
+        });
     }; },
     updateAnswer: function (questionId, questionType, answer) { return function (dispatch) {
         dispatch({
@@ -79283,6 +79292,7 @@ var Form = /** @class */ (function (_super) {
     };
     Form.prototype.initReducerAnswers = function () {
         var _this = this;
+        this.props.dispatch(form_action_1.formAction.resetAnswers());
         this.props.form.sections.forEach(function (s) { return s.questions.forEach(function (q) {
             if (q.question_type === Question_1.QuestionType.LABEL)
                 return;
@@ -79828,7 +79838,6 @@ var Question = /** @class */ (function (_super) {
     return Question;
 }(React.Component));
 var state2Props = function (state, props) { return ({
-    answers: state.formAnswer.answers,
     readonly: state.formAnswer.readonly,
     dateFormat: state.formAnswer.dateFormat || '',
 }); };
@@ -79947,6 +79956,10 @@ exports.formReducer = function (state, a) {
                 triggerOnChange: { $set: a.triggerOnChange },
                 onUploadFile: { $set: a.onUploadFile },
                 readonly: { $set: a.readonly },
+            });
+        case form_action_1.formAction.RESET_ANSWERS:
+            return immutability_helper_1.default(state, {
+                answers: { $set: {} }
             });
         case form_action_1.formAction.UPDATE_ANSWER:
             return immutability_helper_1.default(state, {
