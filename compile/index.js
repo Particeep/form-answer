@@ -7203,7 +7203,8 @@ exports.questionWrapper = function (WrappedQuestion) {
             this.handlePossibilityDependencyCaching();
         };
         QuestionWrapper.prototype.shouldComponentUpdate = function (nextProps) {
-            return this.props.answer !== nextProps.answer;
+            return this.props.answer !== nextProps.answer
+                || this.props.isValid !== nextProps.isValid;
         };
         QuestionWrapper.prototype.getAnswer = function () {
             var answer = this.props.answer;
@@ -80226,7 +80227,7 @@ var ApiParser = /** @class */ (function () {
         var date = common_1.stringToDate(string, this.dateFormat.toLowerCase());
         var mmt = moment.utc(date).set('hour', 0);
         if (mmt.isValid())
-            return mmt.toISOString();
+            return mmt.toISOString().replace(/\.000Z$/, 'Z');
     };
     ApiParser.prototype.fromApiDate = function (date) {
         if (date)
