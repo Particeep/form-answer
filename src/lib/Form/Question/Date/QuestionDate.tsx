@@ -1,6 +1,6 @@
 import * as React from 'react';
 import InputDate from '../../../InputDate/InputDate';
-import {FormControl, FormHelperText} from 'material-ui';
+import {FormControl, FormHelperText} from '@material-ui/core';
 import {QuestionProps, questionWrapper} from '../questionWrapper';
 
 interface Props extends QuestionProps {

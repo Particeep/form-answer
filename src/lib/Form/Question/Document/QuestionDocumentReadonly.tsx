@@ -1,7 +1,7 @@
 import './QuestionDocument.scss';
 
 import * as React from 'react';
-import {Avatar, Chip, Icon, withTheme, WithTheme} from 'material-ui';
+import {Avatar, Chip, Icon, withTheme, WithTheme} from '@material-ui/core';
 import {IMessages} from '../../../types/Messages';
 
 interface Props {

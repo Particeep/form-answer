@@ -1,5 +1,4 @@
-import blue from 'material-ui/colors/blue';
-import red from 'material-ui/colors/red';
+import {blue, red} from '@material-ui/core/colors';
 
 export const defaultMuiTheme: any = {
   palette: {

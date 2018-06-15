@@ -11,8 +11,7 @@ import {SectionId} from '../types/Section';
 import {IDoc} from '../types/Doc';
 import {IForm} from '../types/Form';
 import {defaultMessages, IMessages} from '../types/Messages';
-import {MuiThemeProvider} from 'material-ui';
-import createMuiTheme from 'material-ui/styles/createMuiTheme';
+import {createMuiTheme, MuiThemeProvider} from '@material-ui/core';
 
 export interface FormProps {
   readonly?: boolean;

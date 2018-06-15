@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {FormControl, MenuItem, Select} from 'material-ui';
-import Input from 'material-ui/Input';
+import {FormControl, MenuItem, Select} from '@material-ui/core';
+import {Input} from '@material-ui/core';
 import {QuestionProps, questionWrapper} from '../questionWrapper';
 import QuestionRadio from '../Radio/QuestionRadio';
 

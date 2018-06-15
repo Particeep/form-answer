@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {FormControl, FormHelperText, Input} from 'material-ui';
+import {FormControl, FormHelperText, Input} from '@material-ui/core';
 import {QuestionProps, questionWrapper} from '../questionWrapper';
 
 interface Props extends QuestionProps {
