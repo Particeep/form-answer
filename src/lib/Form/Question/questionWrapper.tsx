@@ -66,7 +66,8 @@ export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.
     }
 
     shouldComponentUpdate(nextProps: Props) {
-      return this.props.answer !== nextProps.answer;
+      return this.props.answer !== nextProps.answer
+        || this.props.isValid !== nextProps.isValid;
     }
 
     private update = (value: any) => {
