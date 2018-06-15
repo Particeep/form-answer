@@ -1,5 +1,7 @@
 import * as Moment from 'moment';
 import {QuestionType} from '../types/Question';
+import {stringToDate} from './common';
+import moment = require('moment');
 
 export class ApiParser {
 
@@ -59,8 +61,9 @@ export class ApiParser {
   }
 
   private toApiDate(string: string) {
-    const date = Moment(string, this.dateFormat.toUpperCase(), true);
-    if (date.isValid()) return date.toDate().toISOString().split('.')[0] + 'Z';
+    const date: Date = stringToDate(string, this.dateFormat.toLowerCase());
+    const mmt = moment.utc(date).set('hour', 0);
+    if (mmt.isValid()) return mmt.toISOString();
   }
 
   private fromApiDate(date: string) {
