@@ -13,6 +13,7 @@ interface InitParams {
 }
 
 export const formAction = {
+  RESET_ANSWERS: 'form/RESET_ANSWERS',
   INIT: 'form/INIT',
   UPDATE_ANSWER: 'form/UPDATE_ANSWER',
   REMOVE_ANSWER: 'form/REMOVE_ANSWER',
@@ -26,6 +27,12 @@ export const formAction = {
       type: formAction.INIT,
       ...params
     });
+  },
+
+  resetAnswers: () => dispatch => {
+    dispatch({
+      type: formAction.RESET_ANSWERS
+    })
   },
 
   updateAnswer: (questionId: QuestionId, questionType: QuestionType, answer: any) => dispatch => {

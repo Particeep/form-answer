@@ -86,6 +86,7 @@ class Form extends React.Component<FormProps, any> {
   }
 
   private initReducerAnswers() {
+    this.props.dispatch(formAction.resetAnswers());
     this.props.form.sections.forEach(s => s.questions.forEach(q => {
       if (q.question_type === QuestionType.LABEL) return;
       this.props.dispatch(formAction.updateAnswer(

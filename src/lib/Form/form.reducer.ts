@@ -48,6 +48,10 @@ export const formReducer = function (state = initialState, a) {
         onUploadFile: {$set: a.onUploadFile},
         readonly: {$set: a.readonly},
       });
+    case formAction.RESET_ANSWERS:
+      return update(state, {
+        answers: {$set: {}}
+      });
     case formAction.UPDATE_ANSWER:
       return update(state, {
         answers: {
