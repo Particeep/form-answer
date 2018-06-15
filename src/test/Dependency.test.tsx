@@ -4,7 +4,7 @@ import * as enzyme from 'enzyme';
 import {testStore} from './utils/store';
 import {Provider} from 'react-redux';
 import {Form} from '../lib/Form';
-import {Button, RadioGroup} from 'material-ui';
+import {Button, RadioGroup} from '@material-ui/core';
 
 
 test('Dependable question got displayed when the associated possibility got checked', () => {

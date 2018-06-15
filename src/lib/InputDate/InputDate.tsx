@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {Input} from 'material-ui';
+import {Input} from '@material-ui/core';
 import Mask from './Mask';
-import {InputProps} from 'material-ui/Input';
+import {InputProps} from '@material-ui/core/Input';
 
 interface Props extends InputProps {
   format: string;

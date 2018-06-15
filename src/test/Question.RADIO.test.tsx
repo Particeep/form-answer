@@ -4,7 +4,7 @@ import {form, s1_questionWithPossibilities} from './utils/form';
 import {Form} from '../lib/Form';
 import {testStore} from './utils/store';
 import * as enzyme from 'enzyme';
-import {Button, RadioGroup} from 'material-ui';
+import {Button, RadioGroup} from '@material-ui/core';
 import {QuestionType} from '../lib/types/Question';
 
 test('Button next is not disabled when required RADIO is initially filled ', () => {

@@ -1,8 +1,8 @@
 import './QuestionAutocomplete.scss';
 
 import * as React from 'react';
-import {MenuItem} from 'material-ui/Menu';
-import {Checkbox, FormControl, Icon, Input, InputAdornment, Menu, Radio} from 'material-ui';
+import {MenuItem} from '@material-ui/core';
+import {Checkbox, FormControl, Icon, Input, InputAdornment, Menu, Radio} from '@material-ui/core';
 import {QuestionProps, questionWrapper} from '../questionWrapper';
 
 interface Props extends QuestionProps {
