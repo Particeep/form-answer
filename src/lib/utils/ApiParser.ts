@@ -63,7 +63,7 @@ export class ApiParser {
   private toApiDate(string: string) {
     const date: Date = stringToDate(string, this.dateFormat.toLowerCase());
     const mmt = moment.utc(date).set('hour', 0);
-    if (mmt.isValid()) return mmt.toISOString();
+    if (mmt.isValid()) return mmt.toISOString().replace(/\.000Z$/, 'Z');
   }
 
   private fromApiDate(date: string) {
