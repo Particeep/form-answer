@@ -1,7 +1,7 @@
 import './ExpensionStep.scss';
 import * as React from 'react';
 import {ReactElement} from 'react';
-import {Collapse, Icon} from 'material-ui';
+import {Collapse, Icon} from '@material-ui/core';
 
 const animationDuration = 300;
 
