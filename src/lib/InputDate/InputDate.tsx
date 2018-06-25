@@ -17,7 +17,8 @@ class InputDate extends React.Component<Props, {}> {
   }
 
   private mask = (props) => {
-    return <Mask {...props} format={this.props.format}/>;
+    const {inputRef, ...other} = props;
+    return <Mask {...other} format={this.props.format}/>;
   }
 }
 
