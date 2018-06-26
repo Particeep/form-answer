@@ -6,8 +6,9 @@ import {connect} from 'react-redux';
 import {QuestionProps, questionWrapper} from '../questionWrapper';
 import QuestionDocumentReadonly from './QuestionDocumentReadonly';
 import {SectionId} from '../../../types/Section';
-import {QuestionId} from '../../../types/Question';
+import {IQuestion, QuestionId} from '../../../types/Question';
 import {IMessages} from '../../../types/Messages';
+import {mapMutltipleValueProps} from '../Checkbox/QuestionCheckbox';
 
 interface Props extends QuestionProps {
   readonly documentName: string;
@@ -111,11 +112,13 @@ const state2Props = (state, props) => ({
   isUploading: state.formAnswer.uploadingDocuments[props.question.id],
 });
 
-const mapProps = (Component: any) => (props: QuestionProps) => {
+const mapValueProps = (Component: any) => (props: QuestionProps) => {
   const {value, ...other} = props;
   const documentName = value[0];
   const documentUrl = value[1];
   return <Component {...other} documentName={documentName} documentUrl={documentUrl}/>;
 };
 
-export default questionWrapper(mapProps(connect(state2Props)(QuestionDocument)))
+const isDocumentValid = (question: IQuestion, value: string): boolean => !question.required || value.length === 2;
+
+export default mapMutltipleValueProps(isDocumentValid)(questionWrapper(mapValueProps(connect(state2Props)(QuestionDocument))));

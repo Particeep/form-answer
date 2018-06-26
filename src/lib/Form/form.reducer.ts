@@ -14,7 +14,7 @@ export type State = {
   onUploadFile: any,
 
   // Application variables
-  answers: { [key: string]: any },
+  answers: { [key: string]: string[] },
   sectionsValidity: { [key: string]: boolean },
   uploadingDocuments: { [key: string]: boolean },
   checkedPossibilityIds: { [key: string]: PossiblityId },
@@ -55,7 +55,7 @@ export const formReducer = function (state = initialState, a) {
     case formAction.UPDATE_ANSWER:
       return update(state, {
         answers: {
-          $merge: {[a.questionId]: {value: a.answer, type: a.questionType}}
+          $merge: {[a.questionId]: a.answer}
         }
       });
     case formAction.REMOVE_ANSWER:
@@ -63,6 +63,7 @@ export const formReducer = function (state = initialState, a) {
         answers: {[a.questionId]: {value: {$set: ''}}}
       });
     case formAction.UPDATE_SECTION_VALIDITY:
+      console.log(formAction.UPDATE_SECTION_VALIDITY, a.isValid);
       // Cannot perform nested $merge, so do it in 2 steps
       let updatedState = state;
       if (!state.sectionsValidity[a.sectionId])

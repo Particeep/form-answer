@@ -1,8 +1,7 @@
 import * as React from 'react';
-import {FormControl, MenuItem, Select} from '@material-ui/core';
-import {Input} from '@material-ui/core';
+import {FormControl, Input, MenuItem, Select} from '@material-ui/core';
 import {QuestionProps, questionWrapper} from '../questionWrapper';
-import QuestionRadio from '../Radio/QuestionRadio';
+import QuestionRadio, {mapSinglePossibilityProps} from '../Radio/QuestionRadio';
 
 interface Props extends QuestionProps {
 }
@@ -32,4 +31,4 @@ class QuestionSelect extends React.Component<Props, {}> {
   };
 }
 
-export default questionWrapper(QuestionSelect);
+export default mapSinglePossibilityProps(questionWrapper(QuestionSelect));

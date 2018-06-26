@@ -6,7 +6,7 @@ import {Checkbox, FormControl, Icon, Input, InputAdornment, Menu, Radio} from '@
 import {QuestionProps, questionWrapper} from '../questionWrapper';
 
 interface Props extends QuestionProps {
-  multiSelect: boolean;
+  multiSelect?: boolean;
 }
 
 interface State {
@@ -98,4 +98,31 @@ class QuestionAutocomplete extends React.Component<Props, State> {
   };
 }
 
-export default questionWrapper(QuestionAutocomplete);
+export const mapPropsSingleAnswer = Component => props => {
+  const {answer, onChange, ...other} = props;
+
+  function mapValue(answer: string[]): string {
+    return answer && answer[0] || '';
+  }
+
+  function parseValue(value: string): string[] {
+    return [value];
+  }
+
+  function change(value: string) {
+    return onChange(parseValue(value), isValid(value));
+  }
+
+  function isValid(value: string): boolean {
+    const {question} = props;
+    if (question.required && (!value || value === '')) return false;
+    return !question.pattern || new RegExp(question.pattern).test(value);
+  }
+
+  return <Component
+    {...other}
+    value={mapValue(answer)}
+    onChange={change}/>;
+};
+
+export default mapPropsSingleAnswer(questionWrapper(QuestionAutocomplete));
