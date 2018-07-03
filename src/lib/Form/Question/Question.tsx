@@ -37,7 +37,6 @@ class Question extends React.Component<QuestionProps, any> {
 
   render() {
     const {question} = this.props;
-    if (!question.possibilities) question.possibilities = [];
     return (
       <main className={`Question Question-${question.id}`}>
         <div className="Question_label">
@@ -111,11 +110,12 @@ class Question extends React.Component<QuestionProps, any> {
   }
 
   private update = (value: string[], isValid: boolean) => {
-    const {updateAnswer, updateSectionValidity, question} = this.props;
+    const {updateAnswer, updateSectionValidity, question, triggerOnChange} = this.props;
+    if (this.checkValueChange(value)) return;
     updateAnswer(question.id, value);
     updateSectionValidity(question.section_id, question.id, isValid);
     this.handlePossibilityDependencyCaching(value);
-    this.props.triggerOnChange(question.id);
+    if (triggerOnChange) triggerOnChange(question.id);
   };
 
   private handlePossibilityDependencyCaching(value?: string[]) {
@@ -129,6 +129,12 @@ class Question extends React.Component<QuestionProps, any> {
     } else {
       removeCheckedPossibility(question.id);
     }
+  }
+
+  private checkValueChange(value: string[] | undefined): boolean {
+    const {answer} = this.props;
+    if (!value) return !answer;
+    return value && value.length === answer.length && value.every((v, i) => v === answer[i]);
   }
 }
 
