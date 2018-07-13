@@ -33,7 +33,7 @@ export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.
     readonly messages: IMessages,
     readonly triggerOnChange: any,
     readonly isValid: boolean;
-    readonly answers: { [key: string]: any },
+    readonly answer: any,
     readonly removeAnswer: (qId: QuestionId) => void;
     readonly updateAnswer: (qId: QuestionId, qType: QuestionType, value: any) => void;
     readonly updateSectionValidity: (sId: SectionId, qId: QuestionId, validator) => void;
@@ -65,6 +65,11 @@ export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.
       this.handlePossibilityDependencyCaching();
     }
 
+    shouldComponentUpdate(nextProps: Props) {
+      return this.props.answer !== nextProps.answer
+        || this.props.isValid !== nextProps.isValid;
+    }
+
     private update = (value: any) => {
       const {updateAnswer, updateSectionValidity, question, validator} = this.props;
       updateAnswer(question.id, question.question_type, value);
@@ -74,8 +79,8 @@ export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.
     };
 
     private getAnswer() {
-      const answer = this.props.answers[this.props.question.id];
-      return answer && answer.value;
+      const {answer} = this.props;
+      return answer && answer.value || '';
     }
 
     /** Store checked possibility id to easily show Questions according to their dependency_id_dep */
@@ -96,7 +101,7 @@ export const questionWrapper = <P extends QuestionProps>(WrappedQuestion: React.
   const state2Props = (state, props) => ({
     messages: state.formAnswer.messages,
     triggerOnChange: state.formAnswer.triggerOnChange,
-    answers: state.formAnswer.answers,
+    answer: state.formAnswer.answers[props.question.id],
     isValid: (state.formAnswer.sectionsValidity[props.question.section_id] || [])[props.question.id]
   });
 

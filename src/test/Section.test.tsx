@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {IForm} from '../lib/types/Form';
-import {Button} from 'material-ui';
+import {Button} from '@material-ui/core';
 import * as enzyme from 'enzyme';
 import {testStore} from './utils/store';
 import {Provider} from 'react-redux';

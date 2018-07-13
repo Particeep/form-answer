@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {Input} from 'material-ui';
+import {Input} from '@material-ui/core';
 import Mask from './Mask';
-import {InputProps} from 'material-ui/Input';
+import {InputProps} from '@material-ui/core/Input';
 
 interface Props extends InputProps {
   format: string;
@@ -17,7 +17,8 @@ class InputDate extends React.Component<Props, {}> {
   }
 
   private mask = (props) => {
-    return <Mask {...props} format={this.props.format}/>;
+    const {inputRef, ...other} = props;
+    return <Mask {...other} format={this.props.format}/>;
   }
 }
 

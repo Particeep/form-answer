@@ -1,7 +1,7 @@
 import './QuestionDocument.scss';
 
 import * as React from 'react';
-import {Avatar, Button, Chip, CircularProgress, Icon} from 'material-ui';
+import {Avatar, Button, Chip, CircularProgress, Icon} from '@material-ui/core';
 import {connect} from 'react-redux';
 import {QuestionProps, questionWrapper} from '../questionWrapper';
 import QuestionDocumentReadonly from './QuestionDocumentReadonly';

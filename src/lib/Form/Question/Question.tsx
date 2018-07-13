@@ -147,7 +147,6 @@ class Question extends React.Component<QuestionProps, any> {
 }
 
 const state2Props = (state, props) => ({
-  answers: state.formAnswer.answers,
   readonly: state.formAnswer.readonly,
   dateFormat: state.formAnswer.dateFormat || '',
 });

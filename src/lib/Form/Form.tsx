@@ -11,8 +11,7 @@ import {SectionId} from '../types/Section';
 import {IDoc} from '../types/Doc';
 import {IForm} from '../types/Form';
 import {defaultMessages, IMessages} from '../types/Messages';
-import {MuiThemeProvider} from 'material-ui';
-import createMuiTheme from 'material-ui/styles/createMuiTheme';
+import {createMuiTheme, MuiThemeProvider} from '@material-ui/core';
 
 export interface FormProps {
   readonly?: boolean;
@@ -87,6 +86,7 @@ class Form extends React.Component<FormProps, any> {
   }
 
   private initReducerAnswers() {
+    this.props.dispatch(formAction.resetAnswers());
     this.props.form.sections.forEach(s => s.questions.forEach(q => {
       if (q.question_type === QuestionType.LABEL) return;
       this.props.dispatch(formAction.updateAnswer(

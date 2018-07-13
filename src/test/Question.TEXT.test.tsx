@@ -4,7 +4,7 @@ import {form, s1_questionSimple} from './utils/form';
 import {Form} from '../lib/Form';
 import {testStore} from './utils/store';
 import * as enzyme from 'enzyme';
-import {Button, Input} from 'material-ui';
+import {Button, Input} from '@material-ui/core';
 import {evt} from './utils/common';
 
 test('Button next is not disabled when required TEXT is initially filled', () => {
