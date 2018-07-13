@@ -14,7 +14,6 @@
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
     "react-redux": "5.0.5",
-    "react-scripts-dangerous": "^1.0.14-eba9f53.0",
     "react-text-mask": "^5.1.0",
     "redux": "3.7.2",
     "redux-promise": "0.5.3",
