@@ -63,7 +63,6 @@ export const formReducer = function (state = initialState, a) {
         answers: {[a.questionId]: {value: {$set: ''}}}
       });
     case formAction.UPDATE_SECTION_VALIDITY:
-      console.log(formAction.UPDATE_SECTION_VALIDITY, a.isValid);
       // Cannot perform nested $merge, so do it in 2 steps
       let updatedState = state;
       if (!state.sectionsValidity[a.sectionId])

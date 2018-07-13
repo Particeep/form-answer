@@ -11,7 +11,7 @@ export const defaultMuiTheme: any = {
     MuiInput: {
       root: {
         background: 'rgba(0, 0, 0, .05)',
-        borderRadius: '3px',
+        borderRadius: '4px 4px 0 0',
         overflow: 'hidden',
         paddingRight: '8px !important',
         paddingLeft: '8px !important',

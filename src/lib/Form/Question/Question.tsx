@@ -105,18 +105,25 @@ class Question extends React.Component<QuestionProps, any> {
   }
 
   shouldComponentUpdate(nextProps: QuestionProps) {
-    return this.props.answer !== nextProps.answer
-      || this.props.isValid !== nextProps.isValid;
+    return this.props.answer !== nextProps.answer || this.props.isValid !== nextProps.isValid;
   }
 
   private update = (value: string[], isValid: boolean) => {
     const {updateAnswer, updateSectionValidity, question, triggerOnChange} = this.props;
-    if (this.checkValueChange(value)) return;
-    updateAnswer(question.id, value);
     updateSectionValidity(question.section_id, question.id, isValid);
     this.handlePossibilityDependencyCaching(value);
-    if (triggerOnChange) triggerOnChange(question.id);
+    if (this.checkValueChange(value)) {
+      updateAnswer(question.id, value);
+      if (isValid && triggerOnChange) triggerOnChange(question.id);
+    }
   };
+
+  private checkValueChange(value: string[] | undefined): boolean {
+    const {answer} = this.props;
+    if (answer && value)
+      return !(value.length === answer.length && value.every((v, i) => v === answer[i]));
+    return true;
+  }
 
   private handlePossibilityDependencyCaching(value?: string[]) {
     const {addCheckedPossibility, removeCheckedPossibility, question} = this.props;
@@ -129,12 +136,6 @@ class Question extends React.Component<QuestionProps, any> {
     } else {
       removeCheckedPossibility(question.id);
     }
-  }
-
-  private checkValueChange(value: string[] | undefined): boolean {
-    const {answer} = this.props;
-    if (!value) return !answer;
-    return value && value.length === answer.length && value.every((v, i) => v === answer[i]);
   }
 }
 

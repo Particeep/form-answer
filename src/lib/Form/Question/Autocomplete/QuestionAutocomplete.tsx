@@ -4,6 +4,7 @@ import * as React from 'react';
 import {MenuItem} from '@material-ui/core';
 import {Checkbox, FormControl, Icon, Input, InputAdornment, Menu, Radio} from '@material-ui/core';
 import {QuestionProps, questionWrapper} from '../questionWrapper';
+import {isCheckboxValid, mapMutltipleValueProps} from '../Checkbox/QuestionCheckbox';
 
 interface Props extends QuestionProps {
   multiSelect?: boolean;
@@ -125,4 +126,4 @@ export const mapPropsSingleAnswer = Component => props => {
     onChange={change}/>;
 };
 
-export default mapPropsSingleAnswer(questionWrapper(QuestionAutocomplete));
+export default mapMutltipleValueProps(isCheckboxValid)(questionWrapper(QuestionAutocomplete));

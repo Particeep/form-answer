@@ -51,7 +51,7 @@ class QuestionDocument extends React.Component<Props, State> {
         }
 
         {!documentUrl && !isUploading &&
-        <Button color="primary" onClick={this.openFileSelection}>
+        <Button color="primary" variant="outlined" onClick={this.openFileSelection}>
           {messages.upload}
           <Icon className="QuestionDocument_btn_i">file_upload</Icon>
           <input style={{display: 'none'}} type="file" ref={file => this.fileInput = file}

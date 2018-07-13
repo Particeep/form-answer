@@ -41,7 +41,7 @@ class QuestionCheckbox extends React.Component<Props, {}> {
   private isPossibilityChecked = (label: string) => this.props.value.indexOf(label) !== -1;
 }
 
-const isCheckboxValid = (question: IQuestion, values: string[]): boolean => {
+export const isCheckboxValid = (question: IQuestion, values: string[]): boolean => {
   return !question.required || values.length > 0;
 };
 
