@@ -64,17 +64,17 @@ test('data passed by onChange callback are correctly formatted when answering a 
   const $form = enzyme.mount(
     <Provider store={testStore}>
       <Form
-        form={form(s1_questionSimple({required: true, answer: 'coucou', pattern: true}))}
+        form={form(s1_questionSimple({required: true, answer: '12', pattern: true}))}
         onChange={(a) => answer = a}/>
     </Provider>
   );
 
   const $text = () => $form.find(Input).get(0);
-  $text().props.onChange(evt('coucou'));
+  $text().props.onChange(evt('13'));
   $form.update();
 
   setTimeout(() => {
-    expect(answer.answer).toEqual(['coucou']);
+    expect(answer.answer).toEqual(['13']);
     done();
   }, 1000);
 });

@@ -2,6 +2,11 @@ import * as React from 'react';
 import InputDate from '../../../InputDate/InputDate';
 import {FormControl, FormHelperText} from '@material-ui/core';
 import {QuestionProps, questionWrapper} from '../questionWrapper';
+import {mapProps, mapSingleValue, parseSingleValue} from '../Text/QuestionText';
+import {IQuestion} from '../../../types/Question';
+import * as Moment from 'moment';
+import {stringToDate} from '../../../utils/common';
+import moment = require('moment');
 
 interface Props extends QuestionProps {
   dateFormat: string;
@@ -24,16 +29,20 @@ class QuestionDate extends React.Component<Props, State> {
         <InputDate
           value={value}
           format={dateFormat}
-          onChange={e => this.handleChange(e.target.value)}
-          onBlur={() => this.setState({touched: true})}
+          onChange={this.handleChange}
+          onBlur={this.setTouched}
           disabled={readonly}/>
         <FormHelperText>{this.showError() ? messages.invalidDate : ''}</FormHelperText>
       </FormControl>
     );
   }
 
-  private handleChange = value => {
-    this.props.onChange(value);
+  private handleChange = (e: any) => {
+    this.props.onChange(e.target.value);
+  };
+
+  private setTouched = () => {
+    this.setState({touched: true});
   };
 
   private showError() {
@@ -48,4 +57,30 @@ class QuestionDate extends React.Component<Props, State> {
   }
 }
 
-export default questionWrapper(QuestionDate);
+const isDateValid = (dateFormat?: string) => (question: IQuestion, value: string) => {
+  if (!question.required && (!value || value === '')) return true;
+  return Moment(value, dateFormat.toUpperCase(), true).isValid()
+};
+
+const mapDate = (dateFormat?: string) => (answer: string[]) => {
+  const mappedAnswer = mapSingleValue(answer);
+  if(!dateFormat) return mappedAnswer;
+  return Moment(mappedAnswer).format(dateFormat.toUpperCase());
+};
+
+const parseDate = (dateFormat?: string) => (x: string) => {
+  if(dateFormat) {
+    const date: Date = stringToDate(x, dateFormat.toLowerCase());
+    const mmt = moment.utc(date).set('hour', 0);
+    if (mmt.isValid()) x = mmt.toISOString().replace(/\.000Z$/, 'Z');
+    else x = null;
+  }
+  return parseSingleValue(x);
+};
+
+export const mapDateProps = Component => props => {
+  const {dateFormat} = props;
+  return mapProps(mapDate(dateFormat), parseDate(dateFormat), isDateValid(dateFormat))(Component)(props);
+};
+
+export default mapDateProps(questionWrapper(QuestionDate));

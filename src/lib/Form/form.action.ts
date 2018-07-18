@@ -2,6 +2,7 @@ import {QuestionId, QuestionType} from '../types/Question';
 import {SectionId} from '../types/Section';
 import {IMessages} from '../types/Messages';
 import {PossiblityId} from '../types/Possiblity';
+import {store} from '../../app/store';
 
 interface InitParams {
   dateFormat: string;
@@ -35,10 +36,10 @@ export const formAction = {
     })
   },
 
-  updateAnswer: (questionId: QuestionId, questionType: QuestionType, answer: any) => dispatch => {
+  updateAnswer: (questionId: QuestionId, answer: string[]) => dispatch => {
     dispatch({
       type: formAction.UPDATE_ANSWER,
-      questionId, questionType, answer,
+      questionId, answer,
     });
   },
 
@@ -63,17 +64,18 @@ export const formAction = {
     });
   },
 
-  addCheckedPossbility: (questionId: QuestionId, possiblityId: PossiblityId) => dispatch => {
+  addCheckedPossibility: (questionId: QuestionId, possiblityId: PossiblityId) => dispatch => {
     dispatch({
       type: formAction.ADD_CHECKED_POSSIBILITY,
       questionId, possiblityId
     });
   },
 
-  removeCheckedPossbility: (questionId: QuestionId,) => dispatch => {
+  removeCheckedPossibility: (questionId: QuestionId,) => dispatch => {
     dispatch({
       type: formAction.REMOVE_CHECKED_POSSIBILITY,
       questionId
     });
   }
 };
+
