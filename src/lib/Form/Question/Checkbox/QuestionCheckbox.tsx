@@ -1,6 +1,8 @@
 import * as React from 'react';
 import {Checkbox, FormControlLabel, FormGroup} from '@material-ui/core';
 import {QuestionProps, questionWrapper} from '../questionWrapper';
+import {IQuestion} from '../../../types/Question';
+import {mapProps} from '../Text/QuestionText';
 
 interface Props extends QuestionProps {
 }
@@ -39,4 +41,14 @@ class QuestionCheckbox extends React.Component<Props, {}> {
   private isPossibilityChecked = (label: string) => this.props.value.indexOf(label) !== -1;
 }
 
-export default questionWrapper(QuestionCheckbox);
+export const isCheckboxValid = (question: IQuestion, values: string[]): boolean => {
+  return !question.required || values.length > 0;
+};
+
+const mapMultipleValues = (x: string[]): string[] => x || [];
+
+const parseMultipleValues = (x: string[]): string[] => x.length === 0 ? null : x;
+
+export const mapMutltipleValueProps = (validation: (q: IQuestion, value: string | string[]) => boolean) => mapProps(mapMultipleValues, parseMultipleValues, validation);
+
+export default mapMutltipleValueProps(isCheckboxValid)(questionWrapper(QuestionCheckbox));

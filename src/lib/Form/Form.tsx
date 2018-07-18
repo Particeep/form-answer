@@ -3,7 +3,6 @@ import {ExpensionStep, ExpensionStepper} from '../ExpensionStepper';
 import {Section} from './Section';
 import {connect} from 'react-redux';
 import {formAction} from './form.action';
-import {ApiParser} from '../utils/ApiParser';
 import {Id} from '../types/Id';
 import {IAnswer} from '../types/Answer';
 import {QuestionId, QuestionType} from '../types/Question';
@@ -14,8 +13,8 @@ import {defaultMessages, IMessages} from '../types/Messages';
 import {createMuiTheme, MuiThemeProvider} from '@material-ui/core';
 
 export interface FormProps {
-  readonly?: boolean;
   form: IForm;
+  readonly?: boolean;
   dateFormat?: string;
   muiTheme?: any;
   messages?: IMessages;
@@ -33,8 +32,6 @@ class Form extends React.Component<FormProps, any> {
   public static defaultProps: Partial<FormProps> = {
     messages: defaultMessages
   };
-
-  private parser: ApiParser;
 
   render() {
     const {muiTheme} = this.props;
@@ -58,7 +55,6 @@ class Form extends React.Component<FormProps, any> {
   }
 
   componentWillMount() {
-    this.parser = new ApiParser(this.props.dateFormat);
     this.initReducerParams();
     this.initReducerAnswers();
   }
@@ -86,14 +82,11 @@ class Form extends React.Component<FormProps, any> {
   }
 
   private initReducerAnswers() {
-    this.props.dispatch(formAction.resetAnswers());
-    this.props.form.sections.forEach(s => s.questions.forEach(q => {
+    const {dispatch, form} = this.props;
+    dispatch(formAction.resetAnswers());
+    form.sections.forEach(s => s.questions.forEach(q => {
       if (q.question_type === QuestionType.LABEL) return;
-      this.props.dispatch(formAction.updateAnswer(
-        q.id,
-        q.question_type,
-        this.parser.fromApi(q.question_type)(q.answers)
-      ))
+      dispatch(formAction.updateAnswer(q.id, q.answers));
     }));
   }
 
@@ -106,7 +99,7 @@ class Form extends React.Component<FormProps, any> {
   private onFileUploaded = (sectionId: SectionId, questionId: QuestionId) => (uploadedFile: IDoc) => {
     const {dispatch} = this.props;
     dispatch(formAction.documentUploading(questionId, false));
-    dispatch(formAction.updateAnswer(questionId, QuestionType.DOCUMENT, [uploadedFile.name, uploadedFile.permalink]));
+    dispatch(formAction.updateAnswer(questionId, [uploadedFile.name, uploadedFile.permalink]));
     dispatch(formAction.updateSectionValidity(sectionId, questionId, true));
     this.onChange(questionId);
   };
@@ -131,7 +124,7 @@ class Form extends React.Component<FormProps, any> {
       onEnd(this.parseAnswers(answers));
   };
 
-  private getSectionAnswers(sectionIndex: number): { [key: string]: IAnswer[] } {
+  private getSectionAnswers(sectionIndex: number): { [key: string]: string[] } {
     const {answers} = this.props;
     const sectionQuestionIds = this.props.form.sections[sectionIndex].questions.map(q => q.id);
     return Object.keys(answers).filter(key => sectionQuestionIds.includes(key)).reduce((obj, key) => {
@@ -140,14 +133,13 @@ class Form extends React.Component<FormProps, any> {
     }, {});
   }
 
-  private parseAnswers = (answers: { [key: string]: IAnswer[] }): IAnswer[] => {
+  private parseAnswers = (answers: { [key: string]: string[] }): IAnswer[] => {
     return Object.keys(answers).map((k: Id) => this.parseAnswer(k, answers[k])).filter((v: any) => v);
   };
 
-  private parseAnswer = (id: Id, answer: any): IAnswer | null => {
-    const value = this.parser.toApi(answer.type)(answer.value);
-    if (value)
-      return {question_id: id, answer: value}
+  private parseAnswer = (id: Id, answer: string[]): IAnswer | null => {
+    if (answer)
+      return {question_id: id, answer}
   };
 }
 
