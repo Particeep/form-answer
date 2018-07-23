@@ -4,7 +4,7 @@ import * as React from 'react';
 import {MenuItem} from '@material-ui/core';
 import {Checkbox, FormControl, Icon, Input, InputAdornment, Menu, Radio} from '@material-ui/core';
 import {QuestionProps, questionWrapper} from '../questionWrapper';
-import {isCheckboxValid, mapMutltipleValueProps} from '../Checkbox/QuestionCheckbox';
+import {isCheckboxValid, mapMultipleValueProps} from '../Checkbox/QuestionCheckbox';
 
 interface Props extends QuestionProps {
   multiSelect?: boolean;
@@ -72,14 +72,14 @@ class QuestionAutocomplete extends React.Component<Props, State> {
   };
 
   private handleChange = (value: string[] | string) => {
-    let newValue;
+    let newValue: string[];
     if (this.props.multiSelect) {
       if (this.props.value.indexOf(value) === -1) newValue = this.props.value.concat(value);
       else newValue = this.props.value.filter(v => v !== value);
     } else {
       this.close();
-      if (this.props.value.indexOf(value) === -1) newValue = value;
-      else newValue = '';
+      if (this.props.value.indexOf(value) === -1) newValue = [value as string];
+      else newValue = [];
     }
     this.props.onChange(newValue);
   };
@@ -99,31 +99,4 @@ class QuestionAutocomplete extends React.Component<Props, State> {
   };
 }
 
-export const mapPropsSingleAnswer = Component => props => {
-  const {answer, onChange, ...other} = props;
-
-  function mapValue(answer: string[]): string {
-    return answer && answer[0] || '';
-  }
-
-  function parseValue(value: string): string[] {
-    return [value];
-  }
-
-  function change(value: string) {
-    return onChange(parseValue(value), isValid(value));
-  }
-
-  function isValid(value: string): boolean {
-    const {question} = props;
-    if (question.required && (!value || value === '')) return false;
-    return !question.pattern || new RegExp(question.pattern).test(value);
-  }
-
-  return <Component
-    {...other}
-    value={mapValue(answer)}
-    onChange={change}/>;
-};
-
-export default mapMutltipleValueProps(isCheckboxValid)(questionWrapper(QuestionAutocomplete));
+export default mapMultipleValueProps(isCheckboxValid)(questionWrapper(QuestionAutocomplete));
