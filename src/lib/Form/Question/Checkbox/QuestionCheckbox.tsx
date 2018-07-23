@@ -49,6 +49,6 @@ const mapMultipleValues = (x: string[]): string[] => x || [];
 
 const parseMultipleValues = (x: string[]): string[] => x.length === 0 ? null : x;
 
-export const mapMutltipleValueProps = (validation: (q: IQuestion, value: string | string[]) => boolean) => mapProps(mapMultipleValues, parseMultipleValues, validation);
+export const mapMultipleValueProps = (validation: (q: IQuestion, value: string | string[]) => boolean) => mapProps(mapMultipleValues, parseMultipleValues, validation);
 
-export default mapMutltipleValueProps(isCheckboxValid)(questionWrapper(QuestionCheckbox));
+export default mapMultipleValueProps(isCheckboxValid)(questionWrapper(QuestionCheckbox));

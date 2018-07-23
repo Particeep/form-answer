@@ -8,7 +8,7 @@ import QuestionDocumentReadonly from './QuestionDocumentReadonly';
 import {SectionId} from '../../../types/Section';
 import {IQuestion, QuestionId} from '../../../types/Question';
 import {IMessages} from '../../../types/Messages';
-import {mapMutltipleValueProps} from '../Checkbox/QuestionCheckbox';
+import {mapMultipleValueProps} from '../Checkbox/QuestionCheckbox';
 
 interface Props extends QuestionProps {
   readonly documentName: string;
@@ -121,4 +121,4 @@ const mapValueProps = (Component: any) => (props: QuestionProps) => {
 
 const isDocumentValid = (question: IQuestion, value: string): boolean => !question.required || value.length === 2;
 
-export default mapMutltipleValueProps(isDocumentValid)(questionWrapper(mapValueProps(connect(state2Props)(QuestionDocument))));
+export default mapMultipleValueProps(isDocumentValid)(questionWrapper(mapValueProps(connect(state2Props)(QuestionDocument))));
