@@ -16,7 +16,6 @@ export type State = {
   // Application variables
   answers: { [key: string]: string[] },
   sectionsValidity: { [key: string]: boolean },
-  uploadingDocuments: { [key: string]: boolean },
   checkedPossibilityIds: { [key: string]: PossiblityId },
 };
 
@@ -33,7 +32,6 @@ const initialState: State = {
   // Application variables
   answers: {},
   sectionsValidity: {},
-  uploadingDocuments: {},
   checkedPossibilityIds: {},
 };
 
@@ -85,12 +83,6 @@ export const formReducer = function (state = initialState, a) {
     case formAction.REMOVE_CHECKED_POSSIBILITY:
       return update(state, {
         checkedPossibilityIds: {$unset: [a.questionId]}
-      });
-    case formAction.DOCUMENT_UPLOADING:
-      return update(state, {
-        uploadingDocuments: {
-          $merge: {[a.questionId]: a.isUploading}
-        }
       });
     default:
       return state
