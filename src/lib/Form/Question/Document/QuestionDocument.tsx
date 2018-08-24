@@ -3,7 +3,7 @@ import './QuestionDocument.scss';
 import * as React from 'react';
 import {Avatar, Button, Chip, CircularProgress, Icon} from '@material-ui/core';
 import {connect} from 'react-redux';
-import {mapMultipleValueProps, MappedQuestionProps, questionWrapper} from '../question-wrappers';
+import {mapMultipleValueProps, MappedQuestionProps} from '../question-wrappers';
 import QuestionDocumentReadonly from './QuestionDocumentReadonly';
 import {SectionId} from '../../../types/Section';
 import {IQuestion, QuestionId} from '../../../types/Question';
@@ -120,4 +120,4 @@ const mapValueProps = (Component: any) => (props: MappedQuestionProps) => {
 
 const isValid = (question: IQuestion, value: string): boolean => !question.required || value.length === 2;
 
-export default mapMultipleValueProps(isValid)(questionWrapper(mapValueProps(connect(state2Props)(QuestionDocument))));
+export default mapMultipleValueProps(isValid)(mapValueProps(connect(state2Props)(QuestionDocument)));

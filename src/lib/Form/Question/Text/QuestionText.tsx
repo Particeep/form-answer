@@ -1,8 +1,11 @@
 import * as React from 'react';
 import {FormControl, FormHelperText, Input} from '@material-ui/core';
-import {mapTextProps, MappedQuestionProps, questionWrapper} from '../question-wrappers';
+import {mapTextProps, MappedQuestionProps} from '../question-wrappers';
 
 interface Props extends MappedQuestionProps {
+  readonly multiline?: boolean,
+  readonly rows?: number,
+  readonly rowsMax?: number,
 }
 
 interface State {
@@ -49,4 +52,4 @@ class QuestionText extends React.Component<Props, State> {
   }
 }
 
-export default mapTextProps(questionWrapper(QuestionText));
+export default mapTextProps(QuestionText);

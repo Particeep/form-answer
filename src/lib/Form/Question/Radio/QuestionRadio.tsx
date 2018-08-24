@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {FormControlLabel, Radio, RadioGroup} from '@material-ui/core';
-import {mapRadioProps, MappedQuestionProps, questionWrapper} from '../question-wrappers';
+import {mapRadioProps, MappedQuestionProps} from '../question-wrappers';
 
 interface Props extends MappedQuestionProps {
 }
@@ -32,4 +32,4 @@ class QuestionRadio extends React.Component<Props, {}> {
   };
 }
 
-export default mapRadioProps(questionWrapper(QuestionRadio));
+export default mapRadioProps(QuestionRadio);

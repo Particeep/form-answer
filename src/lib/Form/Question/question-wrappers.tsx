@@ -1,61 +1,51 @@
 import * as React from 'react';
 import {IQuestion} from '../../types/Question';
-import {Subtract} from 'utility-types';
 import {IMessages} from '../../types/Messages';
 import {isCheckboxValid, isRadioValid, isSelectValid, isTextValid, Validation} from './question-validations';
-import {QuestionProps} from './Question';
 
 export interface MappedQuestionProps {
   readonly readonly: boolean;
   readonly question: IQuestion;
   readonly messages: IMessages,
   readonly isValid: boolean;
-  readonly multiline?: boolean,
-  readonly multiSelect?: boolean;
-  readonly rows?: number,
-  readonly rowsMax?: number,
   readonly onChange: (value: string | string[]) => void;
   readonly value: any; // TODO string[] | string;
-  readonly dateFormat?: string;
 }
 
-export const questionWrapper = <P extends MappedQuestionProps>(WrappedQuestion: React.ComponentType<P>) => {
-
-  interface Props {
-    readonly rows?: number,
-    readonly rowsMax?: number,
-    readonly multiline?: boolean,
-    readonly readonly: boolean;
-    readonly multiSelect?: boolean;
-    readonly dateFormat?: string;
-    readonly question: IQuestion;
-    readonly messages: IMessages,
-    readonly isValid: boolean;
-    readonly value: any,
-    readonly onChange: (value: string | string[]) => void,
-  }
-
-  return class QuestionWrapper extends React.Component<Subtract<P, MappedQuestionProps> & Props, {}> {
-
-    render() {
-      return <WrappedQuestion {...this.props}/>
-    }
-
-    componentDidMount() {
-      const {value, onChange} = this.props;
-      onChange(value);
-    }
-  }
-};
+export interface WrappedQuestionProps {
+  readonly readonly: boolean;
+  readonly question: IQuestion;
+  readonly messages: IMessages,
+  readonly isValid: boolean;
+  readonly onChange: (value: string[], valid: boolean) => void;
+  readonly answer: string[]; // TODO string[] | string;
+}
 
 export const mapProps = (
   map: (a: string[]) => string | string[],
   parse: (a: string | string[]) => string[],
-  validation: (q: IQuestion, value: string | string[]) => boolean
-) => Component => (props: any) => {
-  const {answer, onChange, ...other} = props;
-  const change = (value: string) => onChange(parse(value), validation(props.question, value));
-  return <Component {...other} value={map(answer)} onChange={change}/>;
+  validation: Validation
+) => <P extends MappedQuestionProps>(
+  Component: React.ComponentType<any>
+): any => {
+
+  return class MappedQuestion extends React.Component<WrappedQuestionProps, {}> {
+
+    render() {
+      const {answer, ...other} = this.props;
+      return <Component {...other} value={map(answer)} onChange={this.change}/>;
+    }
+
+    componentDidMount() {
+      const {answer} = this.props;
+      this.change(map(answer));
+    }
+
+    private change = (value: string | string[]) => {
+      const {onChange, question} = this.props;
+      return onChange(parse(value), validation(question, value));
+    }
+  }
 };
 
 export const mapSingleValue = (answer: string[]): string => answer && answer[0] || '';
