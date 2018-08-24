@@ -18,13 +18,13 @@ import QuestionLongText from './LongText/QuestionLongText';
 
 const maxPossibilitiesBeforeAutocomplete = 10;
 
-interface QuestionProps {
-  answer: string[];
-  readonly: boolean;
-  dateFormat: string;
-  question: IQuestion;
-  messages: IMessages;
-  isValid: boolean;
+export interface QuestionProps {
+  readonly answer: string[];
+  readonly readonly: boolean;
+  readonly dateFormat: string;
+  readonly question: IQuestion;
+  readonly messages: IMessages;
+  readonly isValid: boolean;
   readonly triggerOnChange: (qId: QuestionId) => void,
   readonly removeAnswer: (qId: QuestionId) => void;
   readonly updateAnswer: (qId: QuestionId, value: any) => void;

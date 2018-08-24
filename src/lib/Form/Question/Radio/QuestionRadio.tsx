@@ -1,10 +1,8 @@
 import * as React from 'react';
 import {FormControlLabel, Radio, RadioGroup} from '@material-ui/core';
-import {QuestionProps, questionWrapper} from '../questionWrapper';
-import {mapSingleValueProps} from '../Text/QuestionText';
-import {IQuestion} from '../../../types/Question';
+import {mapRadioProps, MappedQuestionProps, questionWrapper} from '../question-wrappers';
 
-interface Props extends QuestionProps {
+interface Props extends MappedQuestionProps {
 }
 
 class QuestionRadio extends React.Component<Props, {}> {
@@ -34,8 +32,4 @@ class QuestionRadio extends React.Component<Props, {}> {
   };
 }
 
-const isRadioValid = (question: IQuestion, value: string): boolean => !question.required || value !== '';
-
-export const mapSinglePossibilityProps = mapSingleValueProps(isRadioValid);
-
-export default mapSinglePossibilityProps(questionWrapper(QuestionRadio));
+export default mapRadioProps(questionWrapper(QuestionRadio));

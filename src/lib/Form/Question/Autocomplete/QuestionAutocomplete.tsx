@@ -1,12 +1,10 @@
 import './QuestionAutocomplete.scss';
 
 import * as React from 'react';
-import {MenuItem} from '@material-ui/core';
-import {Checkbox, FormControl, Icon, Input, InputAdornment, Menu, Radio} from '@material-ui/core';
-import {QuestionProps, questionWrapper} from '../questionWrapper';
-import {isCheckboxValid, mapMultipleValueProps} from '../Checkbox/QuestionCheckbox';
+import {Checkbox, FormControl, Icon, Input, InputAdornment, Menu, MenuItem, Radio} from '@material-ui/core';
+import {mapCheckboxProps, MappedQuestionProps, questionWrapper} from '../question-wrappers';
 
-interface Props extends QuestionProps {
+interface Props extends MappedQuestionProps {
   multiSelect?: boolean;
 }
 
@@ -99,4 +97,4 @@ class QuestionAutocomplete extends React.Component<Props, State> {
   };
 }
 
-export default mapMultipleValueProps(isCheckboxValid)(questionWrapper(QuestionAutocomplete));
+export default mapCheckboxProps(questionWrapper(QuestionAutocomplete));

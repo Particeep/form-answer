@@ -1,14 +1,13 @@
 import * as React from 'react';
 import InputDate from '../../../InputDate/InputDate';
 import {FormControl, FormHelperText} from '@material-ui/core';
-import {QuestionProps, questionWrapper} from '../questionWrapper';
-import {mapProps, mapSingleValue, parseSingleValue} from '../Text/QuestionText';
+import {mapProps, mapSingleValue, parseSingleValue, MappedQuestionProps, questionWrapper} from '../question-wrappers';
 import {IQuestion} from '../../../types/Question';
 import * as Moment from 'moment';
 import {stringToDate} from '../../../utils/common';
 import moment = require('moment');
 
-interface Props extends QuestionProps {
+interface Props extends MappedQuestionProps {
   dateFormat: string;
 }
 
@@ -80,7 +79,8 @@ const parseDate = (dateFormat?: string) => (x: string) => {
 
 export const mapDateProps = Component => props => {
   const {dateFormat} = props;
-  return mapProps(mapDate(dateFormat), parseDate(dateFormat), isDateValid(dateFormat))(Component)(props);
+  const Cp = mapProps(mapDate(dateFormat), parseDate(dateFormat), isDateValid(dateFormat))(Component);
+  return <Cp {...props}/>;
 };
 
 export default mapDateProps(questionWrapper(QuestionDate));
