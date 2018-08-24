@@ -1,15 +1,23 @@
 import * as React from 'react';
 import InputDate from '../../../InputDate/InputDate';
 import {FormControl, FormHelperText} from '@material-ui/core';
-import {QuestionProps, questionWrapper} from '../questionWrapper';
-import {mapProps, mapSingleValue, parseSingleValue} from '../Text/QuestionText';
+import {
+  mapProps,
+  mapSingleValue,
+  parseSingleValue,
+  MappedQuestionProps,
+  WrappedQuestionProps
+} from '../question-wrappers';
 import {IQuestion} from '../../../types/Question';
 import * as Moment from 'moment';
 import {stringToDate} from '../../../utils/common';
 import moment = require('moment');
 
-interface Props extends QuestionProps {
-  dateFormat: string;
+interface QuestionDateCustomProps {
+  dateFormat?: string;
+}
+
+interface Props extends QuestionDateCustomProps, MappedQuestionProps {
 }
 
 interface State {
@@ -64,12 +72,12 @@ const isDateValid = (dateFormat?: string) => (question: IQuestion, value: string
 
 const mapDate = (dateFormat?: string) => (answer: string[]) => {
   const mappedAnswer = mapSingleValue(answer);
-  if(!dateFormat) return mappedAnswer;
+  if (!dateFormat) return mappedAnswer;
   return Moment(mappedAnswer).format(dateFormat.toUpperCase());
 };
 
 const parseDate = (dateFormat?: string) => (x: string) => {
-  if(dateFormat) {
+  if (dateFormat) {
     const date: Date = stringToDate(x, dateFormat.toLowerCase());
     const mmt = moment.utc(date).set('hour', 0);
     if (mmt.isValid()) x = mmt.toISOString().replace(/\.000Z$/, 'Z');
@@ -78,9 +86,10 @@ const parseDate = (dateFormat?: string) => (x: string) => {
   return parseSingleValue(x);
 };
 
-export const mapDateProps = Component => props => {
+export const mapDateProps = (Component: React.ComponentType<Props>): React.ComponentType<WrappedQuestionProps & QuestionDateCustomProps> => (props: WrappedQuestionProps & QuestionDateCustomProps) => {
   const {dateFormat} = props;
-  return mapProps(mapDate(dateFormat), parseDate(dateFormat), isDateValid(dateFormat))(Component)(props);
+  const Cp = mapProps(mapDate(dateFormat), parseDate(dateFormat), isDateValid(dateFormat))(Component);
+  return <Cp {...props}/>;
 };
 
-export default mapDateProps(questionWrapper(QuestionDate));
+export default mapDateProps(QuestionDate);
