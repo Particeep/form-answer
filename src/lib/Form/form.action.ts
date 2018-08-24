@@ -1,15 +1,15 @@
-import {QuestionId, QuestionType} from '../types/Question';
+import {QuestionId} from '../types/Question';
 import {SectionId} from '../types/Section';
 import {IMessages} from '../types/Messages';
 import {PossiblityId} from '../types/Possiblity';
-import {store} from '../../app/store';
+import {IDoc} from '../types/Doc';
 
 interface InitParams {
   dateFormat: string;
   messages: IMessages;
   maxUploadFileSize: number;
   triggerOnChange: (qId: QuestionId) => void;
-  onUploadFile: (s: SectionId, q: QuestionId, f: File) => void;
+  onUploadFile: (s: SectionId, q: QuestionId, f: File, callback: (uploadedFile: IDoc) => void) => void;
   readonly: boolean;
 }
 
@@ -19,7 +19,6 @@ export const formAction = {
   UPDATE_ANSWER: 'form/UPDATE_ANSWER',
   REMOVE_ANSWER: 'form/REMOVE_ANSWER',
   UPDATE_SECTION_VALIDITY: 'form/UPDATE_SECTION_VALIDITY',
-  DOCUMENT_UPLOADING: 'form/DOCUMENT_UPLOADING',
   ADD_CHECKED_POSSIBILITY: 'form/ADD_CHECKED_POSSIBILITY',
   REMOVE_CHECKED_POSSIBILITY: 'form/REMOVE_CHECKED_POSSIBILITY',
 
@@ -54,13 +53,6 @@ export const formAction = {
     dispatch({
       type: formAction.UPDATE_SECTION_VALIDITY,
       sectionId, questionId, isValid
-    });
-  },
-
-  documentUploading: (questionId: QuestionId, isUploading: boolean) => dispatch => {
-    dispatch({
-      type: formAction.DOCUMENT_UPLOADING,
-      questionId, isUploading
     });
   },
 
