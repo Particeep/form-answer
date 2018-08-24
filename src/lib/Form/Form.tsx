@@ -90,18 +90,9 @@ class Form extends React.Component<FormProps, any> {
     }));
   }
 
-  private onUploadFile = (sectionId: SectionId, questionId: QuestionId, file: File) => {
-    const {dispatch, onUploadFile} = this.props;
-    onUploadFile(file, this.onFileUploaded(sectionId, questionId));
-    dispatch(formAction.documentUploading(questionId, true));
-  };
-
-  private onFileUploaded = (sectionId: SectionId, questionId: QuestionId) => (uploadedFile: IDoc) => {
-    const {dispatch} = this.props;
-    dispatch(formAction.documentUploading(questionId, false));
-    dispatch(formAction.updateAnswer(questionId, [uploadedFile.name, uploadedFile.permalink]));
-    dispatch(formAction.updateSectionValidity(sectionId, questionId, true));
-    this.onChange(questionId);
+  private onUploadFile = (sectionId: SectionId, questionId: QuestionId, file: File, callback: any) => {
+    const {onUploadFile} = this.props;
+    onUploadFile(file, callback);
   };
 
   private onChange = (questionIdAnswered: QuestionId) => {

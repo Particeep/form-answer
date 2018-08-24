@@ -3,24 +3,27 @@ import './QuestionDocument.scss';
 import * as React from 'react';
 import {Avatar, Button, Chip, CircularProgress, Icon} from '@material-ui/core';
 import {connect} from 'react-redux';
-import {QuestionProps, questionWrapper} from '../questionWrapper';
+import {mapMultipleValueProps, MappedQuestionProps} from '../question-wrappers';
 import QuestionDocumentReadonly from './QuestionDocumentReadonly';
 import {SectionId} from '../../../types/Section';
 import {IQuestion, QuestionId} from '../../../types/Question';
 import {IMessages} from '../../../types/Messages';
-import {mapMultipleValueProps} from '../Checkbox/QuestionCheckbox';
+import {IDoc} from '../../../types/Doc';
+import {formAction} from '../../form.action';
 
-interface Props extends QuestionProps {
+interface Props extends MappedQuestionProps {
   readonly documentName: string;
   readonly documentUrl: string;
-  readonly onUploadFile: (s: SectionId, q: QuestionId, f: File) => void;
+  readonly onUploadFile: (s: SectionId, q: QuestionId, f: File, callback: (uploadedFile: IDoc) => void) => void;
   readonly maxUploadFileSize: number;
   readonly isUploading: boolean;
   readonly messages: IMessages;
+  readonly dispatch: any;
 }
 
 interface State {
   errorMessage: string;
+  isUploading: boolean;
 }
 
 class QuestionDocument extends React.Component<Props, State> {
@@ -28,11 +31,13 @@ class QuestionDocument extends React.Component<Props, State> {
   private fileInput: HTMLInputElement;
 
   state: State = {
-    errorMessage: null
+    errorMessage: null,
+    isUploading: false,
   };
 
   render() {
-    const {documentName, documentUrl, messages, isValid, isUploading, readonly} = this.props;
+    const {documentName, documentUrl, messages, isValid, readonly} = this.props;
+    const {isUploading} = this.state;
     if (readonly) return <QuestionDocumentReadonly
       documentName={documentName}
       documentUrl={documentUrl}
@@ -87,7 +92,7 @@ class QuestionDocument extends React.Component<Props, State> {
   };
 
   private handleChange = (file: File) => {
-    const {question, messages, maxUploadFileSize} = this.props;
+    const {question, messages, maxUploadFileSize, onChange, onUploadFile} = this.props;
     if (!new RegExp(question.pattern).test(file.name)) {
       this.setState({errorMessage: file.name + ': ' + messages.invalidPattern});
       return;
@@ -96,9 +101,16 @@ class QuestionDocument extends React.Component<Props, State> {
       this.setState({errorMessage: messages.invalidFileSize});
       return;
     }
-    this.setState({errorMessage: ''});
-    this.props.onChange([file.name]);
-    this.props.onUploadFile(question.section_id, question.id, file);
+    this.setState({errorMessage: '', isUploading: true});
+    onChange([file.name]);
+    onUploadFile(question.section_id, question.id, file, this.uploadedCallback);
+  };
+
+  private uploadedCallback = (uploadedFile: IDoc) => {
+    const {dispatch, question} = this.props;
+    this.setState({isUploading: false});
+    dispatch(formAction.updateAnswer(question.id, [uploadedFile.name, uploadedFile.permalink]));
+    dispatch(formAction.updateSectionValidity(question.section_id, question.id, true));
   };
 
   private clear = () => {
@@ -106,19 +118,18 @@ class QuestionDocument extends React.Component<Props, State> {
   };
 }
 
-const state2Props = (state, props) => ({
+const state2Props = (state) => ({
   onUploadFile: state.formAnswer.onUploadFile,
   maxUploadFileSize: state.formAnswer.maxUploadFileSize,
-  isUploading: state.formAnswer.uploadingDocuments[props.question.id],
 });
 
-const mapValueProps = (Component: any) => (props: QuestionProps) => {
+const mapValueProps = (Component: any) => (props: MappedQuestionProps) => {
   const {value, ...other} = props;
   const documentName = value[0];
   const documentUrl = value[1];
   return <Component {...other} documentName={documentName} documentUrl={documentUrl}/>;
 };
 
-const isDocumentValid = (question: IQuestion, value: string): boolean => !question.required || value.length === 2;
+const isValid = (question: IQuestion, value: string): boolean => !question.required || value.length === 2;
 
-export default mapMultipleValueProps(isDocumentValid)(questionWrapper(mapValueProps(connect(state2Props)(QuestionDocument))));
+export default mapMultipleValueProps(isValid)(mapValueProps(connect(state2Props)(QuestionDocument)));

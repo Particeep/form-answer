@@ -58,12 +58,11 @@ class App extends React.Component<AppParams> {
     );
   }
 
-
   componentWillMount() {
     this.props.setForm(getFormAnswerParams().form);
   }
 
-  private uploadFile = (file: File, callback: any): void => {
+  private uploadFile = (file: File, callback: (_: IDoc) => void): void => {
     if (getFormAnswerParams().onUploadFile)
       getFormAnswerParams().onUploadFile(file, callback);
   };
