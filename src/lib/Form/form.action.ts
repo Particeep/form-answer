@@ -9,7 +9,7 @@ interface InitParams {
   messages: IMessages;
   maxUploadFileSize: number;
   triggerOnChange: (qId: QuestionId) => void;
-  onUploadFile: (s: SectionId, q: QuestionId, f: File, callback: (uploadedFile: IDoc) => void) => void;
+  onUploadFile: (f: File, callback: (uploadedFile: IDoc) => void) => void;
   readonly: boolean;
 }
 

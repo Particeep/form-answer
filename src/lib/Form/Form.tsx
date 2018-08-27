@@ -6,7 +6,6 @@ import {formAction} from './form.action';
 import {Id} from '../types/Id';
 import {IAnswer} from '../types/Answer';
 import {QuestionId, QuestionType} from '../types/Question';
-import {SectionId} from '../types/Section';
 import {IDoc} from '../types/Doc';
 import {IForm} from '../types/Form';
 import {defaultMessages, IMessages} from '../types/Messages';
@@ -90,7 +89,7 @@ class Form extends React.Component<FormProps, any> {
     }));
   }
 
-  private onUploadFile = (sectionId: SectionId, questionId: QuestionId, file: File, callback: any) => {
+  private onUploadFile = (file: File, callback: any) => {
     const {onUploadFile} = this.props;
     onUploadFile(file, callback);
   };
