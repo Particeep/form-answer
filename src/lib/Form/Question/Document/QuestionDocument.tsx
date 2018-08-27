@@ -5,8 +5,7 @@ import {Avatar, Button, Chip, CircularProgress, Icon} from '@material-ui/core';
 import {connect} from 'react-redux';
 import {mapMultipleValueProps, MappedQuestionProps} from '../question-wrappers';
 import QuestionDocumentReadonly from './QuestionDocumentReadonly';
-import {SectionId} from '../../../types/Section';
-import {IQuestion, QuestionId} from '../../../types/Question';
+import {IQuestion} from '../../../types/Question';
 import {IMessages} from '../../../types/Messages';
 import {IDoc} from '../../../types/Doc';
 import {formAction} from '../../form.action';
@@ -14,7 +13,7 @@ import {formAction} from '../../form.action';
 interface Props extends MappedQuestionProps {
   readonly documentName: string;
   readonly documentUrl: string;
-  readonly onUploadFile: (s: SectionId, q: QuestionId, f: File, callback: (uploadedFile: IDoc) => void) => void;
+  readonly onUploadFile: (f: File, callback: (uploadedFile: IDoc) => void) => void;
   readonly maxUploadFileSize: number;
   readonly isUploading: boolean;
   readonly messages: IMessages;
@@ -103,7 +102,7 @@ class QuestionDocument extends React.Component<Props, State> {
     }
     this.setState({errorMessage: '', isUploading: true});
     onChange([file.name]);
-    onUploadFile(question.section_id, question.id, file, this.uploadedCallback);
+    onUploadFile(file, this.uploadedCallback);
   };
 
   private uploadedCallback = (uploadedFile: IDoc) => {
