@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {FormControl, Input, MenuItem, Select} from '@material-ui/core';
 import {MappedQuestionProps, mapSelectProps} from '../question-wrappers';
-import QuestionRadio from '../Radio/QuestionRadio';
 
 interface Props extends MappedQuestionProps {
 }
@@ -10,13 +9,13 @@ class QuestionSelect extends React.Component<Props, {}> {
 
   render() {
     const {question, value, readonly} = this.props;
-    if (readonly) return <QuestionRadio {...this.props}/>
     return (
       <FormControl fullWidth style={{minHeight: '40px'}}>
         <Select
           value={value}
-          onChange={e => this.handleChange(e.target.value)}
-          input={<Input/>}>
+          onChange={this.handleChange}
+          input={<Input/>}
+          disabled={readonly}>
           <MenuItem value=""/>
           {question.possibilities.map(p =>
             <MenuItem key={p.id} value={p.label}>{p.label}</MenuItem>
@@ -26,8 +25,8 @@ class QuestionSelect extends React.Component<Props, {}> {
     );
   }
 
-  private handleChange = value => {
-    this.props.onChange(value);
+  private handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    this.props.onChange(e.target.value);
   };
 }
 
