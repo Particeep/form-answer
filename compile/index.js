@@ -79333,7 +79333,7 @@ var Form = /** @class */ (function (_super) {
     __extends(Form, _super);
     function Form() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.onUploadFile = function (sectionId, questionId, file, callback) {
+        _this.onUploadFile = function (file, callback) {
             var onUploadFile = _this.props.onUploadFile;
             onUploadFile(file, callback);
         };
@@ -79727,7 +79727,7 @@ var QuestionDocument = /** @class */ (function (_super) {
             }
             _this.setState({ errorMessage: '', isUploading: true });
             onChange([file.name]);
-            onUploadFile(question.section_id, question.id, file, _this.uploadedCallback);
+            onUploadFile(file, _this.uploadedCallback);
         };
         _this.uploadedCallback = function (uploadedFile) {
             var _a = _this.props, dispatch = _a.dispatch, question = _a.question;
