@@ -26,9 +26,10 @@ class QuestionText extends React.Component<Props, State> {
                multiline={multiline}
                rows={rows}
                rowsMax={rowsMax}
+               disabled={readonly}
                onChange={e => this.handleChange(e.target.value)}
                onBlur={() => this.setState({touched: true})}
-               disabled={readonly}/>
+               />
         <FormHelperText title={'pattern: ' + question.pattern}>
           {this.showError() ? messages.invalidText : ''}
         </FormHelperText>
