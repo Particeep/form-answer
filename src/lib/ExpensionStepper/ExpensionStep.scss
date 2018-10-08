@@ -34,6 +34,14 @@
   cursor: pointer;
 }
 
+.ExpensionStep_header a{
+  color: dodgerblue;
+}
+
+.ExpensionStep_header a:hover{
+  text-decoration: underline;
+}
+
 .ExpensionStep_i {
   font-weight: $text-bold;
   border-radius: 50%;
