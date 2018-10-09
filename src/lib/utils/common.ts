@@ -19,3 +19,8 @@ export const stringToDate = (date: string, format: string): Date => {
 
   return new Date(Date.UTC(+dateItems[yearIndex], +dateItems[monthIndex] - 1, +dateItems[dayIndex]));
 };
+
+export function urlify(text) {
+  let urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+  return text.replace(urlRegex, url => `<a href='${url}' class="Form_a" target='_blank'>${url}</a>`);
+};
