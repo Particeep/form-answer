@@ -5,6 +5,14 @@
   margin-bottom: padding();
 }
 
+.Section_label a{
+  color: dodgerblue;
+}
+
+.Section_label a:hover{
+  text-decoration: underline;
+}
+
 .Section_action {
   text-align: right;
 }
