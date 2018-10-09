@@ -25,6 +25,14 @@
   }
 }
 
+.Form_a{
+  color: dodgerblue;
+}
+
+.Form_a:hover{
+  text-decoration: underline;
+}
+
 .ExpensionStep_header {
   padding: 0 padding(3);
   height: 68px;
@@ -32,14 +40,6 @@
   align-items: center;
   font-size: $text-big;
   cursor: pointer;
-}
-
-.ExpensionStep_header a{
-  color: dodgerblue;
-}
-
-.ExpensionStep_header a:hover{
-  text-decoration: underline;
 }
 
 .ExpensionStep_i {
