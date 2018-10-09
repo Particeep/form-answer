@@ -22,7 +22,5 @@ export const stringToDate = (date: string, format: string): Date => {
 
 export function urlify(text) {
   let urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
-  return text.replace(urlRegex, function(url) {
-    return `<a href='${url}' target='_blank' class="mdl-color-text--blue">${url}</a>`;
-  });
+  return text.replace(urlRegex, url => `<a href='${url}' target='_blank'>${url}</a>`);
 };
