@@ -22,7 +22,7 @@ export const stringToDate = (date: string, format: string): Date => {
 
 export function urlify(text) {
   const getHostName = (url: string): string => new URL(url).hostname;
-  let urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+  const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
   if (text != undefined) {
     return text.replace(urlRegex, url => `<a href='${url}' class="Form_a" target='_blank'>${getHostName(url)}</a>`);
   }
