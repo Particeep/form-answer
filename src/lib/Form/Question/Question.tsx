@@ -31,6 +31,7 @@ export interface QuestionProps {
   readonly updateSectionValidity: (sId: SectionId, qId: QuestionId, validator) => void;
   readonly addCheckedPossibility: (qId: QuestionId, pId: PossiblityId) => void;
   readonly removeCheckedPossibility: (qId: QuestionId) => void;
+  dispatch: any;
 }
 
 class Question extends React.Component<QuestionProps, any> {
@@ -100,8 +101,12 @@ class Question extends React.Component<QuestionProps, any> {
   }
 
   componentWillUnmount() {
-    const {question, updateSectionValidity} = this.props;
+    const {question, updateSectionValidity, removeAnswer, removeCheckedPossibility} = this.props;
     updateSectionValidity(question.section_id, question.id, true);
+    removeAnswer(question.id);
+    if (isDependable(question)) {
+       removeCheckedPossibility(question.id);
+    }
   }
 
   shouldComponentUpdate(nextProps: QuestionProps) {
