@@ -31,7 +31,6 @@ export interface QuestionProps {
   readonly updateSectionValidity: (sId: SectionId, qId: QuestionId, validator) => void;
   readonly addCheckedPossibility: (qId: QuestionId, pId: PossiblityId) => void;
   readonly removeCheckedPossibility: (qId: QuestionId) => void;
-  dispatch: any;
 }
 
 class Question extends React.Component<QuestionProps, any> {
