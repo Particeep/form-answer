@@ -66,7 +66,8 @@ class QuestionDate extends React.Component<Props, State> {
 }
 
 const isDateValid = (dateFormat?: string) => (question: IQuestion, value: string) => {
-  if (!question.required && (!value || value === '' || value === 'Invalid date')) return true;
+  // if (!question.required && (!value || value === '')) return true;
+  if (!question.required) return true;
   return Moment(value, dateFormat.toUpperCase(), true).isValid()
 };
 
