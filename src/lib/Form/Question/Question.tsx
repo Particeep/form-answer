@@ -15,6 +15,8 @@ import QuestionDate from './Date/QuestionDate';
 import QuestionCheckbox from './Checkbox/QuestionCheckbox';
 import QuestionDocument from './Document/QuestionDocument';
 import QuestionLongText from './LongText/QuestionLongText';
+import ReactHtmlParser from 'react-html-parser';
+import {urlify} from "../../utils/common";
 
 const maxPossibilitiesBeforeAutocomplete = 10;
 
@@ -40,11 +42,11 @@ class Question extends React.Component<QuestionProps, any> {
     return (
       <main className={`Question Question-${question.id} Question-${question.question_type}`}>
         <div className="Question_label">
-          {question.label}
+          {ReactHtmlParser(urlify(question.label))}
           {question.required && <span className="Question_required">*</span>}
         </div>
         <div className="Question_description">
-          {question.description}
+          {ReactHtmlParser(urlify(question.description))}
         </div>
         <div className="Question_answer">{this.renderQuestion(question)}</div>
       </main>
