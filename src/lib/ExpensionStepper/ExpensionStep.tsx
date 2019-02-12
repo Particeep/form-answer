@@ -2,6 +2,8 @@ import './ExpensionStep.scss';
 import * as React from 'react';
 import {ReactElement} from 'react';
 import {Collapse, Icon} from '@material-ui/core';
+import ReactHtmlParser from 'react-html-parser';
+import {urlify} from '../utils/common';
 
 const animationDuration = 300;
 
@@ -31,7 +33,7 @@ class ExpensionStep extends React.Component<Props, {}> {
             ref={node => this.$root = node}>
         <header className="ExpensionStep_header" onClick={() => goTo(index)}>
           {!free && !disabled && !isCurrent && <Icon className="ExpensionStep_i">check</Icon>}
-          {index + 1}. {label}
+          {index + 1}. {ReactHtmlParser(urlify(label))}
         </header>
         <Collapse in={isCurrent} timeout={animationDuration} className="ExpensionStep_body">
           <div className="ExpensionStep_content">

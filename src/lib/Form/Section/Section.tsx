@@ -7,6 +7,8 @@ import {connect} from 'react-redux';
 import {IMessages} from '../../types/Messages';
 import {IQuestion} from '../../types/Question';
 import {ISection} from '../../types/Section';
+import ReactHtmlParser from 'react-html-parser';
+import {urlify} from "../../utils/common";
 
 export interface ExpensionStepProps {
   readonly isLast: boolean;
@@ -30,7 +32,9 @@ class Section extends React.Component<Props & ExpensionStepProps, {}> {
     const {section, isValid, messages, isLast, index, readonly, prev, next} = this.props;
     return (
       <main>
-        <div className="Section_label">{section.description}</div>
+        <div className="Section_label">
+          {ReactHtmlParser(urlify(section.description))}
+        </div>
         {section.questions.map(q => {
           if (this.showQuestion(q)) return <Question key={q.id} question={q}/>
         })}
