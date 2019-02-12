@@ -40,7 +40,7 @@ class Question extends React.Component<QuestionProps, any> {
   render() {
     const {question} = this.props;
     return (
-      <main className={`Question Question-${question.id}`}>
+      <main className={`Question Question-${question.id} Question-${question.question_type}`}>
         <div className="Question_label">
           {ReactHtmlParser(urlify(question.label))}
           {question.required && <span className="Question_required">*</span>}
@@ -102,8 +102,12 @@ class Question extends React.Component<QuestionProps, any> {
   }
 
   componentWillUnmount() {
-    const {question, updateSectionValidity} = this.props;
+    const {question, updateSectionValidity, removeAnswer, removeCheckedPossibility} = this.props;
     updateSectionValidity(question.section_id, question.id, true);
+    removeAnswer(question.id);
+    if (isDependable(question)) {
+       removeCheckedPossibility(question.id);
+    }
   }
 
   shouldComponentUpdate(nextProps: QuestionProps) {
