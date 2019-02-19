@@ -6,6 +6,7 @@ import {IMessages} from '../types/Messages';
 export type State = {
   messages: IMessages,
   dateFormat: string,
+  lang: string;
   maxUploadFileSize: number,
   readonly: boolean,
 
@@ -22,6 +23,7 @@ export type State = {
 const initialState: State = {
   messages: {},
   dateFormat: 'dd/MM/yyyy',
+  lang: 'en',
   maxUploadFileSize: null,
   readonly: false,
 
@@ -40,6 +42,7 @@ export const formReducer = function (state = initialState, a) {
     case formAction.INIT:
       return update(state, {
         messages: {$set: a.messages},
+        lang: {$set: a.lang},
         dateFormat: {$set: a.dateFormat},
         maxUploadFileSize: {$set: a.maxUploadFileSize},
         triggerOnChange: {$set: a.triggerOnChange},

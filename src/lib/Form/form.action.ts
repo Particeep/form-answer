@@ -6,6 +6,7 @@ import {IDoc} from '../types/Doc';
 
 interface InitParams {
   dateFormat: string;
+  lang: string;
   messages: IMessages;
   maxUploadFileSize: number;
   triggerOnChange: (qId: QuestionId) => void;
