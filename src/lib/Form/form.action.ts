@@ -11,6 +11,7 @@ interface InitParams {
   maxUploadFileSize: number;
   triggerOnChange: (qId: QuestionId) => void;
   onUploadFile: (f: File, callback: (uploadedFile: IDoc) => void) => void;
+  onRemoveFile: (id: string) => void;
   readonly: boolean;
 }
 

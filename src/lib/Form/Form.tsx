@@ -25,6 +25,7 @@ export interface FormProps {
   onSectionEnd?: (a: IAnswer[]) => void;
   onEnd?: (a: IAnswer[]) => void;
   onUploadFile?: (file: File, callback: (d: IDoc) => void) => void;
+  onRemoveFile?: (id: string) => void;
 }
 
 class Form extends React.Component<FormProps, any> {
@@ -79,6 +80,7 @@ class Form extends React.Component<FormProps, any> {
       maxUploadFileSize: maxUploadFileSize,
       triggerOnChange: this.onChange,
       onUploadFile: this.onUploadFile,
+      onRemoveFile: this.onRemoveFile,
       readonly: readonly || false,
     }));
   }
@@ -95,6 +97,11 @@ class Form extends React.Component<FormProps, any> {
   private onUploadFile = (file: File, callback: any) => {
     const {onUploadFile} = this.props;
     onUploadFile(file, callback);
+  };
+
+  private onRemoveFile = (id: string) => {
+    const {onRemoveFile} = this.props;
+    onRemoveFile(id);
   };
 
   private onChange = (questionIdAnswered: QuestionId) => {

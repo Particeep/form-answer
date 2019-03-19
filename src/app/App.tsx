@@ -21,6 +21,7 @@ interface FormAnswerParams {
   onSectionEnd: (a: IAnswer[]) => void;
   onEnd: (a: IAnswer[]) => void;
   onUploadFile: (file: File, callback: (d: IDoc) => void) => void;
+  onRemoveFile: (id: string) => void;
 }
 
 interface AppParams {
@@ -56,7 +57,8 @@ class App extends React.Component<AppParams> {
         onChange={this.changed}
         onSectionEnd={this.sectionEnded}
         onEnd={this.ended}
-        onUploadFile={this.uploadFile}/>
+        onUploadFile={this.uploadFile}
+        onRemoveFile={this.removeFile}/>
     );
   }
 
@@ -67,6 +69,11 @@ class App extends React.Component<AppParams> {
   private uploadFile = (file: File, callback: (_: IDoc) => void): void => {
     if (getFormAnswerParams().onUploadFile)
       getFormAnswerParams().onUploadFile(file, callback);
+  };
+
+  private removeFile = (id: string): void => {
+    if (getFormAnswerParams().onRemoveFile)
+      getFormAnswerParams().onRemoveFile(id);
   };
 
   private changed = (answer: any): void => {

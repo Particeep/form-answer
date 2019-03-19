@@ -187,9 +187,13 @@
     onUploadFile: function (file, callback) {
       console.log('onUploadFile', file);
       setTimeout(() => callback({
+        id: '4ac6921c-5ed1-43cc-a1cf-76787104e7db',
         name: file.name,
         permalink: 'https://api.particeep.com/swagger'
       }), 1000);
+    },
+    onRemoveFile: function (id) {
+      console.log('onRemoveFile', id);
     },
   }
   pc.form.updateForm(form)
