@@ -2,7 +2,6 @@ import * as React from 'react';
 import {Form} from '../lib/Form';
 import {IAnswer} from '../lib/types/Answer';
 import {IDoc} from '../lib/types/Doc';
-import {defaultMuiTheme} from '../lib/conf/mui-theme';
 import {store} from './store';
 import {connect} from 'react-redux';
 import {appAction} from './app.action';
@@ -15,7 +14,6 @@ interface FormAnswerParams {
   lang: string;
   dateFormat: string;
   maxUploadFileSize: number;
-  muiTheme: any;
   readonly: boolean;
   onChange: (a: IAnswer) => void;
   onSectionEnd: (a: IAnswer[]) => void;
@@ -53,7 +51,6 @@ class App extends React.Component<AppParams> {
         dateFormat={getFormAnswerParams().dateFormat}
         maxUploadFileSize={getFormAnswerParams().maxUploadFileSize}
         readonly={getFormAnswerParams().readonly}
-        muiTheme={defaultMuiTheme}
         onChange={this.changed}
         onSectionEnd={this.sectionEnded}
         onEnd={this.ended}

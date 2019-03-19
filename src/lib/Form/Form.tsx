@@ -9,14 +9,12 @@ import {QuestionId, QuestionType} from '../types/Question';
 import {IDoc} from '../types/Doc';
 import {IForm} from '../types/Form';
 import {defaultMessages, IMessages} from '../types/Messages';
-import {createMuiTheme, MuiThemeProvider} from '@material-ui/core';
 
 export interface FormProps {
   form: IForm;
   readonly?: boolean;
   dateFormat?: string;
   lang?: string;
-  muiTheme?: any;
   messages?: IMessages;
   maxUploadFileSize?: number;
   dispatch: any;
@@ -35,13 +33,6 @@ class Form extends React.Component<FormProps, any> {
   };
 
   render() {
-    const {muiTheme} = this.props;
-    if (muiTheme)
-      return (
-        <MuiThemeProvider theme={createMuiTheme(muiTheme)}>
-          {this.renderForm()}
-        </MuiThemeProvider>
-      );
     return this.renderForm();
   }
 
