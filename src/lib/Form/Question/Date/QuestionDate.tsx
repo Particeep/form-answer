@@ -15,6 +15,7 @@ import moment = require('moment');
 
 interface QuestionDateCustomProps {
   dateFormat?: string;
+  lang?: string;
 }
 
 interface Props extends QuestionDateCustomProps, MappedQuestionProps {
@@ -31,11 +32,13 @@ class QuestionDate extends React.Component<Props, State> {
   };
 
   render() {
-    const {dateFormat, value, messages, readonly} = this.props;
+    const {dateFormat, lang, value, messages, readonly} = this.props;
+    
     return (
       <FormControl error={this.showError()} fullWidth>
         <InputDate
           value={value}
+          lang={lang}
           format={dateFormat}
           onChange={this.handleChange}
           onBlur={this.setTouched}
@@ -66,7 +69,8 @@ class QuestionDate extends React.Component<Props, State> {
 }
 
 const isDateValid = (dateFormat?: string) => (question: IQuestion, value: string) => {
-  if (!question.required && (!value || value === '')) return true;
+  // if (!question.required && (!value || value === '')) return true;
+  if (!question.required) return true;
   return Moment(value, dateFormat.toUpperCase(), true).isValid()
 };
 

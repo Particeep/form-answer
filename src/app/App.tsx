@@ -12,6 +12,7 @@ import {IMessages} from '../lib/types/Messages';
 interface FormAnswerParams {
   form: any;
   messages: IMessages;
+  lang: string;
   dateFormat: string;
   maxUploadFileSize: number;
   muiTheme: any;
@@ -46,6 +47,7 @@ class App extends React.Component<AppParams> {
     return (
       <Form
         form={this.props.form}
+        lang={getFormAnswerParams().lang}
         messages={getFormAnswerParams().messages}
         dateFormat={getFormAnswerParams().dateFormat}
         maxUploadFileSize={getFormAnswerParams().maxUploadFileSize}

@@ -15,6 +15,7 @@ export interface FormProps {
   form: IForm;
   readonly?: boolean;
   dateFormat?: string;
+  lang?: string;
   muiTheme?: any;
   messages?: IMessages;
   maxUploadFileSize?: number;
@@ -66,12 +67,14 @@ class Form extends React.Component<FormProps, any> {
     const {
       dispatch,
       dateFormat,
+      lang,
       messages,
       maxUploadFileSize,
       readonly,
     } = this.props;
     dispatch(formAction.init({
       dateFormat: dateFormat,
+      lang: lang,
       messages: messages,
       maxUploadFileSize: maxUploadFileSize,
       triggerOnChange: this.onChange,
