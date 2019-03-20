@@ -24,6 +24,7 @@ export interface QuestionProps {
   readonly answer: string[];
   readonly readonly: boolean;
   readonly dateFormat: string;
+  readonly lang: string;
   readonly question: IQuestion;
   readonly messages: IMessages;
   readonly isValid: boolean;
@@ -54,8 +55,10 @@ class Question extends React.Component<QuestionProps, any> {
   }
 
   renderQuestion(question: IQuestion) {
-    const {messages, answer, readonly, isValid} = this.props;
+    const {messages, answer, readonly, isValid, lang} = this.props;
+    
     const props = {
+      lang,
       question,
       messages,
       readonly,
@@ -149,6 +152,7 @@ const state2Props = (state, props) => ({
   messages: state.formAnswer.messages,
   readonly: state.formAnswer.readonly,
   dateFormat: state.formAnswer.dateFormat || '',
+  lang: state.formAnswer.lang || 'en',
   answer: state.formAnswer.answers[props.question.id],
   triggerOnChange: state.formAnswer.triggerOnChange,
   isValid: (state.formAnswer.sectionsValidity[props.question.section_id] || [])[props.question.id]

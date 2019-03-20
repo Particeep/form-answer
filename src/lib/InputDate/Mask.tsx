@@ -4,21 +4,22 @@ import {getDateFormatSeparator} from '../utils/common';
 
 interface Props {
   readonly format: string;
+  readonly lang: string;
 }
 
 class Mask extends React.Component<Props, {}> {
 
   public static defaultProps: Partial<Props> = {
-    format: 'dd/MM/yyyy'
+    format: 'dd/MM/yyyy',
   };
 
   render() {
-    const {format} = this.props;
+    const {format, lang} = this.props;
     return (
       <MaskedInput
         {...this.props}
         mask={this.buildMask(format)}
-        placeholder={format}
+        placeholder={lang === 'en' ? format : 'jj/mm/aaaa'}
       />
     );
   }

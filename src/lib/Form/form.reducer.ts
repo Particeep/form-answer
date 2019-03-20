@@ -6,12 +6,14 @@ import {IMessages} from '../types/Messages';
 export type State = {
   messages: IMessages,
   dateFormat: string,
+  lang: string;
   maxUploadFileSize: number,
   readonly: boolean,
 
   // Callbacks
   triggerOnChange: any,
   onUploadFile: any,
+  onRemoveFile: any,
 
   // Application variables
   answers: { [key: string]: string[] },
@@ -22,12 +24,14 @@ export type State = {
 const initialState: State = {
   messages: {},
   dateFormat: 'dd/MM/yyyy',
+  lang: 'en',
   maxUploadFileSize: null,
   readonly: false,
 
   // Callbacks
   triggerOnChange: null,
   onUploadFile: null,
+  onRemoveFile: null,
 
   // Application variables
   answers: {},
@@ -40,10 +44,12 @@ export const formReducer = function (state = initialState, a) {
     case formAction.INIT:
       return update(state, {
         messages: {$set: a.messages},
+        lang: {$set: a.lang},
         dateFormat: {$set: a.dateFormat},
         maxUploadFileSize: {$set: a.maxUploadFileSize},
         triggerOnChange: {$set: a.triggerOnChange},
         onUploadFile: {$set: a.onUploadFile},
+        onRemoveFile:{$set: a.onRemoveFile},
         readonly: {$set: a.readonly},
       });
     case formAction.RESET_ANSWERS:
