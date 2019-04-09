@@ -136,6 +136,6 @@ const mapValueProps = (Component: any) => (props: MappedQuestionProps) => {
   return <Component {...other} documentId={documentId} documentName={documentName} documentUrl={documentUrl}/>;
 };
 
-const isValid = (question: IQuestion, value: string): boolean => !question.required || value.length === 2;
+const isValid = (question: IQuestion, value: string): boolean => !question.required || value.length === 3;
 
 export default mapMultipleValueProps(isValid)(mapValueProps(connect(state2Props)(QuestionDocument)));
