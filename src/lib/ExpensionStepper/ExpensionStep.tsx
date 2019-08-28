@@ -10,6 +10,7 @@ const animationDuration = 300;
 interface Props {
   readonly label: string;
   readonly component: ReactElement<any>;
+  readonly scrollOffset?: number;
 
   // Props from ExpensionStepper
   readonly prev?: () => void;
@@ -51,6 +52,11 @@ class ExpensionStep extends React.Component<Props, {}> {
 
   private scrollTop = () => {
     this.$root.scrollIntoView({behavior: 'smooth', block: 'start'});
+    if(this.props.scrollOffset){
+      setTimeout(() => {
+        window.scrollBy(0,-this.props.scrollOffset)
+      }, 500);
+    }
   }
 }
 

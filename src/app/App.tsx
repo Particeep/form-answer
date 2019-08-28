@@ -15,6 +15,7 @@ interface FormAnswerParams {
   dateFormat: string;
   maxUploadFileSize: number;
   readonly: boolean;
+  scrollOffset: number;
   onChange: (a: IAnswer) => void;
   onSectionEnd: (a: IAnswer[]) => void;
   onEnd: (a: IAnswer[]) => void;
@@ -49,6 +50,7 @@ class App extends React.Component<AppParams> {
         lang={getFormAnswerParams().lang}
         messages={getFormAnswerParams().messages}
         dateFormat={getFormAnswerParams().dateFormat}
+        scrollOffset={getFormAnswerParams().scrollOffset}
         maxUploadFileSize={getFormAnswerParams().maxUploadFileSize}
         readonly={getFormAnswerParams().readonly}
         onChange={this.changed}

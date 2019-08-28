@@ -13,6 +13,7 @@ interface InitParams {
   onUploadFile: (f: File, callback: (uploadedFile: IDoc) => void) => void;
   onRemoveFile: (id: string) => void;
   readonly: boolean;
+  scrollOffset: number;
 }
 
 export const formAction = {
