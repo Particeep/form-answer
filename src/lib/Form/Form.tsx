@@ -17,6 +17,7 @@ export interface FormProps {
   lang?: string;
   messages?: IMessages;
   maxUploadFileSize?: number;
+  scrollOffset: number;
   dispatch: any;
   answers: any;
   onChange?: (a: IAnswer) => void;
@@ -37,10 +38,11 @@ class Form extends React.Component<FormProps, any> {
   }
 
   renderForm() {
+    const {scrollOffset} = this.props;
     return (
       <ExpensionStepper free={this.props.readonly} onNext={this.next} onEnd={this.end}>
         {this.props.form.sections.map(s =>
-          <ExpensionStep label={s.name} component={<Section section={s}/>} key={s.id}/>
+          <ExpensionStep label={s.name} component={<Section section={s}/>} key={s.id} {...scrollOffset && {scrollOffset}}/>
         )}
       </ExpensionStepper>
     );
@@ -63,6 +65,7 @@ class Form extends React.Component<FormProps, any> {
       messages,
       maxUploadFileSize,
       readonly,
+      scrollOffset
     } = this.props;
     dispatch(formAction.init({
       dateFormat: dateFormat,
@@ -73,6 +76,7 @@ class Form extends React.Component<FormProps, any> {
       onUploadFile: this.onUploadFile,
       onRemoveFile: this.onRemoveFile,
       readonly: readonly || false,
+      scrollOffset: scrollOffset
     }));
   }
 
