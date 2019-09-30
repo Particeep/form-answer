@@ -11,9 +11,11 @@ import {IDoc} from '../../../types/Doc';
 import {formAction} from '../../form.action';
 
 interface Props extends MappedQuestionProps {
+  readonly documentId: string;
   readonly documentName: string;
   readonly documentUrl: string;
   readonly onUploadFile: (f: File, callback: (uploadedFile: IDoc) => void) => void;
+  readonly onRemoveFile: (id: string) => void;
   readonly maxUploadFileSize: number;
   readonly isUploading: boolean;
   readonly messages: IMessages;
@@ -108,27 +110,32 @@ class QuestionDocument extends React.Component<Props, State> {
   private uploadedCallback = (uploadedFile: IDoc) => {
     const {dispatch, question} = this.props;
     this.setState({isUploading: false});
-    dispatch(formAction.updateAnswer(question.id, [uploadedFile.name, uploadedFile.permalink]));
+    dispatch(formAction.updateAnswer(question.id, [uploadedFile.id, uploadedFile.name, uploadedFile.permalink]));
     dispatch(formAction.updateSectionValidity(question.section_id, question.id, true));
   };
 
   private clear = () => {
-    this.props.onChange([]);
+    const {onChange, onRemoveFile, documentId} = this.props
+    onChange([]);
+    if (onRemoveFile)
+      onRemoveFile(documentId)
   };
 }
 
 const state2Props = (state) => ({
   onUploadFile: state.formAnswer.onUploadFile,
+  onRemoveFile: state.formAnswer.onRemoveFile,
   maxUploadFileSize: state.formAnswer.maxUploadFileSize,
 });
 
 const mapValueProps = (Component: any) => (props: MappedQuestionProps) => {
   const {value, ...other} = props;
-  const documentName = value[0];
-  const documentUrl = value[1];
-  return <Component {...other} documentName={documentName} documentUrl={documentUrl}/>;
+  const documentId = value[0]
+  const documentName = value[1];
+  const documentUrl = value[2];
+  return <Component {...other} documentId={documentId} documentName={documentName} documentUrl={documentUrl}/>;
 };
 
-const isValid = (question: IQuestion, value: string): boolean => !question.required || value.length === 2;
+const isValid = (question: IQuestion, value: string): boolean => !question.required || value.length === 3;
 
 export default mapMultipleValueProps(isValid)(mapValueProps(connect(state2Props)(QuestionDocument)));

@@ -13,6 +13,7 @@ export type State = {
   // Callbacks
   triggerOnChange: any,
   onUploadFile: any,
+  onRemoveFile: any,
 
   // Application variables
   answers: { [key: string]: string[] },
@@ -30,6 +31,7 @@ const initialState: State = {
   // Callbacks
   triggerOnChange: null,
   onUploadFile: null,
+  onRemoveFile: null,
 
   // Application variables
   answers: {},
@@ -47,6 +49,7 @@ export const formReducer = function (state = initialState, a) {
         maxUploadFileSize: {$set: a.maxUploadFileSize},
         triggerOnChange: {$set: a.triggerOnChange},
         onUploadFile: {$set: a.onUploadFile},
+        onRemoveFile:{$set: a.onRemoveFile},
         readonly: {$set: a.readonly},
       });
     case formAction.RESET_ANSWERS:

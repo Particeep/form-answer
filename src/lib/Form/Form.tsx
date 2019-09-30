@@ -9,22 +9,22 @@ import {QuestionId, QuestionType} from '../types/Question';
 import {IDoc} from '../types/Doc';
 import {IForm} from '../types/Form';
 import {defaultMessages, IMessages} from '../types/Messages';
-import {createMuiTheme, MuiThemeProvider} from '@material-ui/core';
 
 export interface FormProps {
   form: IForm;
   readonly?: boolean;
   dateFormat?: string;
   lang?: string;
-  muiTheme?: any;
   messages?: IMessages;
   maxUploadFileSize?: number;
+  scrollOffset: number;
   dispatch: any;
   answers: any;
   onChange?: (a: IAnswer) => void;
   onSectionEnd?: (a: IAnswer[]) => void;
   onEnd?: (a: IAnswer[]) => void;
   onUploadFile?: (file: File, callback: (d: IDoc) => void) => void;
+  onRemoveFile?: (id: string) => void;
 }
 
 class Form extends React.Component<FormProps, any> {
@@ -34,21 +34,15 @@ class Form extends React.Component<FormProps, any> {
   };
 
   render() {
-    const {muiTheme} = this.props;
-    if (muiTheme)
-      return (
-        <MuiThemeProvider theme={createMuiTheme(muiTheme)}>
-          {this.renderForm()}
-        </MuiThemeProvider>
-      );
     return this.renderForm();
   }
 
   renderForm() {
+    const {scrollOffset} = this.props;
     return (
       <ExpensionStepper free={this.props.readonly} onNext={this.next} onEnd={this.end}>
         {this.props.form.sections.map(s =>
-          <ExpensionStep label={s.name} component={<Section section={s}/>} key={s.id}/>
+          <ExpensionStep label={s.name} component={<Section section={s}/>} key={s.id} {...scrollOffset && {scrollOffset}}/>
         )}
       </ExpensionStepper>
     );
@@ -71,6 +65,7 @@ class Form extends React.Component<FormProps, any> {
       messages,
       maxUploadFileSize,
       readonly,
+      scrollOffset
     } = this.props;
     dispatch(formAction.init({
       dateFormat: dateFormat,
@@ -79,7 +74,9 @@ class Form extends React.Component<FormProps, any> {
       maxUploadFileSize: maxUploadFileSize,
       triggerOnChange: this.onChange,
       onUploadFile: this.onUploadFile,
+      onRemoveFile: this.onRemoveFile,
       readonly: readonly || false,
+      scrollOffset: scrollOffset
     }));
   }
 
@@ -95,6 +92,11 @@ class Form extends React.Component<FormProps, any> {
   private onUploadFile = (file: File, callback: any) => {
     const {onUploadFile} = this.props;
     onUploadFile(file, callback);
+  };
+
+  private onRemoveFile = (id: string) => {
+    const {onRemoveFile} = this.props;
+    onRemoveFile(id);
   };
 
   private onChange = (questionIdAnswered: QuestionId) => {

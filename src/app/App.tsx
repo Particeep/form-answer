@@ -2,7 +2,6 @@ import * as React from 'react';
 import {Form} from '../lib/Form';
 import {IAnswer} from '../lib/types/Answer';
 import {IDoc} from '../lib/types/Doc';
-import {defaultMuiTheme} from '../lib/conf/mui-theme';
 import {store} from './store';
 import {connect} from 'react-redux';
 import {appAction} from './app.action';
@@ -15,12 +14,13 @@ interface FormAnswerParams {
   lang: string;
   dateFormat: string;
   maxUploadFileSize: number;
-  muiTheme: any;
   readonly: boolean;
+  scrollOffset: number;
   onChange: (a: IAnswer) => void;
   onSectionEnd: (a: IAnswer[]) => void;
   onEnd: (a: IAnswer[]) => void;
   onUploadFile: (file: File, callback: (d: IDoc) => void) => void;
+  onRemoveFile: (id: string) => void;
 }
 
 interface AppParams {
@@ -50,13 +50,14 @@ class App extends React.Component<AppParams> {
         lang={getFormAnswerParams().lang}
         messages={getFormAnswerParams().messages}
         dateFormat={getFormAnswerParams().dateFormat}
+        scrollOffset={getFormAnswerParams().scrollOffset}
         maxUploadFileSize={getFormAnswerParams().maxUploadFileSize}
         readonly={getFormAnswerParams().readonly}
-        muiTheme={defaultMuiTheme}
         onChange={this.changed}
         onSectionEnd={this.sectionEnded}
         onEnd={this.ended}
-        onUploadFile={this.uploadFile}/>
+        onUploadFile={this.uploadFile}
+        onRemoveFile={this.removeFile}/>
     );
   }
 
@@ -67,6 +68,11 @@ class App extends React.Component<AppParams> {
   private uploadFile = (file: File, callback: (_: IDoc) => void): void => {
     if (getFormAnswerParams().onUploadFile)
       getFormAnswerParams().onUploadFile(file, callback);
+  };
+
+  private removeFile = (id: string): void => {
+    if (getFormAnswerParams().onRemoveFile)
+      getFormAnswerParams().onRemoveFile(id);
   };
 
   private changed = (answer: any): void => {
