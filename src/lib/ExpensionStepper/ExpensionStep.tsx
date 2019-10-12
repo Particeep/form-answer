@@ -11,6 +11,7 @@ interface Props {
   readonly label: string;
   readonly component: ReactElement<any>;
   readonly scrollOffset?: number;
+  readonly isLoading?: boolean;
 
   // Props from ExpensionStepper
   readonly prev?: () => void;
@@ -28,7 +29,8 @@ class ExpensionStep extends React.Component<Props, {}> {
   private $root: HTMLElement;
 
   render() {
-    const {disabled, free, isCurrent, index, label, component, goTo} = this.props;
+    const {disabled, free, isCurrent, index, label, component, goTo, isLoading} = this.props;
+    console.log(isLoading)
     return (
       <main className={'ExpensionStep ' + (isCurrent ? '-current' : !disabled ? '-done' : '-undone')}
             ref={node => this.$root = node}>

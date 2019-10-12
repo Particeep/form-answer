@@ -14,6 +14,7 @@ interface InitParams {
   onRemoveFile: (id: string) => void;
   readonly: boolean;
   scrollOffset: number;
+  isLoading: boolean;
 }
 
 export const formAction = {

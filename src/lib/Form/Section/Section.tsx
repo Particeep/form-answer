@@ -1,7 +1,7 @@
 import './Section.scss';
 
 import * as React from 'react';
-import {Button} from '@material-ui/core';
+import {Button, CircularProgress} from '@material-ui/core';
 import {Question} from '../Question';
 import {connect} from 'react-redux';
 import {IMessages} from '../../types/Messages';
@@ -24,12 +24,14 @@ interface Props {
   readonly messages: IMessages;
   readonly readonly: boolean;
   readonly checkedPossibilityIds: any;
+  readonly isLoading: boolean;
 }
 
 class Section extends React.Component<Props & ExpensionStepProps, {}> {
 
   render() {
-    const {section, isValid, messages, isLast, index, readonly, prev, next} = this.props;
+    const {section, isValid, messages, isLast, index, readonly, prev, next, isLoading} = this.props;
+    console.log(isLoading)
     return (
       <main>
         <div className="Section_label">
@@ -45,10 +47,13 @@ class Section extends React.Component<Props & ExpensionStepProps, {}> {
             {messages.buttonPrevious}
           </Button>
           }
-          <Button variant="raised" color="primary" onClick={next} disabled={!isValid}
-                  className={'Section_' + (isLast ? 'end' : 'next')}>
-            {isLast ? messages.buttonEnd : messages.buttonNext}
-          </Button>
+          {!isLoading ?
+            <Button variant="raised" color="primary" onClick={next} disabled={!isValid || isLoading}
+                    className={'Section_' + (isLast ? 'end' : 'next')}>
+              {isLast ? messages.buttonEnd : messages.buttonNext}
+            </Button> :
+            <CircularProgress color="primary"/>
+          }
         </div>
         }
       </main>
