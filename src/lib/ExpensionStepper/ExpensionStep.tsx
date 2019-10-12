@@ -29,8 +29,7 @@ class ExpensionStep extends React.Component<Props, {}> {
   private $root: HTMLElement;
 
   render() {
-    const {disabled, free, isCurrent, index, label, component, goTo, isLoading} = this.props;
-    console.log(isLoading)
+    const {disabled, free, isCurrent, index, label, component, goTo} = this.props;
     return (
       <main className={'ExpensionStep ' + (isCurrent ? '-current' : !disabled ? '-done' : '-undone')}
             ref={node => this.$root = node}>
