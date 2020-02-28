@@ -7,10 +7,14 @@ import {connect} from 'react-redux';
 import {appAction} from './app.action';
 import {IForm} from '../lib/types/Form';
 import {IMessages} from '../lib/types/Messages';
+import {defaultMuiPalette, IMuiPalette} from "../lib/types/MuiPalette";
+import {createMuiTheme, MuiThemeProvider} from '@material-ui/core';
+import {defaultMuiTheme} from '../lib/conf/mui-theme';
 
 interface FormAnswerParams {
   form: any;
   messages: IMessages;
+  muiPalette: IMuiPalette;
   lang: string;
   dateFormat: string;
   maxUploadFileSize: number;
@@ -38,6 +42,14 @@ getFormAnswerParams()['updateForm'] = (form) => {
 
 class App extends React.Component<AppParams> {
 
+  getMuiPalette = (): IMuiPalette => {
+    if (getFormAnswerParams().muiPalette) {
+      return getFormAnswerParams().muiPalette;
+    } else {
+      return defaultMuiPalette
+    }
+  }
+
   render() {
     if (!getFormAnswerParams().form) {
       console.error('No form passed in object \'window["formAnswer"].form\'');
@@ -45,19 +57,21 @@ class App extends React.Component<AppParams> {
     }
     if (!this.props.form) return <div/>;
     return (
-      <Form
-        form={this.props.form}
-        lang={getFormAnswerParams().lang}
-        messages={getFormAnswerParams().messages}
-        dateFormat={getFormAnswerParams().dateFormat}
-        scrollOffset={getFormAnswerParams().scrollOffset}
-        maxUploadFileSize={getFormAnswerParams().maxUploadFileSize}
-        readonly={getFormAnswerParams().readonly}
-        onChange={this.changed}
-        onSectionEnd={this.sectionEnded}
-        onEnd={this.ended}
-        onUploadFile={this.uploadFile}
-        onRemoveFile={this.removeFile}/>
+      <MuiThemeProvider theme={createMuiTheme(defaultMuiTheme(this.getMuiPalette()))}>
+        <Form
+          form={this.props.form}
+          lang={getFormAnswerParams().lang}
+          messages={getFormAnswerParams().messages}
+          dateFormat={getFormAnswerParams().dateFormat}
+          scrollOffset={getFormAnswerParams().scrollOffset}
+          maxUploadFileSize={getFormAnswerParams().maxUploadFileSize}
+          readonly={getFormAnswerParams().readonly}
+          onChange={this.changed}
+          onSectionEnd={this.sectionEnded}
+          onEnd={this.ended}
+          onUploadFile={this.uploadFile}
+          onRemoveFile={this.removeFile}/>
+      </MuiThemeProvider>
     );
   }
 
