@@ -2,8 +2,6 @@ import {red} from '@material-ui/core/colors';
 import {IMuiPalette} from "../types/MuiPalette";
 
 export const defaultMuiTheme = (muiPalette: IMuiPalette): any => {
-  console.log("MUI PALETTE : ")
-  console.log(muiPalette)
   return ({
     palette: {
       primary: muiPalette.primary,
