@@ -56,6 +56,8 @@ class App extends React.Component<AppParams> {
       return <div>No form passed in object 'getFormAnswerParams.form'</div>;
     }
     if (!this.props.form) return <div/>;
+    console.log('FORM LOG : ')
+    console.log(getFormAnswerParams())
     return (
       <MuiThemeProvider theme={createMuiTheme(defaultMuiTheme(this.getMuiPalette()))}>
         <Form
