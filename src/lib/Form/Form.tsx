@@ -39,6 +39,7 @@ class Form extends React.Component<FormProps, any> {
 
   renderForm() {
     const {scrollOffset} = this.props;
+    console.log("ICI")
     return (
       <ExpensionStepper free={this.props.readonly} onNext={this.next} onEnd={this.end}>
         {this.props.form.sections.map(s =>

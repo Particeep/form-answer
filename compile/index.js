@@ -87907,6 +87907,7 @@ var Form = /** @class */ (function (_super) {
     };
     Form.prototype.renderForm = function () {
         var scrollOffset = this.props.scrollOffset;
+        console.log("ICI");
         return (React.createElement(ExpensionStepper_1.ExpensionStepper, { free: this.props.readonly, onNext: this.next, onEnd: this.end }, this.props.form.sections.map(function (s) {
             return React.createElement(ExpensionStepper_1.ExpensionStep, __assign({ label: s.name, component: React.createElement(Section_1.Section, { section: s }), key: s.id }, scrollOffset && { scrollOffset: scrollOffset }));
         })));

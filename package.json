@@ -2,6 +2,7 @@
   "name": "form-answer",
   "version": "0.0.1",
   "description": "Answer to a form from the Particeep API.",
+  "main": "compile/index.js",
   "peerDependencies": {
     "react": "16.2.0"
   },
