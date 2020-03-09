@@ -11,4 +11,9 @@
 
 .Section_prev {
   margin-right: padding(1);
+  text-transform: capitalize !important;
+}
+
+.Section_next, .Section_end {
+  text-transform: capitalize !important;
 }

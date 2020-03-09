@@ -41,11 +41,11 @@ class Section extends React.Component<Props & ExpensionStepProps, {}> {
         {!readonly &&
         <div className="Section_action">
           {index > 0 &&
-          <Button color="primary" onClick={prev} className="Section_prev">
+          <Button color={"primary"} onClick={prev} className="Section_prev">
             {messages.buttonPrevious}
           </Button>
           }
-          <Button variant="raised" color="primary" onClick={next} disabled={!isValid}
+          <Button variant={"contained"} color={"primary"} onClick={next} disabled={!isValid}
                   className={'Section_' + (isLast ? 'end' : 'next')}>
             {isLast ? messages.buttonEnd : messages.buttonNext}
           </Button>

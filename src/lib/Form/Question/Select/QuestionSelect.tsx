@@ -14,7 +14,7 @@ class QuestionSelect extends React.Component<Props, {}> {
         <Select
           value={value}
           onChange={this.handleChange}
-          input={<Input/>}
+          input={<Input color={"primary"}/>}
           disabled={readonly}>
           <MenuItem value=""/>
           {question.possibilities.map(p =>

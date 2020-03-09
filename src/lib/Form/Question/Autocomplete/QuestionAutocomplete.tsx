@@ -27,6 +27,7 @@ class QuestionAutocomplete extends React.Component<Props, State> {
       <div>
         <FormControl onClick={this.open} fullWidth>
           <Input value={multiSelect ? value.join(', ') : value} disabled={readonly}
+                 color={"primary"}
                  multiline rows="1" rowsMax="10"
                  endAdornment={
                    <InputAdornment position="end">
@@ -39,6 +40,7 @@ class QuestionAutocomplete extends React.Component<Props, State> {
           <header className={'Qac_Menu_head' + (multiSelect ? ' -withCb' : '')}>
             {multiSelect &&
             <Checkbox
+              color={"primary"}
               onChange={this.selectAll}
               indeterminate={value.length > 0 && value.length < question.possibilities.length}
               disabled={readonly}/>
@@ -50,8 +52,8 @@ class QuestionAutocomplete extends React.Component<Props, State> {
             {this.getFilteredPossibilities().map(p =>
               <MenuItem key={p.id} onClick={() => this.handleChange(p.label)} style={{paddingLeft: 0}}
                         disabled={readonly}>
-                {multiSelect && <Checkbox disabled={readonly} checked={value.indexOf(p.label) !== -1}/>}
-                {!multiSelect && <Radio disabled={readonly} checked={value.indexOf(p.label) !== -1}/>}
+                {multiSelect && <Checkbox color={"primary"} disabled={readonly} checked={value.indexOf(p.label) !== -1}/>}
+                {!multiSelect && <Radio color={"primary"} disabled={readonly} checked={value.indexOf(p.label) !== -1}/>}
                 {p.label}
               </MenuItem>
             )}
