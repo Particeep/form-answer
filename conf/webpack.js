@@ -4,7 +4,12 @@ const path = require('path');
 
 module.exports = {
     resolve: {
-        extensions: [".ts", ".tsx", ".js", ".jsx", ".json"]
+        extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
+        alias: {
+          react: path.resolve('./node_modules/react'),
+          'react-dom': path.resolve('./node_modules/react-dom'),
+          '@material-ui/core': path.resolve('./node_modules/@material-ui/core'),
+        },
     },
     plugins: [
         new HtmlWebpackPlugin({
