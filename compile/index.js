@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 674);
+/******/ 	return __webpack_require__(__webpack_require__.s = 675);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -4850,7 +4850,7 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(677)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(678)(module)))
 
 /***/ }),
 /* 5 */
@@ -5679,44 +5679,6 @@ if (process.env.NODE_ENV === 'production') {
 
 /***/ }),
 /* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-var _interopRequireDefault = __webpack_require__(49);
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _shouldUpdate = _interopRequireDefault(__webpack_require__(642));
-
-var _shallowEqual = _interopRequireDefault(__webpack_require__(641));
-
-var _setDisplayName = _interopRequireDefault(__webpack_require__(290));
-
-var _wrapDisplayName = _interopRequireDefault(__webpack_require__(50));
-
-var pure = function pure(BaseComponent) {
-  var hoc = (0, _shouldUpdate.default)(function (props, nextProps) {
-    return !(0, _shallowEqual.default)(props, nextProps);
-  });
-
-  if (process.env.NODE_ENV !== 'production') {
-    return (0, _setDisplayName.default)((0, _wrapDisplayName.default)(BaseComponent, 'pure'))(hoc(BaseComponent));
-  }
-
-  return hoc(BaseComponent);
-};
-
-var _default = pure;
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ }),
-/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6143,6 +6105,44 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var _interopRequireDefault = __webpack_require__(49);
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _shouldUpdate = _interopRequireDefault(__webpack_require__(642));
+
+var _shallowEqual = _interopRequireDefault(__webpack_require__(641));
+
+var _setDisplayName = _interopRequireDefault(__webpack_require__(290));
+
+var _wrapDisplayName = _interopRequireDefault(__webpack_require__(50));
+
+var pure = function pure(BaseComponent) {
+  var hoc = (0, _shouldUpdate.default)(function (props, nextProps) {
+    return !(0, _shallowEqual.default)(props, nextProps);
+  });
+
+  if (process.env.NODE_ENV !== 'production') {
+    return (0, _setDisplayName.default)((0, _wrapDisplayName.default)(BaseComponent, 'pure'))(hoc(BaseComponent));
+  }
+
+  return hoc(BaseComponent);
+};
+
+var _default = pure;
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
 /* 21 */
@@ -14008,7 +14008,7 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(1));
 
-var _pure = _interopRequireDefault(__webpack_require__(19));
+var _pure = _interopRequireDefault(__webpack_require__(20));
 
 var _SvgIcon = _interopRequireDefault(__webpack_require__(17));
 
@@ -14044,7 +14044,7 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(1));
 
-var _pure = _interopRequireDefault(__webpack_require__(19));
+var _pure = _interopRequireDefault(__webpack_require__(20));
 
 var _SvgIcon = _interopRequireDefault(__webpack_require__(17));
 
@@ -14080,7 +14080,7 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(1));
 
-var _pure = _interopRequireDefault(__webpack_require__(19));
+var _pure = _interopRequireDefault(__webpack_require__(20));
 
 var _SvgIcon = _interopRequireDefault(__webpack_require__(17));
 
@@ -30568,7 +30568,7 @@ Tokenizer.prototype._emitPartial = function(value) {
 module.exports = Stream;
 
 var Parser = __webpack_require__(281);
-var WritableStream = __webpack_require__(678).Writable;
+var WritableStream = __webpack_require__(679).Writable;
 var StringDecoder = __webpack_require__(648).StringDecoder;
 var Buffer = __webpack_require__(136).Buffer;
 
@@ -31609,7 +31609,7 @@ if (typeof self !== 'undefined') {
 var result = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__ponyfill_js__["a" /* default */])(root);
 /* harmony default export */ __webpack_exports__["default"] = (result);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(33), __webpack_require__(676)(module)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(33), __webpack_require__(677)(module)))
 
 /***/ }),
 /* 296 */
@@ -31789,7 +31789,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var core_1 = __webpack_require__(20);
+var core_1 = __webpack_require__(19);
 var question_wrappers_1 = __webpack_require__(32);
 var QuestionText = /** @class */ (function (_super) {
     __extends(QuestionText, _super);
@@ -31847,7 +31847,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(653);
 var React = __webpack_require__(1);
-var core_1 = __webpack_require__(20);
+var core_1 = __webpack_require__(19);
 var Question_1 = __webpack_require__(668);
 var react_redux_1 = __webpack_require__(64);
 var react_html_parser_1 = __webpack_require__(91);
@@ -31933,7 +31933,9 @@ var Section_1 = __webpack_require__(298);
 exports.Section = Section_1.default;
 var Question_1 = __webpack_require__(296);
 exports.Question = Question_1.default;
-var form_reducer_1 = __webpack_require__(671);
+var TestFormCp_1 = __webpack_require__(671);
+exports.TestFromCp = TestFormCp_1.default;
+var form_reducer_1 = __webpack_require__(672);
 exports.formReducer = form_reducer_1.formReducer;
 
 
@@ -55836,7 +55838,7 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(1));
 
-var _pure = _interopRequireDefault(__webpack_require__(19));
+var _pure = _interopRequireDefault(__webpack_require__(20));
 
 var _SvgIcon = _interopRequireDefault(__webpack_require__(17));
 
@@ -55872,7 +55874,7 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(1));
 
-var _pure = _interopRequireDefault(__webpack_require__(19));
+var _pure = _interopRequireDefault(__webpack_require__(20));
 
 var _SvgIcon = _interopRequireDefault(__webpack_require__(17));
 
@@ -55908,7 +55910,7 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(1));
 
-var _pure = _interopRequireDefault(__webpack_require__(19));
+var _pure = _interopRequireDefault(__webpack_require__(20));
 
 var _SvgIcon = _interopRequireDefault(__webpack_require__(17));
 
@@ -55944,7 +55946,7 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(1));
 
-var _pure = _interopRequireDefault(__webpack_require__(19));
+var _pure = _interopRequireDefault(__webpack_require__(20));
 
 var _SvgIcon = _interopRequireDefault(__webpack_require__(17));
 
@@ -55980,7 +55982,7 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(1));
 
-var _pure = _interopRequireDefault(__webpack_require__(19));
+var _pure = _interopRequireDefault(__webpack_require__(20));
 
 var _SvgIcon = _interopRequireDefault(__webpack_require__(17));
 
@@ -56016,7 +56018,7 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(1));
 
-var _pure = _interopRequireDefault(__webpack_require__(19));
+var _pure = _interopRequireDefault(__webpack_require__(20));
 
 var _SvgIcon = _interopRequireDefault(__webpack_require__(17));
 
@@ -56052,7 +56054,7 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(1));
 
-var _pure = _interopRequireDefault(__webpack_require__(19));
+var _pure = _interopRequireDefault(__webpack_require__(20));
 
 var _SvgIcon = _interopRequireDefault(__webpack_require__(17));
 
@@ -56088,7 +56090,7 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(1));
 
-var _pure = _interopRequireDefault(__webpack_require__(19));
+var _pure = _interopRequireDefault(__webpack_require__(20));
 
 var _SvgIcon = _interopRequireDefault(__webpack_require__(17));
 
@@ -56124,7 +56126,7 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(1));
 
-var _pure = _interopRequireDefault(__webpack_require__(19));
+var _pure = _interopRequireDefault(__webpack_require__(20));
 
 var _SvgIcon = _interopRequireDefault(__webpack_require__(17));
 
@@ -87707,7 +87709,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(649);
 var React = __webpack_require__(1);
-var core_1 = __webpack_require__(20);
+var core_1 = __webpack_require__(19);
 var react_html_parser_1 = __webpack_require__(91);
 var common_1 = __webpack_require__(51);
 var animationDuration = 300;
@@ -87861,7 +87863,7 @@ var Section_1 = __webpack_require__(670);
 var react_redux_1 = __webpack_require__(64);
 var form_action_1 = __webpack_require__(65);
 var Question_1 = __webpack_require__(299);
-var Messages_1 = __webpack_require__(675);
+var Messages_1 = __webpack_require__(676);
 var Form = /** @class */ (function (_super) {
     __extends(Form, _super);
     function Form() {
@@ -87980,7 +87982,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(651);
 var React = __webpack_require__(1);
-var core_1 = __webpack_require__(20);
+var core_1 = __webpack_require__(19);
 var question_wrappers_1 = __webpack_require__(32);
 var QuestionAutocomplete = /** @class */ (function (_super) {
     __extends(QuestionAutocomplete, _super);
@@ -88071,7 +88073,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var core_1 = __webpack_require__(20);
+var core_1 = __webpack_require__(19);
 var question_wrappers_1 = __webpack_require__(32);
 var QuestionCheckbox = /** @class */ (function (_super) {
     __extends(QuestionCheckbox, _super);
@@ -88129,8 +88131,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var InputDate_1 = __webpack_require__(672);
-var core_1 = __webpack_require__(20);
+var InputDate_1 = __webpack_require__(673);
+var core_1 = __webpack_require__(19);
 var question_wrappers_1 = __webpack_require__(32);
 var Moment = __webpack_require__(4);
 var common_1 = __webpack_require__(51);
@@ -88238,7 +88240,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(294);
 var React = __webpack_require__(1);
-var core_1 = __webpack_require__(20);
+var core_1 = __webpack_require__(19);
 var react_redux_1 = __webpack_require__(64);
 var question_wrappers_1 = __webpack_require__(32);
 var QuestionDocumentReadonly_1 = __webpack_require__(664);
@@ -88352,7 +88354,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(294);
 var React = __webpack_require__(1);
-var core_1 = __webpack_require__(20);
+var core_1 = __webpack_require__(19);
 var QuestionDocumentReadonly = /** @class */ (function (_super) {
     __extends(QuestionDocumentReadonly, _super);
     function QuestionDocumentReadonly() {
@@ -88440,7 +88442,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var core_1 = __webpack_require__(20);
+var core_1 = __webpack_require__(19);
 var question_wrappers_1 = __webpack_require__(32);
 var QuestionRadio = /** @class */ (function (_super) {
     __extends(QuestionRadio, _super);
@@ -88481,7 +88483,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var core_1 = __webpack_require__(20);
+var core_1 = __webpack_require__(19);
 var question_wrappers_1 = __webpack_require__(32);
 var QuestionSelect = /** @class */ (function (_super) {
     __extends(QuestionSelect, _super);
@@ -88549,6 +88551,21 @@ exports.Section = Section_1.default;
 
 /***/ }),
 /* 671 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(1);
+var core_1 = __webpack_require__(19);
+var TestFormCp = function (props) {
+    return (React.createElement(core_1.Button, { color: "primary", variant: "contained" }, "testBtn"));
+};
+exports.default = TestFormCp;
+
+
+/***/ }),
+/* 672 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88633,7 +88650,7 @@ exports.formReducer = function (state, a) {
 
 
 /***/ }),
-/* 672 */
+/* 673 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88667,8 +88684,8 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var core_1 = __webpack_require__(20);
-var Mask_1 = __webpack_require__(673);
+var core_1 = __webpack_require__(19);
+var Mask_1 = __webpack_require__(674);
 var InputDate = /** @class */ (function (_super) {
     __extends(InputDate, _super);
     function InputDate() {
@@ -88689,7 +88706,7 @@ exports.default = InputDate;
 
 
 /***/ }),
-/* 673 */
+/* 674 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88751,7 +88768,7 @@ exports.default = Mask;
 
 
 /***/ }),
-/* 674 */
+/* 675 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88764,7 +88781,7 @@ __export(__webpack_require__(300));
 
 
 /***/ }),
-/* 675 */
+/* 676 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88785,7 +88802,7 @@ exports.defaultMessages = {
 
 
 /***/ }),
-/* 676 */
+/* 677 */
 /***/ (function(module, exports) {
 
 module.exports = function(originalModule) {
@@ -88815,7 +88832,7 @@ module.exports = function(originalModule) {
 
 
 /***/ }),
-/* 677 */
+/* 678 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -88843,7 +88860,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 678 */
+/* 679 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
