@@ -27,7 +27,6 @@ class QuestionText extends React.Component<Props, State> {
                rows={rows}
                rowsMax={rowsMax}
                disabled={readonly}
-               color={"primary"}
                onChange={e => this.handleChange(e.target.value)}
                onBlur={() => this.setState({touched: true})}
                />

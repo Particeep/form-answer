@@ -77,6 +77,7 @@ class Question extends React.Component<QuestionProps, any> {
         if (question.possibilities.length < maxPossibilitiesBeforeAutocomplete)
           return <QuestionRadio {...props}/>;
         return <QuestionAutocomplete {...props}/>;
+      //
       case QuestionType.SELECT:
         if (question.possibilities.length < maxPossibilitiesBeforeAutocomplete)
           return <QuestionSelect {...props}/>;

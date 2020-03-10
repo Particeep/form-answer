@@ -12,7 +12,7 @@ class InputDate extends React.Component<Props, {}> {
   render() {
     const {format, ...props} = this.props;
     return (
-      <Input {...props} color={"primary"} inputComponent={this.mask} />
+      <Input {...props} inputComponent={this.mask} />
     );
   }
 

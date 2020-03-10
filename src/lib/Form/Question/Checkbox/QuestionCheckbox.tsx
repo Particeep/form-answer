@@ -14,7 +14,6 @@ class QuestionCheckbox extends React.Component<Props, {}> {
         {question.possibilities.map(p =>
           <FormControlLabel key={p.id} label={p.label} control={
             <Checkbox
-              color={"primary"}
               checked={this.isPossibilityChecked(p.label)}
               onChange={this.handleChange(p.label)}
               value={p.label}
