@@ -1,5 +1,5 @@
 const webpackMerge = require('webpack-merge');
-const commonConfig = require('./webpack.js');
+const commonConfig = require('./webpack.config.js');
 const path = require('path');
 
 module.exports = webpackMerge(commonConfig, {
@@ -19,6 +19,6 @@ module.exports = webpackMerge(commonConfig, {
         path: path.resolve('./compile'),
         filename: 'index.js',
         libraryTarget: 'umd',
-        umdNamedDefine: true,
+        umdNamedDefine: true
     },
 });

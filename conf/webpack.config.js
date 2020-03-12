@@ -4,11 +4,6 @@ const path = require('path');
 module.exports = {
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.json'],
-      alias: {
-        'react': path.resolve('./node_modules/react'),
-        'react-dom': path.resolve('./node_modules/react-dom'),
-        '@material-ui/core': path.resolve('./node_modules/@material-ui/core'),
-      },
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -25,6 +20,7 @@ module.exports = {
             },
             {
               test: /\.css$/,
+              exclude: [/node_modules/],
               use: [
                 { loader: 'style-loader' },
                 { loader: 'css-loader' }
