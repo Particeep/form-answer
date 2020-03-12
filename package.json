@@ -4,17 +4,17 @@
   "description": "Answer to a form from the Particeep API.",
   "main": "compile/index.js",
   "peerDependencies": {
-    "@material-ui/core": "4.8.0",
-    "react": "16.12.0",
-    "react-dom": "16.12.0"
+    "@material-ui/core": "4.0.2",
+    "react": "16.8.2",
+    "react-dom": "16.8.2"
   },
   "dependencies": {
-    "@material-ui/core": "4.8.0",
+    "@material-ui/core": "4.0.2",
     "animated": "0.2.0",
     "immutability-helper": "2.6.6",
     "moment": "2.24.0",
-    "react": "16.12.0",
-    "react-dom": "16.12.0",
+    "react": "16.8.2",
+    "react-dom": "16.8.2",
     "react-html-parser": "2.0.2",
     "react-redux": "5.0.5",
     "react-text-mask": "5.1.0",
