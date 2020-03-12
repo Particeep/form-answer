@@ -28,6 +28,7 @@ class QuestionAutocomplete extends React.Component<Props, State> {
         <FormControl onClick={this.open} fullWidth>
           <Input value={multiSelect ? value.join(', ') : value} disabled={readonly}
                  multiline rows="1" rowsMax="10"
+                 color={"primary"}
                  endAdornment={
                    <InputAdornment position="end">
                      <Icon className="Qac_adornment">arrow_drop_down</Icon>
@@ -50,8 +51,8 @@ class QuestionAutocomplete extends React.Component<Props, State> {
             {this.getFilteredPossibilities().map(p =>
               <MenuItem key={p.id} onClick={() => this.handleChange(p.label)} style={{paddingLeft: 0}}
                         disabled={readonly}>
-                {multiSelect && <Checkbox disabled={readonly} checked={value.indexOf(p.label) !== -1}/>}
-                {!multiSelect && <Radio disabled={readonly} checked={value.indexOf(p.label) !== -1}/>}
+                {multiSelect && <Checkbox color={"primary"} disabled={readonly} checked={value.indexOf(p.label) !== -1}/>}
+                {!multiSelect && <Radio color={"primary"} disabled={readonly} checked={value.indexOf(p.label) !== -1}/>}
                 {p.label}
               </MenuItem>
             )}

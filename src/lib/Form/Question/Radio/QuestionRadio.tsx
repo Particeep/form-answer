@@ -17,7 +17,7 @@ class QuestionRadio extends React.Component<Props, {}> {
         {question.possibilities.map(p =>
           <FormControlLabel
             value={p.label}
-            control={<Radio/>}
+            control={<Radio color={"primary"}/>}
             label={p.label}
             key={p.id}
             onClick={() => value === p.label && this.handleChange('')}
