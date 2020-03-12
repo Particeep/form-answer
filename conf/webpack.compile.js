@@ -3,13 +3,22 @@ const commonConfig = require('./webpack.js');
 const path = require('path');
 
 module.exports = webpackMerge(commonConfig, {
-    externals: {
-        'react': 'commonjs react' // this line is just to use the React dependency of our parent-testing-project instead of using our own React.
-    },
+    externals: [
+      {
+        react: {
+          root: 'React',
+          commonjs2: 'react',
+          commonjs: ['react'],
+          amd: 'react',
+        },
+      },
+      /@material-ui\/core\/.*/,
+    ],
     entry: path.resolve('./src/lib/index.ts'),
     output: {
         path: path.resolve('./compile'),
         filename: 'index.js',
-        libraryTarget: 'commonjs2'
+        libraryTarget: 'umd',
+        umdNamedDefine: true,
     },
 });

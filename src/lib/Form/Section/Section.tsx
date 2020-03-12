@@ -45,7 +45,7 @@ class Section extends React.Component<Props & ExpensionStepProps, {}> {
             {messages.buttonPrevious}
           </Button>
           }
-          <Button variant="raised" color="primary" onClick={next} disabled={!isValid}
+          <Button variant="contained" color="primary" onClick={next} disabled={!isValid}
                   className={'Section_' + (isLast ? 'end' : 'next')}>
             {isLast ? messages.buttonEnd : messages.buttonNext}
           </Button>

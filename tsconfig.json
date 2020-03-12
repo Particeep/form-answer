@@ -5,11 +5,13 @@
     "noImplicitAny": false,
     "skipLibCheck": true,
     "module": "commonjs",
+    "esModuleInterop": true,
     "lib": [
       "es2015",
       "es2017",
       "dom"
     ],
+    "allowSyntheticDefaultImports": true,
     "target": "es5",
     "jsx": "react"
   },

@@ -54,4 +54,4 @@ class QuestionDocumentReadonly extends React.Component<Props & WithTheme, State>
   }
 }
 
-export default withTheme()(QuestionDocumentReadonly);
+export default withTheme(QuestionDocumentReadonly);

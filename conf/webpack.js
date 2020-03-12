@@ -1,10 +1,14 @@
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
     resolve: {
-        extensions: [".ts", ".tsx", ".js", ".jsx", ".json"]
+        extensions: ['.ts', '.tsx', '.js', '.json'],
+      alias: {
+        'react': path.resolve('./node_modules/react'),
+        'react-dom': path.resolve('./node_modules/react-dom'),
+        '@material-ui/core': path.resolve('./node_modules/@material-ui/core'),
+      },
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -14,20 +18,26 @@ module.exports = {
     ],
     module: {
         rules: [
-            { test: /\.tsx?$/, loader: "ts-loader" },
             {
-                test: /\.jsx?$/,
-                include: path.resolve('./src'),
-                exclude: /(node_modules|bower_components|build)/,
-                use: {
-                    loader: 'babel-loader',
-                },
-            }, {
-                test: /\.css$/,
-                loader: 'style-loader!css-loader?importLoaders=1'
-            }, {
-                test: /\.scss$/,
-                loader: 'style-loader?{attrs:{"form-answer-css":""}}!css-loader?importLoaders=1&localIdentName=[local]_[hash:base64:5]!sass-loader'
+              test: /\.tsx?$/,
+              exclude: [/node_modules/],
+              use: { loader: 'babel-loader' }
+            },
+            {
+              test: /\.css$/,
+              use: [
+                { loader: 'style-loader' },
+                { loader: 'css-loader' }
+              ]
+            },
+            {
+              test: /\.scss$/,
+              exclude: [/node_modules/],
+              use: [
+                { loader: 'style-loader' },
+                { loader: 'css-loader' },
+                { loader: 'sass-loader' }
+              ]
             }
         ]
     },
