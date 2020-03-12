@@ -30,8 +30,21 @@ module.exports = {
               test: /\.scss$/,
               exclude: [/node_modules/],
               use: [
-                { loader: 'style-loader' },
-                { loader: 'css-loader' },
+                {
+                  loader: 'style-loader',
+                  options: {
+                    attributes: { 'form-answer-css': '' }
+                  }
+                },
+                {
+                  loader: 'css-loader',
+                  options: {
+                    importLoaders: 1,
+                    modules: {
+                      localIdentName: '[local]_[hash:base64:5]'
+                    },
+                  }
+                },
                 { loader: 'sass-loader' }
               ]
             }
