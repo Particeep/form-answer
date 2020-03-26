@@ -1,5 +1,7 @@
 import * as React from 'react';
-import {Checkbox, FormControlLabel, FormGroup} from '@material-ui/core';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
 import {mapCheckboxProps, MappedQuestionProps} from '../question-wrappers';
 
 interface Props extends MappedQuestionProps {

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import InputDate from '../../../InputDate/InputDate';
-import {FormControl, FormHelperText} from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import {
   mapProps,
   mapSingleValue,

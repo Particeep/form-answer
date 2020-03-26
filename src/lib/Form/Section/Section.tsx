@@ -1,7 +1,7 @@
 import './Section.scss';
 
 import * as React from 'react';
-import {Button} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import {Question} from '../Question';
 import {connect} from 'react-redux';
 import {IMessages} from '../../types/Messages';

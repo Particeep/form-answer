@@ -1,7 +1,14 @@
 import './QuestionAutocomplete.scss';
 
 import * as React from 'react';
-import {Checkbox, FormControl, Icon, Input, InputAdornment, Menu, MenuItem, Radio} from '@material-ui/core';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControl from '@material-ui/core/FormControl';
+import Icon from '@material-ui/core/Icon';
+import Input from '@material-ui/core/Input';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Radio from '@material-ui/core/Radio';
 import {mapCheckboxProps, MappedQuestionProps} from '../question-wrappers';
 
 interface Props extends MappedQuestionProps {

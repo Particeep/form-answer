@@ -1,7 +1,8 @@
 import './ExpensionStep.scss';
 import * as React from 'react';
 import {ReactElement} from 'react';
-import {Collapse, Icon} from '@material-ui/core';
+import Collapse from '@material-ui/core/Collapse';
+import Icon from '@material-ui/core/Icon';
 import ReactHtmlParser from 'react-html-parser';
 import {urlify} from '../utils/common';
 

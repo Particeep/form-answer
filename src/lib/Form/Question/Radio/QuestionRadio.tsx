@@ -1,5 +1,7 @@
 import * as React from 'react';
-import {FormControlLabel, Radio, RadioGroup} from '@material-ui/core';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
 import {mapRadioProps, MappedQuestionProps} from '../question-wrappers';
 
 interface Props extends MappedQuestionProps {

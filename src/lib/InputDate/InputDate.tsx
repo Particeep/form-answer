@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Input} from '@material-ui/core';
+import Input from '@material-ui/core/Input';
 import Mask from './Mask';
 import {InputProps} from '@material-ui/core/Input';
 
