@@ -1,6 +1,7 @@
 import * as React from 'react';
 import InputDate from '../../../InputDate/InputDate';
-import {FormControl, FormHelperText} from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import {
   mapProps,
   mapSingleValue,
@@ -9,9 +10,8 @@ import {
   WrappedQuestionProps
 } from '../question-wrappers';
 import {IQuestion} from '../../../types/Question';
-import * as Moment from 'moment';
+import moment from 'moment';
 import {stringToDate} from '../../../utils/common';
-import moment = require('moment');
 
 interface QuestionDateCustomProps {
   dateFormat?: string;
@@ -71,13 +71,13 @@ class QuestionDate extends React.Component<Props, State> {
 const isDateValid = (dateFormat?: string) => (question: IQuestion, value: string) => {
   // if (!question.required && (!value || value === '')) return true;
   if (!question.required) return true;
-  return Moment(value, dateFormat.toUpperCase(), true).isValid()
+  return moment(value, dateFormat.toUpperCase(), true).isValid()
 };
 
 const mapDate = (dateFormat?: string) => (answer: string[]) => {
   const mappedAnswer = mapSingleValue(answer);
   if (!dateFormat) return mappedAnswer;
-  return Moment(mappedAnswer).format(dateFormat.toUpperCase());
+  return moment(mappedAnswer).format(dateFormat.toUpperCase());
 };
 
 const parseDate = (dateFormat?: string) => (x: string) => {

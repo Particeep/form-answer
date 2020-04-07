@@ -1,7 +1,14 @@
 import './QuestionAutocomplete.scss';
 
 import * as React from 'react';
-import {Checkbox, FormControl, Icon, Input, InputAdornment, Menu, MenuItem, Radio} from '@material-ui/core';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControl from '@material-ui/core/FormControl';
+import Icon from '@material-ui/core/Icon';
+import Input from '@material-ui/core/Input';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Radio from '@material-ui/core/Radio';
 import {mapCheckboxProps, MappedQuestionProps} from '../question-wrappers';
 
 interface Props extends MappedQuestionProps {
@@ -28,6 +35,7 @@ class QuestionAutocomplete extends React.Component<Props, State> {
         <FormControl onClick={this.open} fullWidth>
           <Input value={multiSelect ? value.join(', ') : value} disabled={readonly}
                  multiline rows="1" rowsMax="10"
+                 color={"primary"}
                  endAdornment={
                    <InputAdornment position="end">
                      <Icon className="Qac_adornment">arrow_drop_down</Icon>
@@ -50,8 +58,8 @@ class QuestionAutocomplete extends React.Component<Props, State> {
             {this.getFilteredPossibilities().map(p =>
               <MenuItem key={p.id} onClick={() => this.handleChange(p.label)} style={{paddingLeft: 0}}
                         disabled={readonly}>
-                {multiSelect && <Checkbox disabled={readonly} checked={value.indexOf(p.label) !== -1}/>}
-                {!multiSelect && <Radio disabled={readonly} checked={value.indexOf(p.label) !== -1}/>}
+                {multiSelect && <Checkbox color={"primary"} disabled={readonly} checked={value.indexOf(p.label) !== -1}/>}
+                {!multiSelect && <Radio color={"primary"} disabled={readonly} checked={value.indexOf(p.label) !== -1}/>}
                 {p.label}
               </MenuItem>
             )}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Input} from '@material-ui/core';
+import Input from '@material-ui/core/Input';
 import Mask from './Mask';
 import {InputProps} from '@material-ui/core/Input';
 
@@ -12,7 +12,7 @@ class InputDate extends React.Component<Props, {}> {
   render() {
     const {format, ...props} = this.props;
     return (
-      <Input {...props} inputComponent={this.mask} />
+      <Input color={"primary"} {...props} inputComponent={this.mask} />
     );
   }
 

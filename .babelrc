@@ -1,12 +1,14 @@
 {
   "presets": [
-    "env"
+    "@babel/preset-env",
+    "@babel/preset-react",
+    "@babel/typescript"
   ],
   "plugins": [
-    "transform-object-rest-spread",
-    "transform-react-jsx",
-    "transform-class-properties",
-    "babel-plugin-transform-export-extensions",
-    "transform-es2015-modules-commonjs"
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-transform-react-jsx",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-transform-modules-commonjs",
+    "@babel/plugin-transform-typescript"
   ]
 }

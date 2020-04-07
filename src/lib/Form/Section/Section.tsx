@@ -1,7 +1,7 @@
 import './Section.scss';
 
 import * as React from 'react';
-import {Button} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import {Question} from '../Question';
 import {connect} from 'react-redux';
 import {IMessages} from '../../types/Messages';
@@ -45,7 +45,7 @@ class Section extends React.Component<Props & ExpensionStepProps, {}> {
             {messages.buttonPrevious}
           </Button>
           }
-          <Button variant="raised" color="primary" onClick={next} disabled={!isValid}
+          <Button variant="contained" color="primary" onClick={next} disabled={!isValid}
                   className={'Section_' + (isLast ? 'end' : 'next')}>
             {isLast ? messages.buttonEnd : messages.buttonNext}
           </Button>

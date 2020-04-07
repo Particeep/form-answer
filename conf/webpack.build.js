@@ -1,12 +1,13 @@
 const webpack = require('webpack');
-const commonConfig = require('./webpack.js');
+const commonConfig = require('./webpack.config.js');
 const webpackMerge = require('webpack-merge');
 const path = require('path');
 
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 
 module.exports = webpackMerge(commonConfig, {
-    cache: true,
+  mode: 'production',
+  cache: true,
     devtool: 'source-map',
     target: 'web',
     entry: {
@@ -14,14 +15,6 @@ module.exports = webpackMerge(commonConfig, {
         'app': path.resolve('src/app/index.tsx'),
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin(),
-        new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin({ // https://github.com/angular/angular/issues/10618
-            mangle: {
-                keep_fnames: true
-            }
-        }),
         new webpack.DefinePlugin({
             'process.env': {
                 'ENV': JSON.stringify(ENV),
@@ -30,6 +23,11 @@ module.exports = webpackMerge(commonConfig, {
             }
         })
     ],
+    optimization: {
+      minimize: true,
+      noEmitOnErrors: true,
+      removeAvailableModules: false
+    },
     output: {
         path: path.resolve('./build'),
         publicPath: '/',
