@@ -1,5 +1,8 @@
 import * as React from 'react';
-import {FormControl, Input, MenuItem, Select} from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import {MappedQuestionProps, mapSelectProps} from '../question-wrappers';
 
 interface Props extends MappedQuestionProps {

@@ -1,5 +1,7 @@
 import * as React from 'react';
-import {FormControlLabel, Radio, RadioGroup} from '@material-ui/core';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
 import {mapRadioProps, MappedQuestionProps} from '../question-wrappers';
 
 interface Props extends MappedQuestionProps {
@@ -17,7 +19,7 @@ class QuestionRadio extends React.Component<Props, {}> {
         {question.possibilities.map(p =>
           <FormControlLabel
             value={p.label}
-            control={<Radio/>}
+            control={<Radio color={"primary"}/>}
             label={p.label}
             key={p.id}
             onClick={() => value === p.label && this.handleChange('')}

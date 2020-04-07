@@ -1,5 +1,7 @@
 import * as React from 'react';
-import {FormControl, FormHelperText, Input} from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Input from '@material-ui/core/Input';
 import {mapTextProps, MappedQuestionProps} from '../question-wrappers';
 
 interface Props extends MappedQuestionProps {
@@ -27,6 +29,7 @@ class QuestionText extends React.Component<Props, State> {
                rows={rows}
                rowsMax={rowsMax}
                disabled={readonly}
+               color={"primary"}
                onChange={e => this.handleChange(e.target.value)}
                onBlur={() => this.setState({touched: true})}
                />
