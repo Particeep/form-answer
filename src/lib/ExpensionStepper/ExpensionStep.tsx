@@ -52,11 +52,15 @@ class ExpensionStep extends React.Component<Props, {}> {
   }
 
   private scrollTop = () => {
-    this.$root.scrollIntoView({behavior: 'smooth', block: 'start'});
-    if(this.props.scrollOffset){
-      setTimeout(() => {
-        window.scrollBy(0,-this.props.scrollOffset)
-      }, 500);
+    const { scrollOffset } = this.props;
+    if(scrollOffset){
+      window.scrollTo({
+        top: this.$root.getBoundingClientRect().top - scrollOffset + window.scrollY,
+        left: 0,
+        behavior: 'smooth'
+      });
+    } else {
+      this.$root.scrollIntoView({behavior: 'smooth', block: 'start'})
     }
   }
 }
