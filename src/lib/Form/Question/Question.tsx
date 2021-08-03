@@ -56,7 +56,7 @@ class Question extends React.Component<QuestionProps, any> {
 
   renderQuestion(question: IQuestion) {
     const {messages, answer, readonly, isValid, lang} = this.props;
-    
+
     const props = {
       lang,
       question,
