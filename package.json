@@ -69,7 +69,7 @@
     "jest": "23.1.0",
     "node-sass": "4.13.1",
     "react-addons-test-utils": "15.6.2",
-    "react-dev-utils": "5.0.0",
+    "react-dev-utils": "11.0.4",
     "react-scripts-ts": "2.16.0",
     "react-test-renderer": "16.4.0",
     "sass-loader": "8.0.2",
