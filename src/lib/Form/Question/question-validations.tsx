@@ -21,6 +21,6 @@ export const isCheckboxValid = (question: IQuestion, values: string[]): boolean 
 const isAllowedAnswer = (question: IQuestion, value: string): boolean => {
   if (!value) return false
   const possibility = question.possibilities.find((p: IPossibility) => p.label === value)
-  if (!question.valid_possibilities) return true
-  return question.valid_possibilities.split(',').includes(possibility.id)
+  if (!question.valid_possibility_ids) return true
+  return question.valid_possibility_ids.split(',').includes(possibility.id)
 }
