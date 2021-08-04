@@ -24,6 +24,7 @@ export interface IQuestion {
   question_type: QuestionType;
   required: boolean;
   possibilities: IPossibility[];
+  valid_possibility_ids: string;
   pattern: string;
   answers: string[];
   index: number; // Position
