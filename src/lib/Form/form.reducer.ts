@@ -1,98 +1,76 @@
-import update from 'immutability-helper';
-import {formAction} from './form.action';
-import {PossiblityId} from '../types/Possiblity';
-import {IMessages} from '../types/Messages';
+import {IMessages} from "../types/Messages";
+import {QuestionId} from "../types/Question";
+import {IDoc} from "../types/Doc";
+import {PossiblityId} from "../types/Possiblity";
+import {createSlice, Slice} from "@reduxjs/toolkit";
+import {InitParams} from "../types/Form";
 
-export type State = {
-  messages: IMessages,
-  dateFormat: string,
-  lang: string;
-  maxUploadFileSize: number,
-  readonly: boolean,
+export interface FormAnswerState {
+    messages: IMessages;
+    dateFormat: string;
+    lang: string;
+    maxUploadFileSize: number;
+    readonly: boolean;
+    scrollOffset: number;
+    triggerOnChange?: (qId: QuestionId) => void;
+    onUploadFile?: (f: File, callback: (uploadedFile: IDoc) => void) => void;
+    onRemoveFile?: (id: string) => void;
+    answers: { [key: string]: string[] };
+    sectionsValidity: { [key: string]: boolean };
+    checkedPossibilityIds: { [key: string]: PossiblityId };
+}
 
-  // Callbacks
-  triggerOnChange: any,
-  onUploadFile: any,
-  onRemoveFile: any,
+const initialState: FormAnswerState = {
+    messages: {},
+    dateFormat: 'dd/MM/yyyy',
+    lang: 'en',
+    maxUploadFileSize: null,
+    readonly: false,
+    scrollOffset: 60,
+    triggerOnChange: null,
+    onUploadFile: null,
+    onRemoveFile: null,
+    answers: {},
+    sectionsValidity: {},
+    checkedPossibilityIds: {},
+}
 
-  // Application variables
-  answers: { [key: string]: string[] },
-  sectionsValidity: { [key: string]: boolean },
-  checkedPossibilityIds: { [key: string]: PossiblityId },
-};
-
-const initialState: State = {
-  messages: {},
-  dateFormat: 'dd/MM/yyyy',
-  lang: 'en',
-  maxUploadFileSize: null,
-  readonly: false,
-
-  // Callbacks
-  triggerOnChange: null,
-  onUploadFile: null,
-  onRemoveFile: null,
-
-  // Application variables
-  answers: {},
-  sectionsValidity: {},
-  checkedPossibilityIds: {},
-};
-
-export const formReducer = function (state = initialState, a) {
-  switch (a.type) {
-    case formAction.INIT:
-      return update(state, {
-        messages: {$set: a.messages},
-        lang: {$set: a.lang},
-        dateFormat: {$set: a.dateFormat},
-        maxUploadFileSize: {$set: a.maxUploadFileSize},
-        triggerOnChange: {$set: a.triggerOnChange},
-        onUploadFile: {$set: a.onUploadFile},
-        onRemoveFile:{$set: a.onRemoveFile},
-        readonly: {$set: a.readonly},
-      });
-    case formAction.RESET_ANSWERS:
-      return update(state, {
-        answers: {$set: {}}
-      });
-    case formAction.UPDATE_ANSWER:
-      return update(state, {
-        answers: {
-          $merge: {[a.questionId]: a.answer}
+const formAnswerSlice: Slice<any, any, "formAnswer"> = createSlice({
+  name          : "formAnswer",
+  initialState,
+  reducers      : {},
+  extraReducers : (builder: any) => {
+    builder
+      .addCase("formAnswer/INIT", (state: any, a: InitParams) => {
+        return { ...state, ...a }
+      })
+      .addCase("formAnswer/RESET_ANSWERS", (state: any, a: any) => {
+        return { ...state, answers: {} }
+      })
+      .addCase("formAnswer/UPDATE_ANSWER", (state: any, a: any) => {
+        const answers: { [key: string]: string[] } = state.answers
+        answers[a.questionId] = a.answer
+      })
+      .addCase("formAnswer/REMOVE_ANSWER", (state: any, a: any) => {
+       const answers: { [key: string]: string[] } = state.answers
+       answers[a.questionId] = ['']
+      })
+      .addCase("formAnswer/UPDATE_SECTION_VALIDITY", (state: any, a: any) => {
+        const sectionsValidity: { [key: string]: boolean } = state.sectionsValidity
+        sectionsValidity[a.questionId] = a.isValid
+        if(!state.sectionsValidity[a.sectionId]) {
+          sectionsValidity[a.sectionId] = true
         }
-      });
-    case formAction.REMOVE_ANSWER:
-      return update(state, {
-        answers: {
-          $merge: {[a.questionId]: ''}
-        }
-      });
-    case formAction.UPDATE_SECTION_VALIDITY:
-      // Cannot perform nested $merge, so do it in 2 steps
-      let updatedState = state;
-      if (!state.sectionsValidity[a.sectionId])
-        updatedState = update(state, {
-          sectionsValidity: {
-            $merge: {[a.sectionId]: {}}
-          }
-        });
-      return update(updatedState, {
-        sectionsValidity: {
-          [a.sectionId]: {$merge: {[a.questionId]: a.isValid}}
-        }
-      });
-    case formAction.ADD_CHECKED_POSSIBILITY:
-      return update(state, {
-        checkedPossibilityIds: {
-          [a.questionId]: {$set: a.possiblityId}
-        }
-      });
-    case formAction.REMOVE_CHECKED_POSSIBILITY:
-      return update(state, {
-        checkedPossibilityIds: {$unset: [a.questionId]}
-      });
-    default:
-      return state
+      })
+      .addCase("formAnswer/ADD_CHECKED_POSSIBILITY", (state: any, a: any) => {
+        const possibilityIdsChecked: { [key: string]: PossiblityId } = state.checkedPossibilityIds
+        possibilityIdsChecked[a.questionId] = a.possiblityId
+      })
+      .addCase("formAnswer/REMOVE_CHECKED_POSSIBILITY", (state: any, a: any) => {
+        const possibilityIdsChecked: { [key: string]: PossiblityId } = state.checkedPossibilityIds
+        delete possibilityIdsChecked[a.questionId]
+      })
   }
-};
+})
+
+export default formAnswerSlice.reducer

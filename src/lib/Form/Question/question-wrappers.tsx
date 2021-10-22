@@ -22,8 +22,11 @@ export interface WrappedQuestionProps {
 }
 
 export const mapProps = (
-  map: (a: string[]) => string | string[],
-  parse: (a: string | string[]) => string[],
+  //map: (a: string[]) => string | string[],
+  //parse: (a: string | string[]) => string[],
+  //validation: Validation
+  map: (a: any) => any,
+  parse: (a: any) => any,
   validation: Validation
 ) => <P extends MappedQuestionProps>(
   Component: React.ComponentType<any>
@@ -48,17 +51,23 @@ export const mapProps = (
   }
 };
 
-export const mapSingleValue = (answer: string[]): string => answer && answer[0] || '';
+//export const mapSingleValue = (answer: string[]): string => answer && answer[0] || '';
+export const mapSingleValue = (answer: any): any => answer && answer[0] || '';
 
-export const parseSingleValue = (value: string): string[] => value && [value];
+//export const parseSingleValue = (value: string): string[] => value && [value];
+export const parseSingleValue = (value: any): any => value && [value];
 
-export const mapMultipleValues = (x: string[]): string[] => x || [];
+//export const mapMultipleValues = (x: string[]): string[] => x || [];
+export const mapMultipleValues = (x: any): any => x || [];
 
-export const parseMultipleValues = (x: string[]): string[] => x.length === 0 ? null : x;
+//export const parseMultipleValues = (x: string[]): string[] => x.length === 0 ? null : x;
+export const parseMultipleValues = (x: any): any => x.length === 0 ? null : x;
 
-export const mapMultipleValueProps = (validation: Validation) => mapProps(mapMultipleValues, parseMultipleValues, validation);
+//export const mapMultipleValueProps = (validation: Validation) => mapProps(mapMultipleValues, parseMultipleValues, validation);
+export const mapMultipleValueProps = (validation: any) => mapProps(mapMultipleValues, parseMultipleValues, validation);
 
-export const mapSingleValueProps = (validation: Validation) => mapProps(mapSingleValue, parseSingleValue, validation);
+//export const mapSingleValueProps = (validation: Validation) => mapProps(mapSingleValue, parseSingleValue, validation);
+export const mapSingleValueProps = (validation: any) => mapProps(mapSingleValue, parseSingleValue, validation);
 
 export const mapRadioProps = mapSingleValueProps(isRadioValid);
 

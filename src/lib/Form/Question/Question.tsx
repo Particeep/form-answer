@@ -1,13 +1,10 @@
 import './Question.scss';
 
 import * as React from 'react';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 import QuestionText from './Text/QuestionText';
-import {IQuestion, isDependable, QuestionId, QuestionType} from '../../types/Question';
-import {formAction} from '../form.action';
-import {SectionId} from '../../types/Section';
-import {IPossibility, PossiblityId} from '../../types/Possiblity';
-import {IMessages} from '../../types/Messages';
+import {IQuestion, isDependable, QuestionType} from '../../types/Question';
+import {IPossibility} from '../../types/Possiblity';
 import QuestionRadio from './Radio/QuestionRadio';
 import QuestionAutocomplete from './Autocomplete/QuestionAutocomplete';
 import QuestionSelect from './Select/QuestionSelect';
@@ -17,125 +14,109 @@ import QuestionDocument from './Document/QuestionDocument';
 import QuestionLongText from './LongText/QuestionLongText';
 import ReactHtmlParser from 'react-html-parser';
 import {urlify} from "../../utils/common";
+import {useEffect} from "react";
+import {useFormActions} from "../../utils/hooks";
+import {FormAnswerState} from "../form.reducer";
 
 const maxPossibilitiesBeforeAutocomplete = 10;
 
 export interface QuestionProps {
-  readonly answer: string[];
-  readonly readonly: boolean;
-  readonly dateFormat: string;
-  readonly lang: string;
   readonly question: IQuestion;
-  readonly messages: IMessages;
-  readonly isValid: boolean;
-  readonly triggerOnChange: (qId: QuestionId) => void,
-  readonly removeAnswer: (qId: QuestionId) => void;
-  readonly updateAnswer: (qId: QuestionId, value: any) => void;
-  readonly updateSectionValidity: (sId: SectionId, qId: QuestionId, validator) => void;
-  readonly addCheckedPossibility: (qId: QuestionId, pId: PossiblityId) => void;
-  readonly removeCheckedPossibility: (qId: QuestionId) => void;
 }
 
-class Question extends React.Component<QuestionProps, any> {
+const Question = (props: QuestionProps) => {
 
-  render() {
-    const {question} = this.props;
-    return (
-      <main className={`Question Question-${question.id} Question-${question.question_type}`}>
-        <div className="Question_label">
-          {ReactHtmlParser(urlify(question.label))}
-          {question.required && <span className="Question_required">*</span>}
-        </div>
-        <div className="Question_description">
-          {ReactHtmlParser(urlify(question.description))}
-        </div>
-        <div className="Question_answer">{this.renderQuestion(question)}</div>
-      </main>
-    );
-  }
+    const {question} = props
 
-  renderQuestion(question: IQuestion) {
-    const {messages, answer, readonly, isValid, lang} = this.props;
+  const formActions = useFormActions()
 
-    const props = {
+  const {removeAnswer, updateAnswer, updateSectionValidity, addCheckedPossibility, removeCheckedPossibility} = formActions
+
+  const formState: FormAnswerState = useSelector((state: any) => state.formAnswer)
+  const {answers, lang = 'en', dateFormat = '', messages, readonly, triggerOnChange, sectionsValidity} = formState
+
+  const answer = answers[question.id]
+  const isValid = (sectionsValidity[question.section_id] || [])[question.id]
+
+  const renderQuestion = (question: IQuestion) => {
+
+    const questionProps = {
       lang,
       question,
       messages,
       readonly,
       answer,
       isValid,
-      onChange: this.update,
+      onChange: update,
     };
     switch (question.question_type) {
       case QuestionType.TEXT:
-        return <QuestionText {...props}/>;
+        return <QuestionText {...questionProps}/>;
 
       case QuestionType.LONGTEXT:
-        return <QuestionLongText {...props}/>;
+        return <QuestionLongText {...questionProps}/>;
 
       case QuestionType.RADIO:
         if (question.possibilities.length < maxPossibilitiesBeforeAutocomplete)
-          return <QuestionRadio {...props}/>;
-        return <QuestionAutocomplete {...props}/>;
+          return <QuestionRadio {...questionProps}/>;
+        return <QuestionAutocomplete {...questionProps}/>;
       //
       case QuestionType.SELECT:
         if (question.possibilities.length < maxPossibilitiesBeforeAutocomplete)
-          return <QuestionSelect {...props}/>;
-        return <QuestionAutocomplete {...props}/>;
+          return <QuestionSelect {...questionProps}/>;
+        return <QuestionAutocomplete {...questionProps}/>;
 
       case QuestionType.CHECKBOX:
         if (question.possibilities.length < maxPossibilitiesBeforeAutocomplete)
-          return <QuestionCheckbox {...props}/>;
-        return <QuestionAutocomplete multiSelect {...props}/>;
+          return <QuestionCheckbox {...questionProps}/>;
+        return <QuestionAutocomplete multiSelect {...questionProps}/>;
 
       case QuestionType.DATE:
-        if (this.props.dateFormat)
-          return <QuestionDate {...props} dateFormat={this.props.dateFormat}/>;
-        return <QuestionText {...props}/>;
+        if (dateFormat)
+          return <QuestionDate {...questionProps} dateFormat={dateFormat}/>;
+        return <QuestionText {...questionProps}/>;
 
       case QuestionType.DOCUMENT:
-        return <QuestionDocument {...props}/>;
+        return <QuestionDocument {...questionProps}/>;
 
       case QuestionType.LABEL:
         return '';
 
       default:
-        return <QuestionText {...props}/>;
+        return <QuestionText {...questionProps}/>;
     }
   }
 
-  componentWillUnmount() {
-    const {question, updateSectionValidity, removeAnswer, removeCheckedPossibility} = this.props;
-    updateSectionValidity(question.section_id, question.id, true);
-    removeAnswer(question.id);
-    if (isDependable(question)) {
-       removeCheckedPossibility(question.id);
+  useEffect(() => {
+    return () => {
+      updateSectionValidity(question.section_id, question.id, true);
+      removeAnswer(question.id);
+      if (isDependable(question)) {
+        removeCheckedPossibility(question.id);
+      }
     }
-  }
+  }, [])
 
-  shouldComponentUpdate(nextProps: QuestionProps) {
-    return this.props.answer !== nextProps.answer || this.props.isValid !== nextProps.isValid;
-  }
+  //shouldComponentUpdate(nextProps: QuestionProps) {
+  //  return answer !== nextProps.answer || isValid !== nextProps.isValid;
+  //}
 
-  private update = (value: string[], isValid: boolean) => {
-    const {updateAnswer, updateSectionValidity, question, triggerOnChange} = this.props;
+  const update = (value: string[], isValid: boolean) => {
     updateSectionValidity(question.section_id, question.id, isValid);
-    this.handlePossibilityDependencyCaching(value);
-    if (this.checkValueChange(value)) {
+    handlePossibilityDependencyCaching(value);
+    if (checkValueChange(value)) {
       updateAnswer(question.id, value);
       if (isValid && triggerOnChange) triggerOnChange(question.id);
     }
   };
 
-  private checkValueChange(value: string[] | undefined): boolean {
-    const {answer} = this.props;
+  const checkValueChange = (value: string[] | undefined): boolean => {
     if (answer && value)
       return !(value.length === answer.length && value.every((v, i) => v === answer[i]));
     return true;
   }
 
-  private handlePossibilityDependencyCaching(value?: string[]) {
-    const {addCheckedPossibility, removeCheckedPossibility, question} = this.props;
+  const handlePossibilityDependencyCaching = (value?: string[]) => {
     if (!isDependable(question)) return;
     if (value && value[0]) {
       const possibility = question.possibilities.find((p: IPossibility) => p.label === value[0]);
@@ -146,24 +127,19 @@ class Question extends React.Component<QuestionProps, any> {
       removeCheckedPossibility(question.id);
     }
   }
+
+  return (
+    <main className={`Question Question-${question.id} Question-${question.question_type}`}>
+      <div className="Question_label">
+        {ReactHtmlParser(urlify(question.label))}
+        {question.required && <span className="Question_required">*</span>}
+      </div>
+      <div className="Question_description">
+        {ReactHtmlParser(urlify(question.description))}
+      </div>
+      <div className="Question_answer">{renderQuestion(question)}</div>
+    </main>
+  );
 }
 
-const state2Props = (state, props) => ({
-  messages: state.formAnswer.messages,
-  readonly: state.formAnswer.readonly,
-  dateFormat: state.formAnswer.dateFormat || '',
-  lang: state.formAnswer.lang || 'en',
-  answer: state.formAnswer.answers[props.question.id],
-  triggerOnChange: state.formAnswer.triggerOnChange,
-  isValid: (state.formAnswer.sectionsValidity[props.question.section_id] || [])[props.question.id]
-});
-
-const dispatch2Props = (d) => ({
-  removeAnswer: (qId: QuestionId) => d(formAction.removeAnswer(qId)),
-  updateAnswer: (qId: QuestionId, answer: any) => d(formAction.updateAnswer(qId, answer)),
-  updateSectionValidity: (sId: SectionId, qId: QuestionId, isValid: boolean) => d(formAction.updateSectionValidity(sId, qId, isValid)),
-  addCheckedPossibility: (qId: QuestionId, pId: PossiblityId) => d(formAction.addCheckedPossibility(qId, pId)),
-  removeCheckedPossibility: (qId: QuestionId) => d(formAction.removeCheckedPossibility(qId)),
-});
-
-export default connect(state2Props, dispatch2Props)(Question)
+export default Question

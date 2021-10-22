@@ -36,7 +36,7 @@ class Section extends React.Component<Props & ExpensionStepProps, {}> {
           {ReactHtmlParser(urlify(section.description))}
         </div>
         {section.questions.map(q => {
-          if (this.showQuestion(q)) return <Question key={q.id} question={q}/>
+          return this.showQuestion(q) ? <Question key={q.id} question={q}/> : ""
         })}
         {!readonly &&
         <div className="Section_action">
@@ -66,7 +66,7 @@ class Section extends React.Component<Props & ExpensionStepProps, {}> {
 }
 
 function isValid(validity: { [key: string]: boolean }): boolean {
-  if (validity) return Object.values(validity).every(v => !!v);
+  return validity ? Object.values(validity).every(v => !!v) : false;
 }
 
 const state2Props = (state, props) => ({

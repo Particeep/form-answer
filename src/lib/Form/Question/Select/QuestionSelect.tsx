@@ -28,7 +28,7 @@ class QuestionSelect extends React.Component<Props, {}> {
     );
   }
 
-  private handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  private handleChange = (e: React.ChangeEvent<{name?: string; value: any}>) => {
     this.props.onChange(e.target.value);
   };
 }

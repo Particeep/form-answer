@@ -12,6 +12,7 @@ import {
 import {IQuestion} from '../../../types/Question';
 import moment from 'moment';
 import {stringToDate} from '../../../utils/common';
+import { Validation } from '../question-validations';
 
 interface QuestionDateCustomProps {
   dateFormat?: string;
@@ -92,7 +93,7 @@ const parseDate = (dateFormat?: string) => (x: string) => {
 
 export const mapDateProps = (Component: React.ComponentType<Props>): React.ComponentType<WrappedQuestionProps & QuestionDateCustomProps> => (props: WrappedQuestionProps & QuestionDateCustomProps) => {
   const {dateFormat} = props;
-  const Cp = mapProps(mapDate(dateFormat), parseDate(dateFormat), isDateValid(dateFormat))(Component);
+  const Cp = mapProps(mapDate(dateFormat), parseDate(dateFormat), isDateValid(dateFormat) as Validation)(Component);
   return <Cp {...props}/>;
 };
 
