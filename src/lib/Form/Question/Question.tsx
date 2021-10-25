@@ -1,7 +1,7 @@
 import './Question.scss';
 
 import * as React from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import QuestionText from './Text/QuestionText';
 import {IQuestion, isDependable, QuestionType} from '../../types/Question';
 import {IPossibility} from '../../types/Possiblity';
@@ -15,8 +15,8 @@ import QuestionLongText from './LongText/QuestionLongText';
 import ReactHtmlParser from 'react-html-parser';
 import {urlify} from "../../utils/common";
 import {useEffect} from "react";
-import {useFormActions} from "../../utils/hooks";
 import {FormAnswerState} from "../form.reducer";
+import formAnswerAction from "../form.action";
 
 const maxPossibilitiesBeforeAutocomplete = 10;
 
@@ -28,9 +28,9 @@ export interface QuestionProps {
 
 const Question = ({question, answer, isValid}: QuestionProps) => {
 
-  const formActions = useFormActions()
+  const dispatch = useDispatch()
 
-  const {removeAnswer, updateAnswer, updateSectionValidity, addCheckedPossibility, removeCheckedPossibility} = formActions
+  const {removeAnswer, updateAnswer, updateSectionValidity, addCheckedPossibility, removeCheckedPossibility} = formAnswerAction
 
   const formState: FormAnswerState = useSelector((state: any) => state.formAnswer)
   const {lang = 'en', dateFormat = '', messages, readonly, triggerOnChange} = formState
@@ -86,19 +86,19 @@ const Question = ({question, answer, isValid}: QuestionProps) => {
 
   useEffect(() => {
     return () => {
-      updateSectionValidity(question.section_id, question.id, true);
-      removeAnswer(question.id);
+      dispatch(updateSectionValidity(question.section_id, question.id, true));
+      dispatch(removeAnswer(question.id));
       if (isDependable(question)) {
-        removeCheckedPossibility(question.id);
+        dispatch(removeCheckedPossibility(question.id));
       }
     }
   }, [])
 
   const update = (value: string[], isValid: boolean) => {
-    updateSectionValidity(question.section_id, question.id, isValid);
+    dispatch(updateSectionValidity(question.section_id, question.id, isValid));
     handlePossibilityDependencyCaching(value);
     if (checkValueChange(value)) {
-      updateAnswer(question.id, value);
+      dispatch(updateAnswer(question.id, value));
       if (isValid && triggerOnChange) triggerOnChange(question.id);
     }
   };
@@ -114,10 +114,10 @@ const Question = ({question, answer, isValid}: QuestionProps) => {
     if (value && value[0]) {
       const possibility = question.possibilities.find((p: IPossibility) => p.label === value[0]);
       if (!possibility) return;
-      removeCheckedPossibility(question.id);
-      addCheckedPossibility(question.id, possibility.id);
+      dispatch(removeCheckedPossibility(question.id));
+      dispatch(addCheckedPossibility(question.id, possibility.id));
     } else {
-      removeCheckedPossibility(question.id);
+      dispatch(removeCheckedPossibility(question.id));
     }
   }
 

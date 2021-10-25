@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {ExpensionStep, ExpensionStepper} from '../ExpensionStepper';
 import {Section} from './Section';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Id} from '../types/Id';
 import {IAnswer} from '../types/Answer';
 import {QuestionId, QuestionType} from '../types/Question';
@@ -9,8 +9,8 @@ import {IDoc} from '../types/Doc';
 import {IForm} from '../types/Form';
 import {defaultMessages, IMessages} from '../types/Messages';
 import {useEffect} from "react";
-import {useFormActions} from "../utils/hooks";
 import {FormAnswerState} from "./form.reducer";
+import formAnswerAction from "./form.action";
 
 export interface FormProps {
   form: IForm;
@@ -32,7 +32,7 @@ const Form = (props: FormProps) =>  {
   const {form, messages = defaultMessages, scrollOffset, dateFormat, lang, maxUploadFileSize, readonly = false,
     onChange, onUploadFile, onRemoveFile, onSectionEnd, onEnd } = props
 
-  const formActions = useFormActions()
+  const dispatch = useDispatch()
 
   const formState: FormAnswerState = useSelector((state: any) => state.formAnswer)
 
@@ -48,7 +48,7 @@ const Form = (props: FormProps) =>  {
   }, [form])
 
   const initReducerParams = () => {
-    formActions.init({
+    dispatch(formAnswerAction.init({
       dateFormat: dateFormat,
       lang: lang,
       messages: messages,
@@ -58,14 +58,14 @@ const Form = (props: FormProps) =>  {
       onRemoveFile: onRemoveFile,
       readonly: readonly,
       scrollOffset: scrollOffset
-    })
+    }))
   }
 
   const initReducerAnswers = () => {
-    formActions.resetAnswers();
+    dispatch(formAnswerAction.resetAnswers());
     form.sections.forEach(s => s.questions.forEach(q => {
       if (q.question_type === QuestionType.LABEL) return;
-      formActions.updateAnswer(q.id, q.answers);
+      dispatch(formAnswerAction.updateAnswer(q.id, q.answers));
     }));
   }
 

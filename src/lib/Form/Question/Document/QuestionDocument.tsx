@@ -6,15 +6,15 @@ import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Icon from '@material-ui/core/Icon';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {mapMultipleValueProps, MappedQuestionProps} from '../question-wrappers';
 import QuestionDocumentReadonly from './QuestionDocumentReadonly';
 import {IQuestion} from '../../../types/Question';
 import {IMessages} from '../../../types/Messages';
 import {IDoc} from '../../../types/Doc';
 import {useState} from "react";
-import {useFormActions} from "../../../utils/hooks";
 import {FormAnswerState} from "../../form.reducer";
+import formAnswerAction from "../../form.action";
 
 interface Props extends MappedQuestionProps {
   readonly documentId: string;
@@ -25,12 +25,12 @@ interface Props extends MappedQuestionProps {
 
 const QuestionDocument  = (props: Props) => {
 
+  const dispatch = useDispatch()
+
   let fileInput: HTMLInputElement;
 
   const [errorMessage, setErrorMessage] = useState()
   const [isUploading, setIsUploading] = useState()
-
-  const formActions = useFormActions()
 
   const formState: FormAnswerState = useSelector((state: any) => state.formAnswer)
   const {onUploadFile, onRemoveFile, maxUploadFileSize} = formState
@@ -59,8 +59,8 @@ const QuestionDocument  = (props: Props) => {
 
   const uploadedCallback = (uploadedFile: IDoc) => {
     setIsUploading(false)
-    formActions.updateAnswer(question.id, [uploadedFile.id, uploadedFile.name, uploadedFile.permalink])
-    formActions.updateSectionValidity(question.section_id, question.id, true)
+    dispatch(formAnswerAction.updateAnswer(question.id, [uploadedFile.id, uploadedFile.name, uploadedFile.permalink]))
+    dispatch(formAnswerAction.updateSectionValidity(question.section_id, question.id, true))
   };
 
   const clear = () => {
