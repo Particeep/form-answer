@@ -11,10 +11,10 @@ import {urlify} from "../../utils/common";
 import {FormAnswerState} from "../form.reducer";
 
 export interface ExpensionStepProps {
-  readonly isLast: boolean;
-  readonly index: number;
-  readonly prev: () => void;
-  readonly next: () => void;
+  readonly isLast?: boolean;
+  readonly index?: number;
+  readonly prev?: () => void;
+  readonly next?: () => void;
 }
 
 interface Props {
