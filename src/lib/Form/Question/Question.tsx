@@ -21,22 +21,19 @@ import {FormAnswerState} from "../form.reducer";
 const maxPossibilitiesBeforeAutocomplete = 10;
 
 export interface QuestionProps {
-  readonly question: IQuestion;
+  question: IQuestion;
+  answer: string[]
+  isValid: boolean
 }
 
-const Question = (props: QuestionProps) => {
-
-    const {question} = props
+const Question = ({question, answer, isValid}: QuestionProps) => {
 
   const formActions = useFormActions()
 
   const {removeAnswer, updateAnswer, updateSectionValidity, addCheckedPossibility, removeCheckedPossibility} = formActions
 
   const formState: FormAnswerState = useSelector((state: any) => state.formAnswer)
-  const {answers, lang = 'en', dateFormat = '', messages, readonly, triggerOnChange, sectionsValidity} = formState
-
-  const answer = answers[question.id]
-  const isValid = (sectionsValidity[question.section_id] || [])[question.id]
+  const {lang = 'en', dateFormat = '', messages, readonly, triggerOnChange} = formState
 
   const renderQuestion = (question: IQuestion) => {
 
@@ -96,10 +93,6 @@ const Question = (props: QuestionProps) => {
       }
     }
   }, [])
-
-  //shouldComponentUpdate(nextProps: QuestionProps) {
-  //  return answer !== nextProps.answer || isValid !== nextProps.isValid;
-  //}
 
   const update = (value: string[], isValid: boolean) => {
     updateSectionValidity(question.section_id, question.id, isValid);

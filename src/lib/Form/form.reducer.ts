@@ -16,7 +16,7 @@ export interface FormAnswerState {
     onUploadFile?: (f: File, callback: (uploadedFile: IDoc) => void) => void;
     onRemoveFile?: (id: string) => void;
     answers: { [key: string]: string[] };
-    sectionsValidity: { [key: string]: boolean };
+    sectionsValidity: { [key: string]: {} };
     checkedPossibilityIds: { [key: string]: PossiblityId };
 }
 
@@ -48,29 +48,38 @@ const formAnswerSlice: Slice<any, any, "formAnswer"> = createSlice({
         return { ...state, answers: {} }
       })
       .addCase("formAnswer/UPDATE_ANSWER", (state: any, a: any) => {
-        const answers: { [key: string]: string[] } = state.answers
-        answers[a.questionId] = a.answer
+        const answers: { [key: string]: string[] } = destructState(state).answers
+        return {...state, answers: {...answers, [a.questionId] : a.answer}}
       })
       .addCase("formAnswer/REMOVE_ANSWER", (state: any, a: any) => {
-       const answers: { [key: string]: string[] } = state.answers
-       answers[a.questionId] = ['']
+       const answers: { [key: string]: string[] } = destructState(state).answers
+        return {...state, answers: {...answers, [a.questionId] : ['']}}
       })
       .addCase("formAnswer/UPDATE_SECTION_VALIDITY", (state: any, a: any) => {
-        const sectionsValidity: { [key: string]: boolean } = state.sectionsValidity
-        sectionsValidity[a.questionId] = a.isValid
-        if(!state.sectionsValidity[a.sectionId]) {
-          sectionsValidity[a.sectionId] = true
-        }
+        const currentSectionsValidity: { [key: string]: {} } = destructState(state).sectionsValidity
+        return {...state, sectionsValidity: computeSectionValidity(currentSectionsValidity, a)}
       })
       .addCase("formAnswer/ADD_CHECKED_POSSIBILITY", (state: any, a: any) => {
-        const possibilityIdsChecked: { [key: string]: PossiblityId } = state.checkedPossibilityIds
-        possibilityIdsChecked[a.questionId] = a.possiblityId
+        const possibilityIdsChecked: { [key: string]: PossiblityId } = destructState(state).checkedPossibilityIds
+        return {...state, possibilityIdsChecked: {...possibilityIdsChecked, [a.questionId] : a.possiblityId}}
       })
       .addCase("formAnswer/REMOVE_CHECKED_POSSIBILITY", (state: any, a: any) => {
         const possibilityIdsChecked: { [key: string]: PossiblityId } = state.checkedPossibilityIds
-        delete possibilityIdsChecked[a.questionId]
+        return {...state, possibilityIdsChecked: {...possibilityIdsChecked, [a.questionId] : undefined}}
       })
   }
 })
+
+const computeSectionValidity = (current: { [key: string]: {} }, a: any) => {
+  const sectionsValidity = {...current, [a.sectionId]: current[a.sectionId] || {}}
+  return {
+    ...sectionsValidity,
+    [a.sectionId] : {...sectionsValidity[a.sectionId], [a.questionId] : a.isValid}
+  }
+}
+
+const destructState = (state: any): FormAnswerState => {
+  return JSON.parse(JSON.stringify(state))
+}
 
 export default formAnswerSlice.reducer
