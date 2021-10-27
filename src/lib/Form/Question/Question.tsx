@@ -1,7 +1,6 @@
 import './Question.scss';
 
 import * as React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
 import QuestionText from './Text/QuestionText';
 import {IQuestion, isDependable, QuestionType} from '../../types/Question';
 import {IPossibility} from '../../types/Possiblity';
@@ -15,8 +14,14 @@ import QuestionLongText from './LongText/QuestionLongText';
 import ReactHtmlParser from 'react-html-parser';
 import {urlify} from "../../utils/common";
 import {useEffect} from "react";
-import {FormAnswerState} from "../form.reducer";
-import formAnswerAction from "../form.action";
+import {useRecoilState, useRecoilValue} from "recoil";
+import {
+  answersSelector,
+  checkedPossibilityIdsSelector,
+  formSelector,
+  sectionsValiditySelector
+} from "../form.selectors";
+import {mergeAnswers, mergeCheckedPossibilityIds, mergeSectionValidity} from "../helpers";
 
 const maxPossibilitiesBeforeAutocomplete = 10;
 
@@ -28,11 +33,11 @@ export interface QuestionProps {
 
 const Question = ({question, answer, isValid}: QuestionProps) => {
 
-  const dispatch = useDispatch()
+  const [, setAnswers] = useRecoilState(answersSelector)
+  const [, setSectionsValidity] = useRecoilState(sectionsValiditySelector)
+  const [, setCheckedPossibilityIds] = useRecoilState(checkedPossibilityIdsSelector)
 
-  const {removeAnswer, updateAnswer, updateSectionValidity, addCheckedPossibility, removeCheckedPossibility} = formAnswerAction
-
-  const formState: FormAnswerState = useSelector((state: any) => state.formAnswer)
+  const formState = useRecoilValue(formSelector)
   const {lang = 'en', dateFormat = '', messages, readonly, triggerOnChange} = formState
 
   const renderQuestion = (question: IQuestion) => {
@@ -57,7 +62,6 @@ const Question = ({question, answer, isValid}: QuestionProps) => {
         if (question.possibilities.length < maxPossibilitiesBeforeAutocomplete)
           return <QuestionRadio {...questionProps}/>;
         return <QuestionAutocomplete {...questionProps}/>;
-      //
       case QuestionType.SELECT:
         if (question.possibilities.length < maxPossibilitiesBeforeAutocomplete)
           return <QuestionSelect {...questionProps}/>;
@@ -86,19 +90,19 @@ const Question = ({question, answer, isValid}: QuestionProps) => {
 
   useEffect(() => {
     return () => {
-      dispatch(updateSectionValidity(question.section_id, question.id, true));
-      dispatch(removeAnswer(question.id));
+      setSectionsValidity(mergeSectionValidity(question.section_id, question.id, true))
+      setAnswers(mergeAnswers(question.id, ['']))
       if (isDependable(question)) {
-        dispatch(removeCheckedPossibility(question.id));
+        setCheckedPossibilityIds(mergeCheckedPossibilityIds(question.id, undefined))
       }
     }
   }, [])
 
   const update = (value: string[], isValid: boolean) => {
-    dispatch(updateSectionValidity(question.section_id, question.id, isValid));
+    setSectionsValidity(mergeSectionValidity(question.section_id, question.id, isValid))
     handlePossibilityDependencyCaching(value);
     if (checkValueChange(value)) {
-      dispatch(updateAnswer(question.id, value));
+      setAnswers(mergeAnswers(question.id, value))
       if (isValid && triggerOnChange) triggerOnChange(question.id);
     }
   };
@@ -114,10 +118,9 @@ const Question = ({question, answer, isValid}: QuestionProps) => {
     if (value && value[0]) {
       const possibility = question.possibilities.find((p: IPossibility) => p.label === value[0]);
       if (!possibility) return;
-      dispatch(removeCheckedPossibility(question.id));
-      dispatch(addCheckedPossibility(question.id, possibility.id));
+      setCheckedPossibilityIds(mergeCheckedPossibilityIds(question.id, possibility.id))
     } else {
-      dispatch(removeCheckedPossibility(question.id));
+      setCheckedPossibilityIds(mergeCheckedPossibilityIds(question.id, undefined))
     }
   }
 

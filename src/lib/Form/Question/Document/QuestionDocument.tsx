@@ -6,15 +6,15 @@ import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Icon from '@material-ui/core/Icon';
-import {useDispatch, useSelector} from 'react-redux';
 import {mapMultipleValueProps, MappedQuestionProps} from '../question-wrappers';
 import QuestionDocumentReadonly from './QuestionDocumentReadonly';
 import {IQuestion} from '../../../types/Question';
 import {IMessages} from '../../../types/Messages';
 import {IDoc} from '../../../types/Doc';
 import {useState} from "react";
-import {FormAnswerState} from "../../form.reducer";
-import formAnswerAction from "../../form.action";
+import {useRecoilState, useRecoilValue} from "recoil";
+import {answersSelector, formSelector, sectionsValiditySelector} from "../../form.selectors";
+import {mergeAnswers, mergeSectionValidity} from "../../helpers";
 
 interface Props extends MappedQuestionProps {
   readonly documentId: string;
@@ -25,15 +25,17 @@ interface Props extends MappedQuestionProps {
 
 const QuestionDocument  = (props: Props) => {
 
-  const dispatch = useDispatch()
-
   let fileInput: HTMLInputElement;
 
   const [errorMessage, setErrorMessage] = useState()
   const [isUploading, setIsUploading] = useState()
+  const [fileName, setFileName] = useState()
 
-  const formState: FormAnswerState = useSelector((state: any) => state.formAnswer)
+  const formState = useRecoilValue(formSelector)
   const {onUploadFile, onRemoveFile, maxUploadFileSize} = formState
+
+  const [, setAnswers] = useRecoilState(answersSelector)
+  const [, setSectionsValidity] = useRecoilState(sectionsValiditySelector)
 
   const {question, onChange, messages, isValid, readonly, value} = props;
   const { documentId, documentName, documentUrl} = mapValueProps(value)
@@ -43,6 +45,7 @@ const QuestionDocument  = (props: Props) => {
   };
 
   const handleChange = (file: File) => {
+    setFileName(file.name)
     if (!new RegExp(question.pattern, 'i').test(file.name)) {
       setErrorMessage(file.name + ': ' + messages.invalidPattern)
       return;
@@ -59,8 +62,8 @@ const QuestionDocument  = (props: Props) => {
 
   const uploadedCallback = (uploadedFile: IDoc) => {
     setIsUploading(false)
-    dispatch(formAnswerAction.updateAnswer(question.id, [uploadedFile.id, uploadedFile.name, uploadedFile.permalink]))
-    dispatch(formAnswerAction.updateSectionValidity(question.section_id, question.id, true))
+    setAnswers(mergeAnswers(question.id, [uploadedFile.id, uploadedFile.name, uploadedFile.permalink]))
+    setSectionsValidity(mergeSectionValidity(question.section_id, question.id, true))
   };
 
   const clear = () => {
@@ -80,9 +83,9 @@ const QuestionDocument  = (props: Props) => {
     return (
       <main className="QuestionDocument">
         {isUploading &&
-        <Chip className="QuestionDocument_doc -uploading" label={documentName + '...'} avatar={
+        <Chip className="QuestionDocument_doc -uploading" label={(documentName || fileName) + '...'} avatar={
           <Avatar>
-            <CircularProgress size={36} className="QuestionDocument_doc_progress"/>
+            <CircularProgress size={24} className="QuestionDocument_doc_progress"/>
             <Icon className="QuestionDocument_doc_i">insert_drive_file</Icon>
           </Avatar>
         }/>

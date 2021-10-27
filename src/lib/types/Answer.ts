@@ -6,3 +6,7 @@ export interface IAnswer {
   question_id: AnswerId;
   answer: string[];
 }
+
+export interface IAnswers {
+  [key: string]: string[]
+}

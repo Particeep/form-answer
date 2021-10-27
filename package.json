@@ -19,6 +19,7 @@
     "react-html-parser": "2.0.2",
     "react-redux": "7.2.0",
     "react-text-mask": "5.1.0",
+    "recoil": "0.4.1",
     "redux": "3.7.2",
     "redux-promise": "0.5.3",
     "redux-thunk": "2.1.0",

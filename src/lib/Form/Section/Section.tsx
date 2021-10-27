@@ -3,12 +3,13 @@ import './Section.scss';
 import * as React from 'react';
 import Button from '@material-ui/core/Button';
 import {Question} from '../Question';
-import {useSelector} from 'react-redux';
 import {IQuestion} from '../../types/Question';
 import {ISection} from '../../types/Section';
 import ReactHtmlParser from 'react-html-parser';
 import {urlify} from "../../utils/common";
-import {FormAnswerState} from "../form.reducer";
+import {useRecoilValue} from "recoil";
+import { answersSelector, checkedPossibilityIdsSelector, formSelector, sectionsValiditySelector } from "../form.selectors";
+import {defaultMessages} from "../../types/Messages";
 
 export interface ExpensionStepProps {
   readonly isLast?: boolean;
@@ -25,8 +26,12 @@ const Section = (props: Props & ExpensionStepProps) => {
 
   const {section, isLast, index, prev, next} = props
 
-  const formState: FormAnswerState = useSelector((state: any) => state.formAnswer)
-  const {checkedPossibilityIds, readonly, messages, answers, sectionsValidity} = formState
+  const formState = useRecoilValue(formSelector)
+  const answers = useRecoilValue(answersSelector)
+  const sectionsValidity = useRecoilValue(sectionsValiditySelector)
+  const checkedPossibilityIds = useRecoilValue(checkedPossibilityIdsSelector)
+
+  const {readonly, messages = defaultMessages} = formState
   const valid = isValid(sectionsValidity[section.id])
 
   const showQuestion = (q: IQuestion) => {

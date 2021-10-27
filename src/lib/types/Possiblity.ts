@@ -1,12 +1,16 @@
 import {Id} from './Id';
 import {QuestionId} from './Question';
 
-export type PossiblityId = Id;
+export type PossibilityId = Id;
 
 export interface IPossibility {
-  id: PossiblityId;
+  id: PossibilityId;
   question_id: QuestionId;
   label: string;
   weight: number;
   index: number;
+}
+
+export interface ICheckedPossibilityIds {
+  [key: string]: PossibilityId
 }
