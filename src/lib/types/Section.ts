@@ -12,7 +12,3 @@ export interface ISection {
   index: number;
   questions: IQuestion[];
 }
-
-export interface ISectionValidity {
-  [key: string]: { [key: string]: boolean }
-}

@@ -1,10 +1,9 @@
-import {ISection, ISectionValidity} from './Section';
+import {ISection} from './Section';
 import {Id} from './Id';
 import { IMessages } from './Messages';
 import { QuestionId } from './Question';
 import { IDoc } from './Doc';
-import { ICheckedPossibilityIds } from './Possiblity';
-import { IAnswers } from "./Answer";
+import { PossiblityId } from './Possiblity';
 
 export type FormId = Id;
 
@@ -25,4 +24,7 @@ export interface InitParams {
   triggerOnChange?: (qId: QuestionId) => void;
   onUploadFile?: (f: File, callback: (uploadedFile: IDoc) => void) => void;
   onRemoveFile?: (id: string) => void;
+  answers?: { [key: string]: string[] };
+  sectionsValidity?: { [key: string]: boolean };
+  checkedPossibilityIds?: { [key: string]: PossiblityId };
 }
