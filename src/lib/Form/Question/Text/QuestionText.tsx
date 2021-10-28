@@ -1,7 +1,7 @@
 import * as React from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import Input from '@material-ui/core/Input';
+import OutlinedInput from "@material-ui/core/OutlinedInput";
 import {mapTextProps, MappedQuestionProps} from '../question-wrappers';
 
 interface Props extends MappedQuestionProps {
@@ -23,8 +23,8 @@ class QuestionText extends React.Component<Props, State> {
   render() {
     const {value, question, messages, multiline, rows, rowsMax, readonly} = this.props;
     return (
-      <FormControl error={this.showError()} fullWidth>
-        <Input value={value}
+      <FormControl variant={"outlined"} error={this.showError()} fullWidth>
+        <OutlinedInput value={value}
                multiline={multiline}
                rows={rows}
                rowsMax={rowsMax}

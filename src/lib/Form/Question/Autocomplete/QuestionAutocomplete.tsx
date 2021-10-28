@@ -4,7 +4,7 @@ import * as React from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
 import Icon from '@material-ui/core/Icon';
-import Input from '@material-ui/core/Input';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -33,7 +33,7 @@ class QuestionAutocomplete extends React.Component<Props, State> {
     return (
       <div>
         <FormControl onClick={this.open} fullWidth>
-          <Input value={multiSelect ? value.join(', ') : value} disabled={readonly}
+          <OutlinedInput value={multiSelect ? value.join(', ') : value} disabled={readonly}
                  multiline rows="1" rowsMax="10"
                  color={"primary"}
                  endAdornment={

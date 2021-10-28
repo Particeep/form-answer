@@ -1,8 +1,8 @@
 import * as React from 'react';
 import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import OutlinedInput from "@material-ui/core/OutlinedInput";
 import {MappedQuestionProps, mapSelectProps} from '../question-wrappers';
 
 interface Props extends MappedQuestionProps {
@@ -17,7 +17,7 @@ class QuestionSelect extends React.Component<Props, {}> {
         <Select
           value={value}
           onChange={this.handleChange}
-          input={<Input/>}
+          input={<OutlinedInput />}
           disabled={readonly}>
           <MenuItem value=""/>
           {question.possibilities.map(p =>
