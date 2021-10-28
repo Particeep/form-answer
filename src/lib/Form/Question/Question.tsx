@@ -57,7 +57,7 @@ const Question = ({question, answer, isValid}: QuestionProps) => {
         return <QuestionAutocomplete {...questionProps}/>;
       //
       case QuestionType.SELECT:
-        if (question.possibilities.length > maxPossibilitiesBeforeAutocomplete)
+        if (question.possibilities.length < maxPossibilitiesBeforeAutocomplete)
           return <QuestionSelect {...questionProps}/>;
         return <QuestionAutocomplete {...questionProps}/>;
 
