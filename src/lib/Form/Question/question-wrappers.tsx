@@ -51,23 +51,17 @@ export const mapProps = (
   }
 };
 
-//export const mapSingleValue = (answer: string[]): string => answer && answer[0] || '';
-export const mapSingleValue = (answer: any): any => answer && answer[0] || '';
+export const mapSingleValue = (answer: string[]): string => answer && answer[0] || '';
 
-//export const parseSingleValue = (value: string): string[] => value && [value];
-export const parseSingleValue = (value: any): any => value && [value];
+export const parseSingleValue = (value: string): string[] => value && [value];
 
-//export const mapMultipleValues = (x: string[]): string[] => x || [];
-export const mapMultipleValues = (x: any): any => x || [];
+export const mapMultipleValues = (x: string[]): string[] => x || [];
 
-//export const parseMultipleValues = (x: string[]): string[] => x.length === 0 ? null : x;
-export const parseMultipleValues = (x: any): any => x.length === 0 ? null : x;
+export const parseMultipleValues = (x: string[]): string[] => x.length === 0 ? null : x;
 
-//export const mapMultipleValueProps = (validation: Validation) => mapProps(mapMultipleValues, parseMultipleValues, validation);
-export const mapMultipleValueProps = (validation: any) => mapProps(mapMultipleValues, parseMultipleValues, validation);
+export const mapMultipleValueProps = (validation: Validation) => mapProps(mapMultipleValues, parseMultipleValues, validation);
 
-//export const mapSingleValueProps = (validation: Validation) => mapProps(mapSingleValue, parseSingleValue, validation);
-export const mapSingleValueProps = (validation: any) => mapProps(mapSingleValue, parseSingleValue, validation);
+export const mapSingleValueProps = (validation: Validation) => mapProps(mapSingleValue, parseSingleValue, validation);
 
 export const mapRadioProps = mapSingleValueProps(isRadioValid);
 

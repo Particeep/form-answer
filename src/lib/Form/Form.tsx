@@ -1,117 +1,14 @@
-import * as React from 'react';
-import {ExpensionStep, ExpensionStepper} from '../ExpensionStepper';
-import {Section} from './Section';
-import {useDispatch, useSelector} from 'react-redux';
-import {Id} from '../types/Id';
-import {IAnswer} from '../types/Answer';
-import {QuestionId, QuestionType} from '../types/Question';
-import {IDoc} from '../types/Doc';
-import {IForm} from '../types/Form';
-import {defaultMessages, IMessages} from '../types/Messages';
-import {useEffect} from "react";
-import {FormAnswerState} from "./form.reducer";
-import formAnswerAction from "./form.action";
+import React from "react";
+import FormDisplay from "./FormDisplay";
+import {FormProps} from "./FormProps";
+import {FormProvider} from "./FormContext";
 
-export interface FormProps {
-  form: IForm;
-  readonly?: boolean;
-  dateFormat?: string;
-  lang?: string;
-  messages?: IMessages;
-  maxUploadFileSize?: number;
-  scrollOffset: number;
-  onChange?: (a: IAnswer) => void;
-  onSectionEnd?: (a: IAnswer[]) => void;
-  onEnd?: (a: IAnswer[]) => void;
-  onUploadFile?: (file: File, callback: (d: IDoc) => void) => void;
-  onRemoveFile?: (id: string) => void;
-}
-
-const Form = (props: FormProps) =>  {
-
-  const {form, messages = defaultMessages, scrollOffset, dateFormat, lang, maxUploadFileSize, readonly = false,
-    onChange, onUploadFile, onRemoveFile, onSectionEnd, onEnd } = props
-
-  const dispatch = useDispatch()
-
-  const formState: FormAnswerState = useSelector((state: any) => state.formAnswer)
-
-  const {answers} = formState
-
-  useEffect(() => {
-    initReducerParams();
-    initReducerAnswers();
-  }, [])
-
-  useEffect(() => {
-    initReducerAnswers();
-  }, [form])
-
-  const initReducerParams = () => {
-    dispatch(formAnswerAction.init({
-      dateFormat: dateFormat,
-      lang: lang,
-      messages: messages,
-      maxUploadFileSize: maxUploadFileSize,
-      triggerOnChange: handleChange,
-      onUploadFile: onUploadFile,
-      onRemoveFile: onRemoveFile,
-      readonly: readonly,
-      scrollOffset: scrollOffset
-    }))
-  }
-
-  const initReducerAnswers = () => {
-    dispatch(formAnswerAction.resetAnswers());
-    form.sections.forEach(s => s.questions.forEach(q => {
-      if (q.question_type === QuestionType.LABEL) return;
-      dispatch(formAnswerAction.updateAnswer(q.id, q.answers));
-    }));
-  }
-
-  const handleChange = (questionIdAnswered: QuestionId) => {
-    if (!onChange) return;
-    setTimeout(() =>
-      onChange(parseAnswer(questionIdAnswered, answers[questionIdAnswered]))
-    );
-  };
-
-  const next = (sectionIndex: number) => {
-    if (!onSectionEnd) return;
-    onSectionEnd(parseAnswers(getSectionAnswers(sectionIndex)));
-  };
-
-  const end = () => {
-    if (onSectionEnd)
-      onSectionEnd(parseAnswers(getSectionAnswers(form.sections.length - 1)));
-    if (onEnd)
-      onEnd(parseAnswers(answers));
-  };
-
-  const getSectionAnswers = (sectionIndex: number): { [key: string]: string[] } => {
-    const sectionQuestionIds = form.sections[sectionIndex].questions.map(q => q.id);
-    return Object.keys(answers).filter(key => sectionQuestionIds.includes(key)).reduce((obj, key) => {
-      obj[key] = answers[key];
-      return obj;
-    }, {});
-  }
-
-  const parseAnswers = (answers: { [key: string]: string[] }): IAnswer[] => {
-    return Object.keys(answers).map((k: Id) => parseAnswer(k, answers[k])).filter((v: any) => v);
-  };
-
-  const parseAnswer = (id: Id, answer: string[]): IAnswer | null => {
-    return answer ? {question_id: id, answer} : null
-  };
-
+const Form = (props: FormProps) => {
   return (
-    <ExpensionStepper free={readonly} onNext={next} onEnd={end}>
-      {form.sections.map(s =>
-        <ExpensionStep label={s.name} component={<Section section={s}/>} key={s.id} {...scrollOffset && {scrollOffset}}/>
-      )}
-    </ExpensionStepper>
+    <FormProvider>
+      <FormDisplay {...props} />
+    </FormProvider>
   )
-
 }
 
-export default Form;
+export default Form

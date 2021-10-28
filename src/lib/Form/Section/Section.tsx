@@ -3,12 +3,11 @@ import './Section.scss';
 import * as React from 'react';
 import Button from '@material-ui/core/Button';
 import {Question} from '../Question';
-import {useSelector} from 'react-redux';
 import {IQuestion} from '../../types/Question';
 import {ISection} from '../../types/Section';
 import ReactHtmlParser from 'react-html-parser';
 import {urlify} from "../../utils/common";
-import {FormAnswerState} from "../form.reducer";
+import {useFormContext} from "../FormContext";
 
 export interface ExpensionStepProps {
   readonly isLast?: boolean;
@@ -25,8 +24,8 @@ const Section = (props: Props & ExpensionStepProps) => {
 
   const {section, isLast, index, prev, next} = props
 
-  const formState: FormAnswerState = useSelector((state: any) => state.formAnswer)
-  const {checkedPossibilityIds, readonly, messages, answers, sectionsValidity} = formState
+  const {state} = useFormContext()
+  const {checkedPossibilityIds, readonly, messages, answers, sectionsValidity} = state
   const valid = isValid(sectionsValidity[section.id])
 
   const showQuestion = (q: IQuestion) => {
@@ -45,7 +44,7 @@ const Section = (props: Props & ExpensionStepProps) => {
       {section.questions.map(q => {
         const answer = answers[q.id]
         const isValid = (sectionsValidity[q.section_id] || [])[q.id]
-        return showQuestion(q) ? <Question key={q.id} question={q} answer={answer} isValid={isValid} /> : ""
+        return showQuestion(q) ? <Question key={q.id} question={q} answer={answer} isValid={isValid}/> : ""
       })}
       {!readonly &&
       <div className="Section_action">

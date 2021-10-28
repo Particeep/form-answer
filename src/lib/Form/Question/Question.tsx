@@ -1,7 +1,6 @@
 import './Question.scss';
 
 import * as React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
 import QuestionText from './Text/QuestionText';
 import {IQuestion, isDependable, QuestionType} from '../../types/Question';
 import {IPossibility} from '../../types/Possiblity';
@@ -15,8 +14,9 @@ import QuestionLongText from './LongText/QuestionLongText';
 import ReactHtmlParser from 'react-html-parser';
 import {urlify} from "../../utils/common";
 import {useEffect} from "react";
-import {FormAnswerState} from "../form.reducer";
 import formAnswerAction from "../form.action";
+import {State} from "../form.reducer";
+import {useFormContext} from "../FormContext";
 
 const maxPossibilitiesBeforeAutocomplete = 10;
 
@@ -28,12 +28,10 @@ export interface QuestionProps {
 
 const Question = ({question, answer, isValid}: QuestionProps) => {
 
-  const dispatch = useDispatch()
-
   const {removeAnswer, updateAnswer, updateSectionValidity, addCheckedPossibility, removeCheckedPossibility} = formAnswerAction
 
-  const formState: FormAnswerState = useSelector((state: any) => state.formAnswer)
-  const {lang = 'en', dateFormat = '', messages, readonly, triggerOnChange} = formState
+  const {state, dispatch} = useFormContext()
+  const {lang = 'en', dateFormat = '', messages, readonly, triggerOnChange}: State = state
 
   const renderQuestion = (question: IQuestion) => {
 

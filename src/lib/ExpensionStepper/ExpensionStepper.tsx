@@ -6,7 +6,7 @@ interface Props {
   readonly free: boolean;
   readonly onNext: (index: number) => void;
   readonly onEnd: () => void;
-  readonly children: any;
+  readonly children: ReactNode;
 }
 
 interface State {
