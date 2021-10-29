@@ -86,6 +86,10 @@ const FormDisplay = (props: FormProps) =>  {
     return answer ? {question_id: id, answer} : null
   };
 
+  if(!form) {
+    return <></>
+  }
+
   return (
     <ExpensionStepper free={readonly} onNext={next} onEnd={end}>
       {form.sections.map(s =>
