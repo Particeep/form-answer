@@ -8,9 +8,11 @@ import {ISection} from '../../types/Section';
 import ReactHtmlParser from 'react-html-parser';
 import {urlify} from "../../utils/common";
 import {useFormContext} from "../FormContext";
+import {CircularProgress} from "@material-ui/core";
 
 export interface ExpensionStepProps {
   readonly isLast?: boolean;
+  readonly loading?: boolean;
   readonly index?: number;
   readonly prev?: () => void;
   readonly next?: () => void;
@@ -22,7 +24,7 @@ interface Props {
 
 const Section = (props: Props & ExpensionStepProps) => {
 
-  const {section, isLast, index, prev, next} = props
+  const {section, isLast, index, prev, next, loading} = props
 
   const {state} = useFormContext()
   const {checkedPossibilityIds, readonly, messages, answers, sectionsValidity} = state
@@ -35,6 +37,8 @@ const Section = (props: Props & ExpensionStepProps) => {
     }
     return false;
   }
+
+  const nextLabel: string = isLast ? messages.buttonEnd : messages.buttonNext
 
   return (
     <main>
@@ -49,13 +53,14 @@ const Section = (props: Props & ExpensionStepProps) => {
       {!readonly &&
       <div className="Section_action">
         {index > 0 &&
-        <Button color="primary" onClick={prev} className="Section_prev">
+        <Button color="secondary" onClick={prev} className="Section_prev">
           {messages.buttonPrevious}
         </Button>
         }
-        <Button variant="contained" color="primary" onClick={next} disabled={!valid}
+        <Button variant="contained" color="secondary" onClick={next} disabled={!valid || (isLast && loading)}
                 className={'Section_' + (isLast ? 'end' : 'next')}>
-          {isLast ? messages.buttonEnd : messages.buttonNext}
+          {!loading && nextLabel}
+          {loading && <CircularProgress size={24} />}
         </Button>
       </div>
       }

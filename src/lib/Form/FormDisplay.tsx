@@ -5,7 +5,7 @@ import {Id} from '../types/Id';
 import {IAnswer} from '../types/Answer';
 import {QuestionId, QuestionType} from '../types/Question';
 import {defaultMessages} from '../types/Messages';
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import formAnswerAction from "./form.action";
 import {FormProps} from "./FormProps";
 import {State} from "./form.reducer";
@@ -15,6 +15,8 @@ const FormDisplay = (props: FormProps) =>  {
 
   const {form, messages = defaultMessages, scrollOffset, dateFormat, lang, maxUploadFileSize, readonly = false,
     onChange, onUploadFile, onRemoveFile, onSectionEnd, onEnd } = props
+
+  const [loading, setLoading] = useState(false)
 
   const {state, dispatch} = useFormContext()
 
@@ -64,11 +66,16 @@ const FormDisplay = (props: FormProps) =>  {
   };
 
   const end = () => {
+    setLoading(true)
     if (onSectionEnd)
       onSectionEnd(parseAnswers(getSectionAnswers(form.sections.length - 1)));
     if (onEnd)
-      onEnd(parseAnswers(answers));
+      onEnd(parseAnswers(answers), onEndCallback);
   };
+
+  const onEndCallback = () => {
+    setLoading(false)
+  }
 
   const getSectionAnswers = (sectionIndex: number): { [key: string]: string[] } => {
     const sectionQuestionIds = form.sections[sectionIndex].questions.map(q => q.id);
@@ -91,7 +98,7 @@ const FormDisplay = (props: FormProps) =>  {
   }
 
   return (
-    <ExpensionStepper free={readonly} onNext={next} onEnd={end}>
+    <ExpensionStepper free={readonly} loading={loading} onNext={next} onEnd={end}>
       {form.sections.map(s =>
         <ExpensionStep label={s.name} component={<Section section={s}/>} key={s.id} {...scrollOffset && {scrollOffset}}/>
       )}

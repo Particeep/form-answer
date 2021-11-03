@@ -13,7 +13,7 @@ export interface FormProps {
   scrollOffset: number;
   onChange?: (a: IAnswer) => void;
   onSectionEnd?: (a: IAnswer[]) => void;
-  onEnd?: (a: IAnswer[]) => void;
+  onEnd?: (a: IAnswer[], callback: any) => void;
   onUploadFile?: (file: File, callback: (d: IDoc) => void) => void;
   onRemoveFile?: (id: string) => void;
 }

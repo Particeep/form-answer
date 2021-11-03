@@ -22,7 +22,7 @@ interface FormAnswerParams {
   scrollOffset: number;
   onChange: (a: IAnswer) => void;
   onSectionEnd: (a: IAnswer[]) => void;
-  onEnd: (a: IAnswer[]) => void;
+  onEnd: (a: IAnswer[], callback: any) => void;
   onUploadFile: (file: File, callback: (d: IDoc) => void) => void;
   onRemoveFile: (id: string) => void;
 }
@@ -99,9 +99,9 @@ class App extends React.Component<AppParams> {
       getFormAnswerParams().onSectionEnd(sectionAnswers);
   };
 
-  private ended = (answers: any[]): void => {
+  private ended = (answers: any[], callback): void => {
     if (getFormAnswerParams().onEnd)
-      getFormAnswerParams().onEnd(answers);
+      getFormAnswerParams().onEnd(answers, callback);
   };
 }
 

@@ -4,6 +4,7 @@ import {ReactElement, ReactNode} from 'react';
 
 interface Props {
   readonly free: boolean;
+  readonly loading: boolean;
   readonly onNext: (index: number) => void;
   readonly onEnd: () => void;
   readonly children: ReactNode;
@@ -25,6 +26,7 @@ class ExpensionStepper extends React.Component<Props, State> {
             next: this.next,
             goTo: this.goTo,
             free: this.props.free,
+            loading: this.props.loading,
             index: i,
             disabled: i > this.state.reached,
             isCurrent: i == this.state.current,

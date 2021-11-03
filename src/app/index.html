@@ -278,8 +278,9 @@
     onSectionEnd: function (sectionAnswers) {
       console.log('onSectionEnd', sectionAnswers);
     },
-    onEnd: function (answers) {
+    onEnd: function (answers, callback) {
       console.log('onEnd', answers);
+      setTimeout(callback, 1000);
     },
     onUploadFile: function (file, callback) {
       console.log('onUploadFile', file);
