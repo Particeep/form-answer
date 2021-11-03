@@ -8,7 +8,7 @@ import {ISection} from '../../types/Section';
 import ReactHtmlParser from 'react-html-parser';
 import {urlify} from "../../utils/common";
 import {useFormContext} from "../FormContext";
-import {CircularProgress} from "@material-ui/core";
+import {Box, CircularProgress} from "@material-ui/core";
 
 export interface ExpensionStepProps {
   readonly isLast?: boolean;
@@ -57,11 +57,13 @@ const Section = (props: Props & ExpensionStepProps) => {
           {messages.buttonPrevious}
         </Button>
         }
-        <Button variant="contained" color="secondary" onClick={next} disabled={!valid || (isLast && loading)}
-                className={'Section_' + (isLast ? 'end' : 'next')}>
-          {!loading && nextLabel}
-          {loading && <CircularProgress size={24} />}
-        </Button>
+        <Box ml={1} display={"inline"}>
+          <Button variant="contained" color="secondary" onClick={next} disabled={!valid || (isLast && loading)}
+                  className={'Section_' + (isLast ? 'end' : 'next')}>
+            {!loading && nextLabel}
+            {loading && <CircularProgress size={24} />}
+          </Button>
+        </Box>
       </div>
       }
     </main>
