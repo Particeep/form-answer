@@ -44,6 +44,13 @@ export const mapProps = (
       this.change(map(answer));
     }
 
+    componentDidUpdate(prevProps: Readonly<WrappedQuestionProps>) {
+      const {answer} = this.props;
+      if(prevProps.answer !== answer && !prevProps.answer && !!answer) {
+        this.change(map(answer));
+      }
+    }
+
     private change = (value: string | string[]) => {
       const {onChange, question} = this.props;
       return onChange(parse(value), validation(question, value));
