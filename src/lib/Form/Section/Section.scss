@@ -8,6 +8,9 @@
 .Section_action {
   text-align: right;
   margin: 0 padding(-2) padding(-2);
+  :last-child {
+    margin-left: padding(1);
+  }
 }
 
 .Section_prev {
