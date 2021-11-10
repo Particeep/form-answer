@@ -16,4 +16,5 @@ export interface FormProps {
   onEnd?: (a: IAnswer[], callback: any) => void;
   onUploadFile?: (file: File, callback: (d: IDoc) => void) => void;
   onRemoveFile?: (id: string) => void;
+  firstStepPrevCb?: () => void
 }

@@ -16,6 +16,7 @@ export interface ExpensionStepProps {
   readonly index?: number;
   readonly prev?: () => void;
   readonly next?: () => void;
+  readonly firstStepPrevCb?: () => void
 }
 
 interface Props {
@@ -24,7 +25,7 @@ interface Props {
 
 const Section = (props: Props & ExpensionStepProps) => {
 
-  const {section, isLast, index, prev, next, loading} = props
+  const {section, isLast, index, prev, next, loading, firstStepPrevCb} = props
 
   const {state} = useFormContext()
   const {checkedPossibilityIds, readonly, messages, answers, sectionsValidity} = state
@@ -40,6 +41,8 @@ const Section = (props: Props & ExpensionStepProps) => {
 
   const nextLabel: string = isLast ? messages.buttonEnd : messages.buttonNext
 
+  const onPrev = index > 0 ? prev : firstStepPrevCb
+
   return (
     <main>
       <div className="Section_label">
@@ -52,8 +55,8 @@ const Section = (props: Props & ExpensionStepProps) => {
       })}
       {!readonly &&
       <div className="Section_action">
-        {index > 0 &&
-        <Button color="secondary" onClick={prev} className="Section_prev">
+        {(index > 0 || firstStepPrevCb) &&
+        <Button color="secondary" onClick={onPrev} className="Section_prev">
           {messages.buttonPrevious}
         </Button>
         }

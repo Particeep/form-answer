@@ -13,8 +13,8 @@ import {useFormContext} from "./FormContext";
 
 const FormDisplay = (props: FormProps) =>  {
 
-  const {form, messages = defaultMessages, scrollOffset, dateFormat, lang, maxUploadFileSize, readonly = false,
-    onChange, onUploadFile, onRemoveFile, onSectionEnd, onEnd } = props
+  const {form, messages = defaultMessages, scrollOffset = 0, dateFormat, lang, maxUploadFileSize, readonly = false,
+    onChange, onUploadFile, onRemoveFile, onSectionEnd, onEnd, firstStepPrevCb } = props
 
   const [loading, setLoading] = useState(false)
 
@@ -100,7 +100,7 @@ const FormDisplay = (props: FormProps) =>  {
   return (
     <ExpensionStepper free={readonly} loading={loading} onNext={next} onEnd={end}>
       {form.sections.map(s =>
-        <ExpensionStep label={s.name} component={<Section section={s}/>} key={s.id} {...scrollOffset && {scrollOffset}}/>
+        <ExpensionStep label={s.name} component={<Section section={s}/>} key={s.id} {...{scrollOffset, firstStepPrevCb}}/>
       )}
     </ExpensionStepper>
   )
