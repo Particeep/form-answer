@@ -22,9 +22,10 @@ interface FormAnswerParams {
   scrollOffset: number;
   onChange: (a: IAnswer) => void;
   onSectionEnd: (a: IAnswer[]) => void;
-  onEnd: (a: IAnswer[]) => void;
+  onEnd: (a: IAnswer[], callback: any) => void;
   onUploadFile: (file: File, callback: (d: IDoc) => void) => void;
   onRemoveFile: (id: string) => void;
+  firstStepPrevCb: () => void
 }
 
 interface AppParams {
@@ -70,7 +71,9 @@ class App extends React.Component<AppParams> {
           onSectionEnd={this.sectionEnded}
           onEnd={this.ended}
           onUploadFile={this.uploadFile}
-          onRemoveFile={this.removeFile}/>
+          onRemoveFile={this.removeFile}
+          firstStepPrevCb={this.firstStepPrevCb}
+        />
       </MuiThemeProvider>
     );
   }
@@ -99,10 +102,15 @@ class App extends React.Component<AppParams> {
       getFormAnswerParams().onSectionEnd(sectionAnswers);
   };
 
-  private ended = (answers: any[]): void => {
+  private ended = (answers: any[], callback): void => {
     if (getFormAnswerParams().onEnd)
-      getFormAnswerParams().onEnd(answers);
+      getFormAnswerParams().onEnd(answers, callback);
   };
+
+  private firstStepPrevCb = (): void => {
+    if (getFormAnswerParams().firstStepPrevCb)
+      getFormAnswerParams().firstStepPrevCb();
+  }
 }
 
 const state2Props = (state: any) => ({

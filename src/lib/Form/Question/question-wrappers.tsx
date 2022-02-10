@@ -22,8 +22,11 @@ export interface WrappedQuestionProps {
 }
 
 export const mapProps = (
-  map: (a: string[]) => string | string[],
-  parse: (a: string | string[]) => string[],
+  //map: (a: string[]) => string | string[],
+  //parse: (a: string | string[]) => string[],
+  //validation: Validation
+  map: (a: any) => any,
+  parse: (a: any) => any,
   validation: Validation
 ) => <P extends MappedQuestionProps>(
   Component: React.ComponentType<any>
@@ -39,6 +42,13 @@ export const mapProps = (
     componentDidMount() {
       const {answer} = this.props;
       this.change(map(answer));
+    }
+
+    componentDidUpdate(prevProps: Readonly<WrappedQuestionProps>) {
+      const {answer} = this.props;
+      if(prevProps.answer !== answer && !prevProps.answer && !!answer) {
+        this.change(map(answer));
+      }
     }
 
     private change = (value: string | string[]) => {

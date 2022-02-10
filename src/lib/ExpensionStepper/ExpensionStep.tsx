@@ -12,6 +12,7 @@ interface Props {
   readonly label: string;
   readonly component: ReactElement<any>;
   readonly scrollOffset?: number;
+  readonly firstStepPrevCb?: () => void
 
   // Props from ExpensionStepper
   readonly prev?: () => void;

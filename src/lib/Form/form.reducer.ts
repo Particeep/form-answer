@@ -1,5 +1,5 @@
 import update from 'immutability-helper';
-import {formAction} from './form.action';
+import formAnswerAction from './form.action';
 import {PossiblityId} from '../types/Possiblity';
 import {IMessages} from '../types/Messages';
 
@@ -21,7 +21,7 @@ export type State = {
   checkedPossibilityIds: { [key: string]: PossiblityId },
 };
 
-const initialState: State = {
+export const initialState: State = {
   messages: {},
   dateFormat: 'dd/MM/yyyy',
   lang: 'en',
@@ -39,9 +39,9 @@ const initialState: State = {
   checkedPossibilityIds: {},
 };
 
-export const formReducer = function (state = initialState, a) {
+export const formReducer = function (state, a) {
   switch (a.type) {
-    case formAction.INIT:
+    case formAnswerAction.INIT:
       return update(state, {
         messages: {$set: a.messages},
         lang: {$set: a.lang},
@@ -52,23 +52,23 @@ export const formReducer = function (state = initialState, a) {
         onRemoveFile:{$set: a.onRemoveFile},
         readonly: {$set: a.readonly},
       });
-    case formAction.RESET_ANSWERS:
+    case formAnswerAction.RESET_ANSWERS:
       return update(state, {
         answers: {$set: {}}
       });
-    case formAction.UPDATE_ANSWER:
+    case formAnswerAction.UPDATE_ANSWER:
       return update(state, {
         answers: {
           $merge: {[a.questionId]: a.answer}
         }
       });
-    case formAction.REMOVE_ANSWER:
+    case formAnswerAction.REMOVE_ANSWER:
       return update(state, {
         answers: {
           $merge: {[a.questionId]: ''}
         }
       });
-    case formAction.UPDATE_SECTION_VALIDITY:
+    case formAnswerAction.UPDATE_SECTION_VALIDITY:
       // Cannot perform nested $merge, so do it in 2 steps
       let updatedState = state;
       if (!state.sectionsValidity[a.sectionId])
@@ -82,13 +82,13 @@ export const formReducer = function (state = initialState, a) {
           [a.sectionId]: {$merge: {[a.questionId]: a.isValid}}
         }
       });
-    case formAction.ADD_CHECKED_POSSIBILITY:
+    case formAnswerAction.ADD_CHECKED_POSSIBILITY:
       return update(state, {
         checkedPossibilityIds: {
           [a.questionId]: {$set: a.possiblityId}
         }
       });
-    case formAction.REMOVE_CHECKED_POSSIBILITY:
+    case formAnswerAction.REMOVE_CHECKED_POSSIBILITY:
       return update(state, {
         checkedPossibilityIds: {$unset: [a.questionId]}
       });

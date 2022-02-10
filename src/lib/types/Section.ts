@@ -8,7 +8,7 @@ export interface ISection {
   id: SectionId;
   name: string;
   form_id: FormId;
-  description: string;
+  description?: string;
   index: number;
   questions: IQuestion[];
 }
