@@ -18,7 +18,7 @@ export type State = {
   // Application variables
   answers: { [key: string]: string[] },
   sectionsValidity: { [key: string]: boolean },
-  checkedPossibilityIds: { [key: string]: PossiblityId },
+  checkedPossibilityIds: { [key: string]: PossiblityId[] },
 };
 
 const initialState: State = {
@@ -83,9 +83,10 @@ export const formReducer = function (state = initialState, a) {
         }
       });
     case formAction.ADD_CHECKED_POSSIBILITY:
+      const currentCheckedPossibilityIds = state.checkedPossibilityIds[a.questionId] ? state.checkedPossibilityIds[a.questionId] : []
       return update(state, {
         checkedPossibilityIds: {
-          [a.questionId]: {$set: a.possiblityId}
+          [a.questionId]: {$set: [...currentCheckedPossibilityIds, a.possiblityId]}
         }
       });
     case formAction.REMOVE_CHECKED_POSSIBILITY:

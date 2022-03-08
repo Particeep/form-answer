@@ -138,10 +138,12 @@ class Question extends React.Component<QuestionProps, any> {
     const {addCheckedPossibility, removeCheckedPossibility, question} = this.props;
     if (!isDependable(question)) return;
     if (value && value[0]) {
-      const possibility = question.possibilities.find((p: IPossibility) => p.label === value[0]);
+      const possibility: IPossibility[] = question.possibilities.filter((p: IPossibility) => value.includes(p.label));
       if (!possibility) return;
       removeCheckedPossibility(question.id);
-      addCheckedPossibility(question.id, possibility.id);
+      possibility.forEach((p: IPossibility) => {
+        addCheckedPossibility(question.id, p.id);
+      })
     } else {
       removeCheckedPossibility(question.id);
     }

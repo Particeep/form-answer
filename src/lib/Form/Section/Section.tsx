@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import {Question} from '../Question';
 import {connect} from 'react-redux';
 import {IMessages} from '../../types/Messages';
-import {IQuestion} from '../../types/Question';
+import {IQuestion, QuestionType} from '../../types/Question';
 import {ISection} from '../../types/Section';
 import ReactHtmlParser from 'react-html-parser';
 import {urlify} from "../../utils/common";
@@ -59,7 +59,7 @@ class Section extends React.Component<Props & ExpensionStepProps, {}> {
     const {checkedPossibilityIds} = this.props;
     if (!q.possibility_id_dep) return true;
     for (let k in checkedPossibilityIds) {
-      if (checkedPossibilityIds[k] === q.possibility_id_dep) return true;
+      if (checkedPossibilityIds[k].includes(q.possibility_id_dep)) return true;
     }
     return false;
   }
