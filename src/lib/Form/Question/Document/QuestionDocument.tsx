@@ -91,7 +91,7 @@ const QuestionDocument  = (props: Props) => {
         {!documentUrl && !isUploading &&
         <Button color="primary" variant="outlined" onClick={openFileSelection}>
           {messages.upload}
-          <Icon className="QuestionDocument_btn_i">file_upload</Icon>
+          <Icon className="QuestionDocument_btn_i">publish</Icon>
           <input style={{display: 'none'}} type="file" ref={file => fileInput = file}
                  onChange={e => handleChange(e.target.files[0])}/>
         </Button>
