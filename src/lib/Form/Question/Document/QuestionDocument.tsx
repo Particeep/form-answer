@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Icon from '@material-ui/core/Icon';
-import {Publish} from "@material-ui/icons"
+import {CloudUpload} from "@material-ui/icons"
 import {mapMultipleValueProps, MappedQuestionProps} from '../question-wrappers';
 import QuestionDocumentReadonly from './QuestionDocumentReadonly';
 import {IQuestion} from '../../../types/Question';
@@ -90,7 +90,7 @@ const QuestionDocument  = (props: Props) => {
         }
 
         {!documentUrl && !isUploading &&
-        <Button color="primary" variant="outlined" onClick={openFileSelection} endIcon={<Publish />}>
+        <Button color="primary" variant="outlined" onClick={openFileSelection} endIcon={<CloudUpload />}>
           {messages.upload}
           <input style={{display: 'none'}} type="file" ref={file => fileInput = file}
                  onChange={e => handleChange(e.target.files[0])}/>
