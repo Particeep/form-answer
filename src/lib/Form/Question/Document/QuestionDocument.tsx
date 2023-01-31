@@ -13,6 +13,7 @@ import {IQuestion} from '../../../types/Question';
 import {IMessages} from '../../../types/Messages';
 import {IDoc} from '../../../types/Doc';
 import {formAction} from '../../form.action';
+import {extractUrlAnswer} from "../../../utils/common";
 
 interface Props extends MappedQuestionProps {
   readonly documentId: string;
@@ -48,7 +49,7 @@ class QuestionDocument extends React.Component<Props, State> {
       documentUrl={documentUrl}
       messages={messages}
       isValid={isValid}/>;
-
+    console.log(documentUrl)
     return (
       <main className="QuestionDocument">
         {isUploading &&
@@ -136,7 +137,7 @@ const mapValueProps = (Component: any) => (props: MappedQuestionProps) => {
   const {value, ...other} = props;
   const documentId = value[0]
   const documentName = value[1];
-  const documentUrl = value[2];
+  const documentUrl = extractUrlAnswer(value);
   return <Component {...other} documentId={documentId} documentName={documentName} documentUrl={documentUrl}/>;
 };
 
